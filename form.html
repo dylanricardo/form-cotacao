@@ -8,10 +8,12 @@ body, html {
 	margin: 0;
 	padding: 0;
 }
+
 .cont-total{
 	width: 100vw;
 	height: 100vh;
-	display: flex
+	display: flex;
+	overflow: hidden;
 }
 
 .cont-left{
@@ -27,9 +29,12 @@ body, html {
 .cont-right{
 	height: 100vh;
 	width: 50vw;
-/*	background-color: blue;	*/
+	background-color: #14213E;
+	color: white;
+	text-align: center;
 	/*display: flex;*/
 }
+
 .form-label{
 	-webkit-user-select: none; /* Safari */        
 	-moz-user-select: none; /* Firefox */
@@ -40,13 +45,29 @@ body, html {
 .cont-result{
 	width: 80%;
 	height: 50vh;
-	background-color: green;
+	/*background-color: green;*/
 	margin: 5vh auto;
 	overflow-y: scroll;
 }
 .cont-result-list{
 	width: 90%;
+	height: 42vh;
 	max-height: auto;
+	border: 1px solid #fff;
+	display: flex;
+	flex-wrap: wrap;
+	margin: auto;
+}
+
+.tag {
+  flex: 1 0 25%; /* explanation below */
+  margin: 5px;
+  height: 50px;
+  line-height: 50px;
+  background-color: #FCA311;
+  font-weight: bold;
+  outline: 1px solid #FCA311;
+  outline-offset: 2px;
 }
 
 .cont-preco{
@@ -56,6 +77,10 @@ body, html {
 	margin: 5vh auto;
 	display: flex;
 	text-align: center;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 .cont-finalizar{
@@ -81,43 +106,47 @@ body, html {
 .cont-preco-rigth{
 	width: 50%;
 	height: 100%;
-	background-color: white;	
-
+	color:  #FCA311;
 }
 
 
 .collapsible {
-  background-color: #777;
-  color: white;
+  background-color: #ccc;
+  color: #fff;
   cursor: pointer;
   width: 100%;
   border: none;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 10px 10px;
   text-align: left;
   outline: none;
   font-size: 18px;
-  font-weight: bold;
-  margin-top: 5px;
+  /*margin-top: 5px;*/
+  border-bottom: 1px #cfcfcf solid;
 }
 
 .active, .collapsible:hover {
-  background-color: #555;
+  background-color: #aaa;
 }
 
 .content {
   padding: 0 18px;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.2s ease-out;
+  transition: max-height 0.5s ease-out;
   background-color: #f1f1f1;
 }
 .active, .collapsible:hover {
-  background-color: #555;
+  background-color: #aaa;
 }
 
 .collapsible:after {
-  content: '\002B';
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  content: "";
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
   color: white;
   font-weight: bold;
   float: right;
@@ -125,7 +154,13 @@ body, html {
 }
 
 .active:after {
-  content: "\2212";
+  content: "";
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
 }
 
 label{
@@ -134,11 +169,11 @@ label{
 
 .preco-min{
 	font-size: 48px;
-	color: green;
+	color: #fff;
 }
 .preco-max{
 	font-size: 48px;
-	color: red;
+	color: #FCA311;
 }
 
 </style>
@@ -155,7 +190,7 @@ $(document).ready(function() {
 	var formState = {
 		dominio: 0,
 		hospedagem : 0,
-		check_email : 0,
+		email : 0,
 		seo : 0,
 		conteudo : 0,
 		home : 0,
@@ -173,10 +208,31 @@ $(document).ready(function() {
 		venda : 0,
 	}
 
+	const nameHumanized = {
+		dominio: "- Domínio",
+		hospedagem : "- Hospedagem",
+		email : "- E-mail institucional",
+		seo : "SEO + Analytics",
+		conteudo : "- Conteúdo",
+		home : "Home page",
+		page_quem : "Página quem somos",
+		page_esp : "Página específica",
+		page_serv : "Página serviços/produtos",
+		page_port : "Página portifólio/clientes",
+		page_blog : "Blog",
+		page_outros : "Outras",
+		newsletter : "Newsletter",
+		form_contato : "Formulário de contato",
+		redes_sociais : "Redes sociais",
+		video : "Vídeo",
+		linguas : "Línguas",
+		venda : "Venda pelo site",
+	}
+
 	var formValues = {
 		dominio: {min: 50, max: 50, add: false},
 		hospedagem : {min: 100, max: 100, add: false},
-		check_email : {min: 50, max: 250, add: false},
+		email : {min: 50, max: 250, add: false},
 		conteudo : {min: 400, max: 1000, add: false},
 		seo : {min: 250, max: 750, add: true},
 		home : {min: 800, max: 1800, add: true},
@@ -206,6 +262,7 @@ $(document).ready(function() {
 	function updatePrices(changedPropName, checked){
 		let newValorMin = valorMin;
 		let newValorMax = valorMax;
+		addTag(changedPropName);
 		if(checked){
 			if(formValues[changedPropName]['add']){
 				newValorMin += formValues[changedPropName]['min']
@@ -232,6 +289,18 @@ $(document).ready(function() {
 
 		$('#preco-min').html(toCurrency(valorMin));
 		$('#preco-max').html(toCurrency(valorMax));
+	}
+
+	function addTag(val){
+		if (document.querySelector('#'+val) != null) {
+			document.querySelector('#'+val).remove();
+		} else {
+			var g = document.createElement('div');
+			g.setAttribute("id", val);
+			g.setAttribute("class", "tag");
+			g.innerHTML = nameHumanized[val];
+			document.querySelector('#tags-container').prepend(g);
+		}
 	}
 
 
@@ -284,7 +353,7 @@ $(document).ready(function() {
 				<label class="form-label" for="servico_blog">Blog</label>
 				<hr>
 			</div>
-			<h3>Ferramenta de orçamento</h3>
+			<h3>Faça seu orçamento</h3>
 
 			<button type="button" class="collapsible">O que você já tem?</button>
 			<div class="content">
@@ -294,7 +363,7 @@ $(document).ready(function() {
 				<input type="checkbox" name="hospedagem" id="check_hospedagem">
 				<label class="form-label" for="check_hospedagem">Hospedagem</label>
 				<br>
-				<input type="checkbox" name="check_email" id="check_email">
+				<input type="checkbox" name="email" id="check_email">
 				<label class="form-label" for="check_email">Email institucional</label>
 
 				<br>
@@ -373,7 +442,7 @@ $(document).ready(function() {
 		<div class="cont-right">
 			<div class="cont-result">
 				<h3>Resultado</h3>
-					<div class="cont-result-list">
+					<div class="cont-result-list" id="tags-container">
 						
 					</div>
 			</div>
