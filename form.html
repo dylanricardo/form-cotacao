@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<style type="text/css">
+body, html {
+	margin: 0;
+	padding: 0;
+}
+.cont-total{
+	width: 100vw;
+	height: 100vh;
+	display: flex
+}
+
+.cont-left{
+	height: 96vh;
+	width: 46vw;
+	padding-top: 2vh;
+	padding-bottom: 2vh;
+	padding-left: 2vw;
+	padding-right: 2vw;
+/*	background-color: red;*/
+	overflow-y: scroll;
+}
+.cont-right{
+	height: 100vh;
+	width: 50vw;
+/*	background-color: blue;	*/
+	/*display: flex;*/
+}
+.form-label{
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+
+.cont-result{
+	width: 80%;
+	height: 50vh;
+	background-color: green;
+	margin: 5vh auto;
+	overflow-y: scroll;
+}
+.cont-result-list{
+	width: 90%;
+	max-height: auto;
+}
+
+.cont-preco{
+	width: 80%;
+	height: 20vh;
+	/*background-color: gray;*/
+	margin: 5vh auto;
+	display: flex;
+	text-align: center;
+}
+
+.cont-finalizar{
+	width: 80%;
+	height: 10vh;
+	/*background-color: gray;*/
+	margin: 0 auto;
+	align-items: center;
+	text-align: center;
+}
+
+.btn-finalizar{
+	width: 250px;
+	height: 40px;
+	cursor: pointer
+}
+
+.cont-preco-left{
+	width: 50%;
+	height: 100%;
+	/*background-color: yellow;*/
+}
+.cont-preco-rigth{
+	width: 50%;
+	height: 100%;
+	background-color: white;	
+
+}
+
+
+.collapsible {
+  background-color: #777;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: left;
+  outline: none;
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.content {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
+.active, .collapsible:hover {
+  background-color: #555;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+label{
+	font-size: 18px;
+}
+
+.preco-min{
+	font-size: 48px;
+	color: green;
+}
+.preco-max{
+	font-size: 48px;
+	color: red;
+}
+
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	var valorMin = 1400;
+	var valorMax = 2200;
+	
+	$('#preco-min').html(toCurrency(valorMin))
+	$('#preco-max').html(toCurrency(valorMax))
+
+
+	var formState = {
+		dominio: 0,
+		hospedagem : 0,
+		check_email : 0,
+		seo : 0,
+		conteudo : 0,
+		home : 0,
+		page_quem : 0,
+		page_esp : 0,
+		page_serv : 0,
+		page_port : 0,
+		page_blog : 0,
+		page_outros : 0,
+		newsletter : 0,
+		form_contato : 0,
+		redes_sociais : 0,
+		video : 0,
+		linguas : 0,
+		venda : 0,
+	}
+
+	var formValues = {
+		dominio: {min: 50, max: 50, add: false},
+		hospedagem : {min: 100, max: 100, add: false},
+		check_email : {min: 50, max: 250, add: false},
+		conteudo : {min: 400, max: 1000, add: false},
+		seo : {min: 250, max: 750, add: true},
+		home : {min: 800, max: 1800, add: true},
+		page_quem : {min: 200, max: 500, add: true},
+		page_esp : {min: 200, max: 1500, add: true},
+		page_serv : {min: 200, max: 500, add: true},
+		page_port : {min: 200, max: 500, add: true},
+		page_blog : {min: 300, max: 800, add: true},
+		page_outros : {min: 200, max: 500, add: true},
+		newsletter : {min: 200, max: 500, add: true},
+		form_contato : {min: 50, max: 250, add: true},
+		redes_sociais : {min: 50, max: 100, add: true},
+		video : {min: 50, max: 100, add: true},
+		linguas : {min: 200, max: 1500, add: true},
+		check_venda : {min: 2000, max: 5000, add: true},
+	}
+	
+	function toCurrency(number){
+		return (number).toLocaleString('pt-BR', {
+			style: 'currency',
+			currency: 'BRL',
+			minimumFractionDigits: 0,
+		    maximumFractionDigits: 0,
+		});
+	}
+
+	function updatePrices(changedPropName, checked){
+		let newValorMin = valorMin;
+		let newValorMax = valorMax;
+		if(checked){
+			if(formValues[changedPropName]['add']){
+				newValorMin += formValues[changedPropName]['min']
+				newValorMax += formValues[changedPropName]['max']
+			}
+			else{
+				newValorMin -= formValues[changedPropName]['min']
+				newValorMax -= formValues[changedPropName]['max']
+			}
+		}
+		else{
+			if(formValues[changedPropName]['add']){
+				newValorMin -= formValues[changedPropName]['min']
+				newValorMax -= formValues[changedPropName]['max']
+			}
+			else{
+				newValorMin += formValues[changedPropName]['min']
+				newValorMax += formValues[changedPropName]['max']
+			}
+		}
+
+		valorMin = newValorMin;
+		valorMax = newValorMax;
+
+		$('#preco-min').html(toCurrency(valorMin));
+		$('#preco-max').html(toCurrency(valorMax));
+	}
+
+
+	// $('#servico_lp').change(function(){
+
+	// });
+
+	// $('#servico_institucional').change(function(){
+
+	// });
+
+	// $('#servico_reformulacao').change(function(){
+
+	// });
+
+	// $('#servico_blog').change(function(){
+
+	// });
+
+	$('#check_dominio, #check_hospedagem, #check_email, #check_seo, #check_conteudo, #check_home, #check_page_quem, #check_page_esp, #check_page_serv, #check_page_port, #check_page_blog, #check_page_outros, #check_newsletter, #check_form_contato, #check_redes_sociais, #check_video, #check_linguas').change(function(){
+		if( this.checked){
+			formState[this.name] = 1;
+		}
+		else{
+			formState[this.name] = 0;	
+		}
+		updatePrices(this.name, this.checked);
+	});	
+	
+
+});
+</script>
+</head>
+<body>
+	<form autocomplete="off">
+	<div class="cont-total">
+		<div class="cont-left">
+			<div hidden="">
+			<h3>Escolha o tipo de serviço</h3>
+				<input type="radio" name="tipo_servico" value="Institucional" id="servico_institucional">
+				<label class="form-label" for="servico_institucional">Institucional ou LP</label>
+				<br>
+				<input type="radio" name="tipo_servico" value="reformulacao" id="servico_reformulacao">
+				<label class="form-label" for="servico_reformulacao">Reformulação</label>
+				<br>
+				<input type="radio" name="tipo_servico" value="ecommerce" id="servico_ecommerce">
+				<label class="form-label" for="servico_ecommerce">Ecommerce</label>
+				<br>
+				<input type="radio" name="tipo_servico" value="blog" id="servico_blog">
+				<label class="form-label" for="servico_blog">Blog</label>
+				<hr>
+			</div>
+			<h3>Ferramenta de orçamento</h3>
+
+			<button type="button" class="collapsible">O que você já tem?</button>
+			<div class="content">
+				<input type="checkbox" name="dominio" id="check_dominio" value="0">
+				<label class="form-label" for="check_dominio">Domínio</label>
+				<br>
+				<input type="checkbox" name="hospedagem" id="check_hospedagem">
+				<label class="form-label" for="check_hospedagem">Hospedagem</label>
+				<br>
+				<input type="checkbox" name="check_email" id="check_email">
+				<label class="form-label" for="check_email">Email institucional</label>
+
+				<br>
+				<input type="checkbox" name="conteudo" id="check_conteudo">
+				<label class="form-label" for="check_conteudo">Conteúdo do site</label>
+				<br>
+				<!-- <input type="checkbox" name="idv" id="check_idv">
+				<label class="form-label" for="check_idv">Precisa de identidade visual?</label> -->
+				<hr>
+			</div>
+			<button type="button" class="collapsible">Quais páginas você precisa?</button>
+			<div class="content">
+			
+				<input type="checkbox" name="home" id="check_home" checked disabled>
+				<label class="form-label" for="check_home">Home</label>
+				<br>
+				<input type="checkbox" name="page_quem" id="check_page_quem">
+				<label class="form-label" for="check_page_quem">Quem Somos</label>
+				<br>
+				<input type="checkbox" name="page_esp" id="check_page_esp">
+				<label class="form-label" for="check_page_esp">Específica</label>
+				<br>
+				<input type="checkbox" name="page_serv" id="check_page_serv">
+				<label class="form-label" for="check_page_serv">Serviços/Produtos</label>
+				<br>
+				<input type="checkbox" name="page_port" id="check_page_port">
+				<label class="form-label" for="check_page_port">Portfólio/Clientes</label>
+				<br>
+				<input type="checkbox" name="page_blog" id="check_page_blog">
+				<label class="form-label" for="check_page_blog">Blog</label>
+				<br>
+				<input type="checkbox" name="page_outros" id="check_page_outros">
+				<label class="form-label" for="check_page_outros">Outras (quantidade)</label>
+				<hr>
+			</div>
+
+			<button type="button" class="collapsible">Quais adicionais vai querer?</button>
+			<div class="content">
+			
+				<input type="checkbox" name="newsletter" id="check_newsletter">
+				<label class="form-label" for="check_newsletter">Newsletter</label>
+				<br>
+				<input type="checkbox" name="seo" id="check_seo">
+				<label class="form-label" for="check_seo">Precisa de SEO + Analytics?</label>
+				<br>
+				<input type="checkbox" name="form_contato" id="check_form_contato">
+				<label class="form-label" for="check_form_contato">form contato</label>
+				<br>
+				<input type="checkbox" name="redes_sociais" id="check_redes_sociais">
+				<label class="form-label" for="check_redes_sociais">redes sociais</label>
+				<br>
+				<input type="checkbox" name="video" id="check_video">
+				<label class="form-label" for="check_video">Vídeo no site</label>
+				<br>
+				<input type="checkbox" name="linguas" id="check_linguas">
+				<label class="form-label" for="check_linguas">Linguas </label>
+				<br>
+				<input type="checkbox" name="venda" id="check_venda">
+				<label class="form-label" for="check_venda">Venda direta pelo site? (s/n)</label>
+				<hr>
+			</div>
+			<button type="button" class="collapsible">Informações completares</button>
+			<div class="content">
+				<h4>Informações complementares</h4>
+				<label>Referências:</label><br>
+				<textarea rows="10" cols="50"></textarea>
+				<br><br>
+				<label>Informe alguns adjetivos que você quer passar com o seu site:</label><br>
+				<textarea rows="10" cols="50"></textarea>
+				<br><br>
+				<label>Insira qualquer outra informação :</label><br>
+				<textarea rows="10" cols="50"></textarea>
+			</div>
+
+		</div>
+		<div class="cont-right">
+			<div class="cont-result">
+				<h3>Resultado</h3>
+					<div class="cont-result-list">
+						
+					</div>
+			</div>
+			<div class="cont-preco">
+				<div class="cont-preco-left">
+					<h3>preço min</h3>
+					<span id="preco-min" class="preco-min"></span>
+				</div>
+				<div class="cont-preco-rigth" >
+					<h3>preço max</h3>
+					<span id="preco-max" class="preco-max"></span>
+				</div>
+				
+			</div>
+			<div class="cont-finalizar">
+				<button class="btn-finalizar">ENVIAR ORÇAMENTO</button>
+			</div>
+		</div>
+	</div>
+		
+
+	</form>
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+      content.style.padding = "0 18px";
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+      content.style.padding = "20px"
+    } 
+  });
+}
+</script>
+</body>
+</html>
