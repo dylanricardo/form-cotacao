@@ -345,20 +345,15 @@ $(document).ready(function() {
 	$('#check_page_outros').change(function(){
 		document.getElementById("outros_qtd").disabled = !this.checked;
 	});
-	
-	function checkOutras() {
-		var val = document.getElementById("outros_qtd").value;
-		if (val > 2) {
-			return [valorMin+(valorMin*0.1) * (val - 2), valorMax+(valorMax*0.1) * (val - 2)]
-		};
-		return [valorMin, valorMax];
-	};
 
-	$('#outros_qtd').on('keyup', function() {
+	$('div#adicionais input[type=checkbox]').change( function() {
 		let newValorMin = valorMin;
 		let newValorMax = valorMax;
 
-		var val = document.getElementById("outros_qtd").value;
+		var val = 0;
+		$('div#adicionais input[type=checkbox]').each(function(){
+		    this.checked? val += 1 : val += 0;
+		});
 		if (val > 2) {
 			const novosValores = [
 				formValues['guia_adm']['min']+(formValues['guia_adm']['min']*0.1) * (val - 2),
@@ -453,7 +448,7 @@ $(document).ready(function() {
 			</div>
 
 			<button type="button" class="collapsible">Quais adicionais vai querer?</button>
-			<div class="content">
+			<div class="content" id="adicionais">
 			
 				<input type="checkbox" name="newsletter" id="check_newsletter">
 				<label class="form-label" for="check_newsletter">Newsletter</label>
