@@ -176,6 +176,18 @@ label{
 	color: #FCA311;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -260,8 +272,8 @@ $(document).ready(function() {
 	}
 
 	function updatePrices(changedPropName, checked){
-		let newValorMin = checkOutras()[0];
-		let newValorMax = checkOutras()[1];
+		let newValorMin = valorMin;
+		let newValorMax = valorMax;
 		addTag(changedPropName);
 		if(checked){
 			if(formValues[changedPropName]['add']){
@@ -290,14 +302,6 @@ $(document).ready(function() {
 		$('#preco-min').html(toCurrency(valorMin));
 		$('#preco-max').html(toCurrency(valorMax));
 	}
-
-	function checkOutras() {
-		var val = document.getElementById("outros_qtd").value;
-		if (val > 2) {
-			return [valorMin+(valorMin*0.1) * (val - 2), valorMax+(valorMax*0.1) * (val - 2)]
-		};
-		return [valorMin, valorMax];
-	};
 
 	function addTag(val){
 		if (document.querySelector('#'+val) != null) {
@@ -342,6 +346,42 @@ $(document).ready(function() {
 		document.getElementById("outros_qtd").disabled = !this.checked;
 	});
 	
+	function checkOutras() {
+		var val = document.getElementById("outros_qtd").value;
+		if (val > 2) {
+			return [valorMin+(valorMin*0.1) * (val - 2), valorMax+(valorMax*0.1) * (val - 2)]
+		};
+		return [valorMin, valorMax];
+	};
+
+	$('#outros_qtd').on('keyup', function() {
+		let newValorMin = valorMin;
+		let newValorMax = valorMax;
+
+		var val = document.getElementById("outros_qtd").value;
+		if (val > 2) {
+			const novosValores = [
+				formValues['guia_adm']['min']+(formValues['guia_adm']['min']*0.1) * (val - 2),
+				formValues['guia_adm']['max']+(formValues['guia_adm']['max']*0.1) * (val - 2)
+				];
+			newValorMin = newValorMin - formValues['guia_adm']['min'] + novosValores[0]
+			newValorMax = newValorMax - formValues['guia_adm']['max'] + novosValores[1]
+			formValues['guia_adm']['min'] = novosValores[0]
+			formValues['guia_adm']['max'] = novosValores[1]
+		}else {
+			const novosValores = [400, 1500]
+			newValorMin = newValorMin - formValues['guia_adm']['min'] + novosValores[0]
+			newValorMax = newValorMax - formValues['guia_adm']['max'] + novosValores[1]
+			formValues['guia_adm']['min'] = novosValores[0]
+			formValues['guia_adm']['max'] = novosValores[1]
+		}
+
+		valorMin = newValorMin;
+		valorMax = newValorMax;
+
+		$('#preco-min').html(toCurrency(valorMin));
+		$('#preco-max').html(toCurrency(valorMax));
+	});
 
 });
 </script>
@@ -408,7 +448,7 @@ $(document).ready(function() {
 				<label class="form-label" for="check_page_blog">Blog</label>
 				<br>
 				<input type="checkbox" name="page_outros" id="check_page_outros">
-				<label class="form-label" for="check_page_outros" onchange="outros()">Outras</label><input type="number" name="Quantidade" id="outros_qtd" disabled="true">
+				<label class="form-label" for="check_page_outros" onchange="outros()">Outras</label><input type="number" name="Quantidade" id="outros_qtd" disabled="true" placeholder="Digite aqui">
 				<hr>
 			</div>
 
