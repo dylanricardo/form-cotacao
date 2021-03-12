@@ -180,13 +180,6 @@ label{
 <script type="text/javascript">
 $(document).ready(function() {
 
-	var valorMin = 1400;
-	var valorMax = 2200;
-	
-	$('#preco-min').html(toCurrency(valorMin))
-	$('#preco-max').html(toCurrency(valorMax))
-
-
 	var formState = {
 		dominio: 0,
 		hospedagem : 0,
@@ -248,7 +241,14 @@ $(document).ready(function() {
 		video : {min: 50, max: 100, add: true},
 		linguas : {min: 200, max: 1500, add: true},
 		check_venda : {min: 2000, max: 5000, add: true},
+		guia_adm : {min: 400, max: 1500, add: true},
 	}
+
+	var valorMin = formValues['home']['min'] + formValues['guia_adm']['min'];
+	var valorMax = formValues['home']['max'] + formValues['guia_adm']['max'];
+	
+	$('#preco-min').html(toCurrency(valorMin))
+	$('#preco-max').html(toCurrency(valorMax))
 	
 	function toCurrency(number){
 		return (number).toLocaleString('pt-BR', {
@@ -260,8 +260,8 @@ $(document).ready(function() {
 	}
 
 	function updatePrices(changedPropName, checked){
-		let newValorMin = valorMin;
-		let newValorMax = valorMax;
+		let newValorMin = checkOutras()[0];
+		let newValorMax = checkOutras()[1];
 		addTag(changedPropName);
 		if(checked){
 			if(formValues[changedPropName]['add']){
@@ -290,6 +290,14 @@ $(document).ready(function() {
 		$('#preco-min').html(toCurrency(valorMin));
 		$('#preco-max').html(toCurrency(valorMax));
 	}
+
+	function checkOutras() {
+		var val = document.getElementById("outros_qtd").value;
+		if (val > 2) {
+			return [valorMin+(valorMin*0.1) * (val - 2), valorMax+(valorMax*0.1) * (val - 2)]
+		};
+		return [valorMin, valorMax];
+	};
 
 	function addTag(val){
 		if (document.querySelector('#'+val) != null) {
@@ -329,6 +337,10 @@ $(document).ready(function() {
 		}
 		updatePrices(this.name, this.checked);
 	});	
+
+	$('#check_page_outros').change(function(){
+		document.getElementById("outros_qtd").disabled = !this.checked;
+	});
 	
 
 });
@@ -396,7 +408,7 @@ $(document).ready(function() {
 				<label class="form-label" for="check_page_blog">Blog</label>
 				<br>
 				<input type="checkbox" name="page_outros" id="check_page_outros">
-				<label class="form-label" for="check_page_outros">Outras (quantidade)</label>
+				<label class="form-label" for="check_page_outros" onchange="outros()">Outras</label><input type="number" name="Quantidade" id="outros_qtd" disabled="true">
 				<hr>
 			</div>
 
