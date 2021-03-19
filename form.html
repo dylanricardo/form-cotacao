@@ -1,11 +1,22 @@
+<?php
+/**
+ * Template Name: Formulario (Neve)
+ *
+ * The template for the page builder full-width.
+ *
+ * It contains header, footer and 100% content width.
+ *
+ * @package Neve
+ */
+
+/*get_header();*/
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Formulário</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-<link rel="icon" 
-      type="image/png" 
-      href="favicon-16x16.png">
 <style type="text/css">
 body, html {
 	margin: 0;
@@ -264,6 +275,8 @@ $(document).ready(function() {
 	
 	$('#preco-min').html(toCurrency(valorMin))
 	$('#preco-max').html(toCurrency(valorMax))
+	$('#preco-min-input').value = (toCurrency(valorMin));
+	$('#preco-max-input').value = (toCurrency(valorMax));
 	
 	function toCurrency(number){
 		return (number).toLocaleString('pt-BR', {
@@ -273,6 +286,16 @@ $(document).ready(function() {
 		    maximumFractionDigits: 0,
 		});
 	}
+	var qtd_val = 0;
+	$(document).on('input', '#outros_qtd', function() {
+		var tempval = parseInt( $(this).val() );
+		formValues["page_outros"]["min"] = 200 * tempval;
+		formValues["page_outros"]["max"] = 500 * tempval;
+		if (tempval != qtd_val) {
+			updatePrices("page_outros", tempval > qtd_val);
+			qtd_val = tempval;
+		}
+	});
 
 	function updatePrices(changedPropName, checked){
 		let newValorMin = valorMin;
@@ -304,6 +327,8 @@ $(document).ready(function() {
 
 		$('#preco-min').html(toCurrency(valorMin));
 		$('#preco-max').html(toCurrency(valorMax));
+		$('#preco-min-input').value = (toCurrency(valorMin));
+		$('#preco-max-input').value = (toCurrency(valorMax));
 	}
 
 	function addTag(val){
@@ -318,23 +343,6 @@ $(document).ready(function() {
 		}
 	}
 
-
-	// $('#servico_lp').change(function(){
-
-	// });
-
-	// $('#servico_institucional').change(function(){
-
-	// });
-
-	// $('#servico_reformulacao').change(function(){
-
-	// });
-
-	// $('#servico_blog').change(function(){
-
-	// });
-
 	$('#check_dominio, #check_hospedagem, #check_email, #check_seo, #check_conteudo, #check_home, #check_page_quem, #check_page_esp, #check_page_serv, #check_page_port, #check_page_blog, #check_page_outros, #check_newsletter, #check_form_contato, #check_redes_sociais, #check_video, #check_linguas').change(function(){
 		if( this.checked){
 			formState[this.name] = 1;
@@ -346,7 +354,8 @@ $(document).ready(function() {
 	});	
 
 	$('#check_page_outros').change(function(){
-		document.getElementById("outros_qtd").disabled = !this.checked;
+		$("#outros_qtd").prop( "disabled", !this.checked );
+		$("#outros_qtd").prop( "required", this.checked );
 	});
 
 	$('div#adicionais input[type=checkbox]').change( function() {
@@ -379,13 +388,15 @@ $(document).ready(function() {
 
 		$('#preco-min').html(toCurrency(valorMin));
 		$('#preco-max').html(toCurrency(valorMax));
+		$('#preco-min-input').value = (toCurrency(valorMin));
+		$('#preco-max-input').value = (toCurrency(valorMax));
 	});
 
 });
 </script>
 </head>
 <body>
-	<form autocomplete="off">
+	<form autocomplete="off" action="https://criamosseusite.com.br/receiver/" method="post">
 	<div class="cont-total">
 		<div class="cont-left">
 			<div hidden="">
@@ -446,7 +457,8 @@ $(document).ready(function() {
 				<label class="form-label" for="check_page_blog">Blog</label>
 				<br>
 				<input type="checkbox" name="page_outros" id="check_page_outros">
-				<label class="form-label" for="check_page_outros" onchange="outros()">Outras</label><input type="number" name="Quantidade" id="outros_qtd" disabled="true" placeholder="Digite aqui">
+				<label class="form-label" for="check_page_outros">Outras</label>
+				<input type="range" id="outros_qtd" name="Quantidade" min="1" max="10" disabled="true" required>
 				<hr>
 			</div>
 
@@ -479,13 +491,13 @@ $(document).ready(function() {
 			<div class="content">
 				<h4>Informações complementares</h4>
 				<label>Referências:</label><br>
-				<textarea rows="10" cols="50"></textarea>
+				<textarea name="referencia" rows="10" cols="50"></textarea>
 				<br><br>
 				<label>Informe alguns adjetivos que você quer passar com o seu site:</label><br>
-				<textarea rows="10" cols="50"></textarea>
+				<textarea name="adjetivos" rows="10" cols="50"></textarea>
 				<br><br>
 				<label>Insira qualquer outra informação :</label><br>
-				<textarea rows="10" cols="50"></textarea>
+				<textarea name="infos" rows="10" cols="50"></textarea>
 			</div>
 
 		</div>
@@ -500,15 +512,17 @@ $(document).ready(function() {
 				<div class="cont-preco-left">
 					<h3>preço min</h3>
 					<span id="preco-min" class="preco-min"></span>
+					<input type="hidden" id="preco-min-input" name="preco-min" value="" />
 				</div>
 				<div class="cont-preco-rigth" >
 					<h3>preço max</h3>
 					<span id="preco-max" class="preco-max"></span>
+					<input type="hidden" id="preco-max-input" name="preco-max" value="" />
 				</div>
 				
 			</div>
 			<div class="cont-finalizar">
-				<button class="btn-finalizar">ENVIAR ORÇAMENTO</button>
+				<input type="submit" class="btn-finalizar" value="ENVIAR ORÇAMENTO">
 			</div>
 		</div>
 	</div>
