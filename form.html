@@ -304,8 +304,8 @@ $(document).ready(function() {
 	
 	$('#preco-min').html(toCurrency(valorMin))
 	$('#preco-max').html(toCurrency(valorMax))
-	$('#preco-min-input').value = (toCurrency(valorMin));
-	$('#preco-max-input').value = (toCurrency(valorMax));
+	$('#preco-min-input').val(toCurrency(valorMin));
+	$('#preco-max-input').val(toCurrency(valorMax));
 	
 	function toCurrency(number){
 		return (number).toLocaleString('pt-BR', {
@@ -318,12 +318,24 @@ $(document).ready(function() {
 	var qtd_val = 0;
 	$(document).on('input', '#outros_qtd', function() {
 		var tempval = parseInt( $(this).val() );
-		formValues["page_outros"]["min"] = 200 * tempval;
-		formValues["page_outros"]["max"] = 500 * tempval;
+		var min = formValues["page_outros"]["min"] * tempval;
+		var max = formValues["page_outros"]["max"] * tempval;
+		let newValorMin = valorMin;
+		let newValorMax = valorMax;
 		if (tempval != qtd_val) {
-			updatePrices("page_outros", tempval > qtd_val);
+			newValorMin -= qtd_val * formValues["page_outros"]["min"];
+			newValorMax -= qtd_val * formValues["page_outros"]["max"];
+			newValorMin += min;
+			newValorMax += max;
 			qtd_val = tempval;
 		}
+		valorMin = newValorMin;
+		valorMax = newValorMax;
+
+		$('#preco-min').html(toCurrency(valorMin));
+		$('#preco-max').html(toCurrency(valorMax));
+		$('#preco-min-input').val(toCurrency(valorMin));
+		$('#preco-max-input').val(toCurrency(valorMax));
 	});
 
 	function updatePrices(changedPropName, checked){
@@ -356,8 +368,8 @@ $(document).ready(function() {
 
 		$('#preco-min').html(toCurrency(valorMin));
 		$('#preco-max').html(toCurrency(valorMax));
-		$('#preco-min-input').value = (toCurrency(valorMin));
-		$('#preco-max-input').value = (toCurrency(valorMax));
+		$('#preco-min-input').val(toCurrency(valorMin));
+		$('#preco-max-input').val(toCurrency(valorMax));
 	}
 
 	function addTag(val){
@@ -419,8 +431,8 @@ $(document).ready(function() {
 
 		$('#preco-min').html(toCurrency(valorMin));
 		$('#preco-max').html(toCurrency(valorMax));
-		$('#preco-min-input').value = (toCurrency(valorMin));
-		$('#preco-max-input').value = (toCurrency(valorMax));
+		$('#preco-min-input').val(toCurrency(valorMin));
+		$('#preco-max-input').val(toCurrency(valorMax));
 	});
 
 	if(typeof(String.prototype.trim) === "undefined")
@@ -629,12 +641,12 @@ $(document).ready(function() {
 				<div class="cont-preco-left">
 					<h3>preço min</h3>
 					<span id="preco-min" class="preco-min"></span>
-					<input type="hidden" id="preco-min-input" name="preco-min" value="" />
+					<input type="hidden" id="preco-min-input" name="preco-min" />
 				</div>
 				<div class="cont-preco-rigth" >
 					<h3>preço max</h3>
 					<span id="preco-max" class="preco-max"></span>
-					<input type="hidden" id="preco-max-input" name="preco-max" value="" />
+					<input type="hidden" id="preco-max-input" name="preco-max"/>
 				</div>
 				
 			</div>
