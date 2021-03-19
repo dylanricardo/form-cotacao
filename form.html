@@ -202,6 +202,35 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+.bg-dark {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0,0,0,0.5);
+}
+
+.modal {
+	width: 80%;
+	margin-left: 10%;
+	height: 400px;
+	background-color: #000;
+	border: solid #fff 1px;
+	margin-top: calc(50vh - 200px);
+}
+
+.opcao-modal {
+	width: 100%;
+	height: 100px;
+	border: solid #fff 1px;
+	background-color: #000;
+	color: #fff;
+	font-size: 24px;
+}
+
+.opcao-modal:hover {
+	background-color: red;
+}
+
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -358,6 +387,8 @@ $(document).ready(function() {
 		$("#outros_qtd").prop( "required", this.checked );
 	});
 
+
+
 	$('div#adicionais input[type=checkbox]').change( function() {
 		let newValorMin = valorMin;
 		let newValorMax = valorMax;
@@ -392,14 +423,100 @@ $(document).ready(function() {
 		$('#preco-max-input').value = (toCurrency(valorMax));
 	});
 
+	if(typeof(String.prototype.trim) === "undefined")
+	{
+	    String.prototype.trim = function() 
+	    {
+	        return String(this).replace(/^\s+|\s+$/g, '');
+	    };
+	}
+
+	$('.opcao-modal').click(function(){
+		$('#tipo_servico').val($( this ).text().trim());
+		$('#bg-dark').hide();
+	});
+
 });
 </script>
 </head>
 <body>
 	<form autocomplete="off" action="https://criamosseusite.com.br/receiver/" method="post">
+		<div class="bg-dark" id="bg-dark">
+			<div class="modal">
+				<div class="opcao-modal">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 464 464" style="enable-background:new 0 0 464 464;size: 16px;height: 50px;width: auto;" xml:space="preserve">
+<path style="fill:#FCF05A;" d="M376,464H40V32h224l112,112V464z"/>
+<path style="fill:#FDBD40;" d="M424,416H88V0h224l112,112V416z"/>
+<path style="fill:#F49E21;" d="M312,112h112L312,0V112z"/>
+<g><path style="fill:#E9686A;" d="M152,352h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,352,152,352z"/>
+<path style="fill:#E9686A;" d="M376,352H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,352,376,352z"/>
+<path style="fill:#E9686A;" d="M152,304h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,304,152,304z"/>
+<path style="fill:#E9686A;" d="M376,304H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,304,376,304z"/>
+<path style="fill:#E9686A;" d="M152,256h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,256,152,256z"/>
+<path style="fill:#E9686A;" d="M376,256H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,256,376,256z"/>
+<path style="fill:#E9686A;" d="M152,208h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,208,152,208z"/>
+<path style="fill:#E9686A;" d="M376,208H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,208,376,208z"/>
+<path style="fill:#E9686A;" d="M152,160h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,160,152,160z"/>
+<path style="fill:#E9686A;" d="M376,160H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,160,376,160z"/>
+<path style="fill:#E9686A;" d="M136,72h48v48h-48V72z"/></g></svg>
+				Institucional ou LP</div>
+				<div class="opcao-modal">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 464 464" style="enable-background:new 0 0 464 464;size: 16px;height: 50px;width: auto;" xml:space="preserve">
+<path style="fill:#FCF05A;" d="M376,464H40V32h224l112,112V464z"/>
+<path style="fill:#FDBD40;" d="M424,416H88V0h224l112,112V416z"/>
+<path style="fill:#F49E21;" d="M312,112h112L312,0V112z"/>
+<g><path style="fill:#E9686A;" d="M152,352h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,352,152,352z"/>
+<path style="fill:#E9686A;" d="M376,352H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,352,376,352z"/>
+<path style="fill:#E9686A;" d="M152,304h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,304,152,304z"/>
+<path style="fill:#E9686A;" d="M376,304H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,304,376,304z"/>
+<path style="fill:#E9686A;" d="M152,256h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,256,152,256z"/>
+<path style="fill:#E9686A;" d="M376,256H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,256,376,256z"/>
+<path style="fill:#E9686A;" d="M152,208h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,208,152,208z"/>
+<path style="fill:#E9686A;" d="M376,208H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,208,376,208z"/>
+<path style="fill:#E9686A;" d="M152,160h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,160,152,160z"/>
+<path style="fill:#E9686A;" d="M376,160H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,160,376,160z"/>
+<path style="fill:#E9686A;" d="M136,72h48v48h-48V72z"/></g></svg>
+				Ecommerce</div>
+				<div class="opcao-modal">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 464 464" style="enable-background:new 0 0 464 464;size: 16px;height: 50px;width: auto;" xml:space="preserve">
+<path style="fill:#FCF05A;" d="M376,464H40V32h224l112,112V464z"/>
+<path style="fill:#FDBD40;" d="M424,416H88V0h224l112,112V416z"/>
+<path style="fill:#F49E21;" d="M312,112h112L312,0V112z"/>
+<g><path style="fill:#E9686A;" d="M152,352h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,352,152,352z"/>
+<path style="fill:#E9686A;" d="M376,352H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,352,376,352z"/>
+<path style="fill:#E9686A;" d="M152,304h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,304,152,304z"/>
+<path style="fill:#E9686A;" d="M376,304H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,304,376,304z"/>
+<path style="fill:#E9686A;" d="M152,256h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,256,152,256z"/>
+<path style="fill:#E9686A;" d="M376,256H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,256,376,256z"/>
+<path style="fill:#E9686A;" d="M152,208h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,208,152,208z"/>
+<path style="fill:#E9686A;" d="M376,208H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,208,376,208z"/>
+<path style="fill:#E9686A;" d="M152,160h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,160,152,160z"/>
+<path style="fill:#E9686A;" d="M376,160H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,160,376,160z"/>
+<path style="fill:#E9686A;" d="M136,72h48v48h-48V72z"/></g></svg>
+				Reformulação</div>
+				<div class="opcao-modal">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 464 464" style="enable-background:new 0 0 464 464;size: 16px;height: 50px;width: auto;" xml:space="preserve">
+<path style="fill:#FCF05A;" d="M376,464H40V32h224l112,112V464z"/>
+<path style="fill:#FDBD40;" d="M424,416H88V0h224l112,112V416z"/>
+<path style="fill:#F49E21;" d="M312,112h112L312,0V112z"/>
+<g><path style="fill:#E9686A;" d="M152,352h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,352,152,352z"/>
+<path style="fill:#E9686A;" d="M376,352H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,352,376,352z"/>
+<path style="fill:#E9686A;" d="M152,304h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,304,152,304z"/>
+<path style="fill:#E9686A;" d="M376,304H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,304,376,304z"/>
+<path style="fill:#E9686A;" d="M152,256h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,256,152,256z"/>
+<path style="fill:#E9686A;" d="M376,256H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,256,376,256z"/>
+<path style="fill:#E9686A;" d="M152,208h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,208,152,208z"/>
+<path style="fill:#E9686A;" d="M376,208H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,208,376,208z"/>
+<path style="fill:#E9686A;" d="M152,160h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,160,152,160z"/>
+<path style="fill:#E9686A;" d="M376,160H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,160,376,160z"/>
+<path style="fill:#E9686A;" d="M136,72h48v48h-48V72z"/></g></svg>
+				Blog</div>
+			</div>
+		</div>
+		<input type="hidden" name="tipo_servico" id="tipo_servico" >
 	<div class="cont-total">
 		<div class="cont-left">
-			<div hidden="">
+			<!-- <div hidden="">
 			<h3>Escolha o tipo de serviço</h3>
 				<input type="radio" name="tipo_servico" value="Institucional" id="servico_institucional">
 				<label class="form-label" for="servico_institucional">Institucional ou LP</label>
@@ -413,7 +530,7 @@ $(document).ready(function() {
 				<input type="radio" name="tipo_servico" value="blog" id="servico_blog">
 				<label class="form-label" for="servico_blog">Blog</label>
 				<hr>
-			</div>
+			</div> -->
 			<h3>Faça seu orçamento</h3>
 
 			<button type="button" class="collapsible">O que você já tem?</button>
