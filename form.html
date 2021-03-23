@@ -399,32 +399,20 @@ $(document).ready(function() {
 		$("#outros_qtd").prop( "required", this.checked );
 	});
 
-
-
+	// Quando tiver mais de dois adicionais o guia do adm tem que ficar 10% mais caro
+	//
+	var adicionais_checados = 0;
 	$('div#adicionais input[type=checkbox]').change( function() {
 		let newValorMin = valorMin;
 		let newValorMax = valorMax;
 
-		var val = 0;
+		var checados = 0;
 		$('div#adicionais input[type=checkbox]').each(function(){
-		    this.checked? val += 1 : val += 0;
+		    this.checked? checados += 1 : checados += 0;
 		});
-		if (val > 2) {
-			const novosValores = [
-				formValues['guia_adm']['min']+(formValues['guia_adm']['min']*0.1) * (val - 2),
-				formValues['guia_adm']['max']+(formValues['guia_adm']['max']*0.1) * (val - 2)
-				];
-			newValorMin = newValorMin - formValues['guia_adm']['min'] + novosValores[0]
-			newValorMax = newValorMax - formValues['guia_adm']['max'] + novosValores[1]
-			formValues['guia_adm']['min'] = novosValores[0]
-			formValues['guia_adm']['max'] = novosValores[1]
-		}else {
-			const novosValores = [400, 1500]
-			newValorMin = newValorMin - formValues['guia_adm']['min'] + novosValores[0]
-			newValorMax = newValorMax - formValues['guia_adm']['max'] + novosValores[1]
-			formValues['guia_adm']['min'] = novosValores[0]
-			formValues['guia_adm']['max'] = novosValores[1]
-		}
+
+		newValorMin += 400 * (400 * (0.1 * checados))
+		newValorMax += 1500 * (1500 * (0.1 * checados))
 
 		valorMin = newValorMin;
 		valorMax = newValorMax;
