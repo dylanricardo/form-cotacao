@@ -16,12 +16,22 @@
 <html>
 <head>
 	<title>Formulário</title>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <style type="text/css">
 body, html {
 	margin: 0;
 	padding: 0;
+	font-family: 'Fira Code', monospace;;
 }
+button{
+	font-family: 'JetBrains Mono', monospace;
+}
+
 
 .cont-total{
 	width: 100vw;
@@ -39,6 +49,7 @@ body, html {
 	padding-right: 2vw;
 /*	background-color: red;*/
 	overflow-y: scroll;
+	background-color: #000000;
 }
 .cont-right{
 	height: 100vh;
@@ -49,12 +60,7 @@ body, html {
 	/*display: flex;*/
 }
 
-.form-label{
-	-webkit-user-select: none; /* Safari */        
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* IE10+/Edge */
-	user-select: none; /* Standard */
-}
+
 
 .cont-result{
 	width: 80%;
@@ -125,7 +131,7 @@ body, html {
 
 
 .collapsible {
-  background-color: #ccc;
+  background-color: #000;
   color: #fff;
   cursor: pointer;
   width: 100%;
@@ -138,19 +144,14 @@ body, html {
   border-bottom: 1px #cfcfcf solid;
 }
 
-.active, .collapsible:hover {
-  background-color: #aaa;
-}
 
 .content {
   padding: 0 18px;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease-out;
-  background-color: #f1f1f1;
-}
-.active, .collapsible:hover {
-  background-color: #aaa;
+  background-color: #000000;  
+  color: #e5e5e5;
 }
 
 .collapsible:after {
@@ -158,23 +159,24 @@ body, html {
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
-  content: "";
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
+  content: ">";
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
   color: white;
   font-weight: bold;
   float: right;
   margin-left: 5px;
+  color: #e5e5e5;
 }
 
 .active:after {
-  content: "";
+  content: ">";
   border: solid black;
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
-  transform: rotate(-135deg);
-  -webkit-transform: rotate(-135deg);
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
 }
 
 label{
@@ -231,29 +233,83 @@ input[type=number] {
 	background-color: red;
 }
 
+.form-label{
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+	color: #e5e5e5;
+}
+
+.label_container{
+	padding: 10px;
+	cursor: pointer;
+	transition: 0.1s;
+	margin-top: 0px;
+}
+
+.label_container:hover{
+    outline: 1px solid white;
+    outline-offset: -1px;
+}
+
+.clicked{
+	transition: 0.2s;
+	outline: 1px solid white;
+    outline-offset: -1px;
+
+}
+
+textarea{
+	background-color:  #E5E5E5;
+	font-size: 18px;
+}
+#range_outras{
+	float: right;
+}
+
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
 
 	var formState = {
-		dominio: 0,
-		hospedagem : 0,
-		email : 0,
-		seo : 0,
-		conteudo : 0,
-		home : 0,
-		page_quem : 0,
-		page_esp : 0,
-		page_serv : 0,
-		page_port : 0,
-		page_blog : 0,
-		page_outros : 0,
-		newsletter : 0,
-		form_contato : 0,
-		redes_sociais : 0,
-		video : 0,
-		linguas : 0,
-		venda : 0,
+		dominio: false,
+		hospedagem : false,
+		email : false,
+		conteudo : false,
+		home : true,
+		page_quem : false,
+		page_esp : false,
+		page_serv : false,
+		page_port : false,
+		page_blog : false,
+		page_outros : false,
+		newsletter : false,
+		seo : false,
+		form_contato : false,
+		redes_sociais : false,
+		linguas : false,
+		ecomm : false,
+	}	
+
+	var formValues = {
+		dominio: {min: 50, max: 50, add: false},
+		hospedagem : {min: 100, max: 100, add: false},
+		email : {min: 50, max: 250, add: false},
+		conteudo : {min: 400, max: 500, add: false},
+		home : {min: 1000, max: 1500, add: true},
+		page_quem : {min: 200, max: 300, add: true},
+		page_esp : {min: 200, max: 600, add: true},
+		page_serv : {min: 200, max: 300, add: true},
+		page_port : {min: 200, max: 300, add: true},
+		page_blog : {min: 300, max: 400, add: true},
+		page_outros : {min: 200, max: 400, add: true},
+		newsletter : {min: 200, max: 300, add: true},
+		seo : {min: 350, max: 700, add: true},
+		form_contato : {min: 50, max: 150, add: true},
+		redes_sociais : {min: 100, max: 200, add: true},
+		linguas : {min: 200, max: 600, add: true},
+		venda : {min: 2500, max: 4000, add: true}
 	}
 
 	const nameHumanized = {
@@ -272,35 +328,15 @@ $(document).ready(function() {
 		newsletter : "Newsletter",
 		form_contato : "Formulário de contato",
 		redes_sociais : "Redes sociais",
-		video : "Vídeo",
 		linguas : "Línguas",
 		venda : "Venda pelo site",
 	}
 
-	var formValues = {
-		dominio: {min: 50, max: 50, add: false},
-		hospedagem : {min: 100, max: 100, add: false},
-		email : {min: 50, max: 250, add: false},
-		conteudo : {min: 400, max: 1000, add: false},
-		seo : {min: 250, max: 750, add: true},
-		home : {min: 800, max: 1800, add: true},
-		page_quem : {min: 200, max: 500, add: true},
-		page_esp : {min: 200, max: 1500, add: true},
-		page_serv : {min: 200, max: 500, add: true},
-		page_port : {min: 200, max: 500, add: true},
-		page_blog : {min: 300, max: 800, add: true},
-		page_outros : {min: 200, max: 500, add: true},
-		newsletter : {min: 200, max: 500, add: true},
-		form_contato : {min: 50, max: 250, add: true},
-		redes_sociais : {min: 50, max: 100, add: true},
-		video : {min: 50, max: 100, add: true},
-		linguas : {min: 200, max: 1500, add: true},
-		check_venda : {min: 2000, max: 5000, add: true},
-		guia_adm : {min: 400, max: 1500, add: true},
-	}
+	const guia_min = 1.1;
+	const guia_max = 1.1;
 
-	var valorMin = formValues['home']['min'] + formValues['guia_adm']['min'];
-	var valorMax = formValues['home']['max'] + formValues['guia_adm']['max'];
+	var valorMin = formValues['home']['min'] * guia_min;
+	var valorMax = formValues['home']['max'] * guia_max;
 	
 	$('#preco-min').html(toCurrency(valorMin))
 	$('#preco-max').html(toCurrency(valorMax))
@@ -316,60 +352,41 @@ $(document).ready(function() {
 		});
 	}
 	var qtd_val = 0;
-	$(document).on('input', '#outros_qtd', function() {
-		var tempval = parseInt( $(this).val() );
-		var min = formValues["page_outros"]["min"] * tempval;
-		var max = formValues["page_outros"]["max"] * tempval;
-		let newValorMin = valorMin;
-		let newValorMax = valorMax;
-		if (tempval != qtd_val) {
-			newValorMin -= qtd_val * formValues["page_outros"]["min"];
-			newValorMax -= qtd_val * formValues["page_outros"]["max"];
-			newValorMin += min;
-			newValorMax += max;
-			qtd_val = tempval;
-		}
-		valorMin = newValorMin;
-		valorMax = newValorMax;
+	var quantidade_outras = 1;
 
-		$('#preco-min').html(toCurrency(valorMin));
-		$('#preco-max').html(toCurrency(valorMax));
-		$('#preco-min-input').val(toCurrency(valorMin));
-		$('#preco-max-input').val(toCurrency(valorMax));
+	$('#range_outras').on("input change", function() {
+		$('#quant_outras').html($(this).val());
+		quantidade_outras = $(this).val();
+
+		updatePrices('page_outros')
+
 	});
 
-	function updatePrices(changedPropName, checked){
-		let newValorMin = valorMin;
-		let newValorMax = valorMax;
-		addTag(changedPropName);
-		if(checked){
-			if(formValues[changedPropName]['add']){
-				newValorMin += formValues[changedPropName]['min']
-				newValorMax += formValues[changedPropName]['max']
-			}
-			else{
-				newValorMin -= formValues[changedPropName]['min']
-				newValorMax -= formValues[changedPropName]['max']
-			}
-		}
-		else{
-			if(formValues[changedPropName]['add']){
-				newValorMin -= formValues[changedPropName]['min']
-				newValorMax -= formValues[changedPropName]['max']
-			}
-			else{
-				newValorMin += formValues[changedPropName]['min']
-				newValorMax += formValues[changedPropName]['max']
+	function updatePrices(){
+		valorMin = 0;
+		valorMax = 0;
+		
+		for(var key in formState){
+			if(formState[key]){
+				if(formValues[key]['add']){
+					let quantidade = (key == 'page_outros') ? $('#range_outras').val() : 1;
+
+					valorMin += formValues[key]['min']*quantidade;
+					valorMax += formValues[key]['max']*quantidade;
+
+				}else{
+					valorMin -= formValues[key]['min'];
+					valorMax -= formValues[key]['max'];
+				}
 			}
 		}
 
-		valorMin = newValorMin;
-		valorMax = newValorMax;
-
+		valorMin = valorMin*guia_min;
+		valorMax = valorMax*guia_max;
 		$('#preco-min').html(toCurrency(valorMin));
 		$('#preco-max').html(toCurrency(valorMax));
 		$('#preco-min-input').val(toCurrency(valorMin));
-		$('#preco-max-input').val(toCurrency(valorMax));
+		$('#preco-max-input').val(toCurrency(valorMax));		
 	}
 
 	function addTag(val){
@@ -384,53 +401,33 @@ $(document).ready(function() {
 		}
 	}
 
-	$('#check_dominio, #check_hospedagem, #check_email, #check_seo, #check_conteudo, #check_home, #check_page_quem, #check_page_esp, #check_page_serv, #check_page_port, #check_page_blog, #check_page_outros, #check_newsletter, #check_form_contato, #check_redes_sociais, #check_video, #check_linguas').change(function(){
+	$('#ecomm, #check_dominio, #check_hospedagem, #check_email, #check_seo, #check_conteudo, #check_home, #check_page_quem, #check_page_esp, #check_page_serv, #check_page_port, #check_page_blog, #check_page_outros, #check_newsletter, #check_form_contato, #check_redes_sociais, #check_linguas').change(function(){
 		if( this.checked){
-			formState[this.name] = 1;
+			formState[this.name] = true;
 		}
 		else{
-			formState[this.name] = 0;	
+			formState[this.name] = false;	
 		}
-		updatePrices(this.name, this.checked);
+
+		let parent = $(this).parent();
+		if(parent.hasClass('label_container')){
+			if( parent.hasClass('clicked') ){
+				parent.removeClass('clicked');
+			}else{
+				parent.addClass('clicked');
+			}
+		}
+
+		addTag(this.name);
+		updatePrices();
 	});	
 
 	$('#check_page_outros').change(function(){
-		$("#outros_qtd").prop( "disabled", !this.checked );
-		$("#outros_qtd").prop( "required", this.checked );
+		$("#range_outras").prop( "disabled", !this.checked );
+		$("#range_outras").prop( "required", this.checked );
 	});
 
-	// Quando tiver mais de dois adicionais o guia do adm tem que ficar 10% mais caro
-	//
-	// var adicionais_checados_anteriormente = 0;
-	$('div#adicionais input[type=checkbox]').change( function() {
-		let newValorMin = valorMin;
-		let newValorMax = valorMax;
-
-		var checados = $('div#adicionais input[type=checkbox]:checked').length;
-
-		// if (checados > 2) {
-		// 	newValorMin -= (formValues['guia_adm']['min'] * (0.1 * adicionais_checados_anteriormente))
-		// 	newValorMax -= (formValues['guia_adm']['max'] * (0.1 * adicionais_checados_anteriormente))
-
-		// 	adicionais_checados_anteriormente = checados;
-
-		// 	newValorMin += (formValues['guia_adm']['min'] * (0.1 * checados))
-		// 	newValorMax += (formValues['guia_adm']['max'] * (0.1 * checados))
-		// } else if (checados < adicionais_checados_anteriormente) {
-
-		// }
-
-		valorMin = newValorMin;
-		valorMax = newValorMax;
-
-		$('#preco-min').html(toCurrency(valorMin));
-		$('#preco-max').html(toCurrency(valorMax));
-		$('#preco-min-input').val(toCurrency(valorMin));
-		$('#preco-max-input').val(toCurrency(valorMax));
-	});
-
-	if(typeof(String.prototype.trim) === "undefined")
-	{
+	if(typeof(String.prototype.trim) === "undefined"){
 	    String.prototype.trim = function() 
 	    {
 	        return String(this).replace(/^\s+|\s+$/g, '');
@@ -447,76 +444,12 @@ $(document).ready(function() {
 </head>
 <body>
 	<form autocomplete="off" action="https://criamosseusite.com.br/receiver/" method="post">
-		<div class="bg-dark" id="bg-dark">
+		<div class="bg-dark" id="bg-dark" hidden="">
 			<div class="modal">
-				<div class="opcao-modal">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 464 464" style="enable-background:new 0 0 464 464;size: 16px;height: 50px;width: auto;" xml:space="preserve">
-<path style="fill:#FCF05A;" d="M376,464H40V32h224l112,112V464z"/>
-<path style="fill:#FDBD40;" d="M424,416H88V0h224l112,112V416z"/>
-<path style="fill:#F49E21;" d="M312,112h112L312,0V112z"/>
-<g><path style="fill:#E9686A;" d="M152,352h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,352,152,352z"/>
-<path style="fill:#E9686A;" d="M376,352H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,352,376,352z"/>
-<path style="fill:#E9686A;" d="M152,304h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,304,152,304z"/>
-<path style="fill:#E9686A;" d="M376,304H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,304,376,304z"/>
-<path style="fill:#E9686A;" d="M152,256h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,256,152,256z"/>
-<path style="fill:#E9686A;" d="M376,256H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,256,376,256z"/>
-<path style="fill:#E9686A;" d="M152,208h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,208,152,208z"/>
-<path style="fill:#E9686A;" d="M376,208H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,208,376,208z"/>
-<path style="fill:#E9686A;" d="M152,160h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,160,152,160z"/>
-<path style="fill:#E9686A;" d="M376,160H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,160,376,160z"/>
-<path style="fill:#E9686A;" d="M136,72h48v48h-48V72z"/></g></svg>
-				Institucional ou LP</div>
-				<div class="opcao-modal">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 464 464" style="enable-background:new 0 0 464 464;size: 16px;height: 50px;width: auto;" xml:space="preserve">
-<path style="fill:#FCF05A;" d="M376,464H40V32h224l112,112V464z"/>
-<path style="fill:#FDBD40;" d="M424,416H88V0h224l112,112V416z"/>
-<path style="fill:#F49E21;" d="M312,112h112L312,0V112z"/>
-<g><path style="fill:#E9686A;" d="M152,352h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,352,152,352z"/>
-<path style="fill:#E9686A;" d="M376,352H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,352,376,352z"/>
-<path style="fill:#E9686A;" d="M152,304h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,304,152,304z"/>
-<path style="fill:#E9686A;" d="M376,304H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,304,376,304z"/>
-<path style="fill:#E9686A;" d="M152,256h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,256,152,256z"/>
-<path style="fill:#E9686A;" d="M376,256H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,256,376,256z"/>
-<path style="fill:#E9686A;" d="M152,208h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,208,152,208z"/>
-<path style="fill:#E9686A;" d="M376,208H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,208,376,208z"/>
-<path style="fill:#E9686A;" d="M152,160h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,160,152,160z"/>
-<path style="fill:#E9686A;" d="M376,160H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,160,376,160z"/>
-<path style="fill:#E9686A;" d="M136,72h48v48h-48V72z"/></g></svg>
-				Ecommerce</div>
-				<div class="opcao-modal">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 464 464" style="enable-background:new 0 0 464 464;size: 16px;height: 50px;width: auto;" xml:space="preserve">
-<path style="fill:#FCF05A;" d="M376,464H40V32h224l112,112V464z"/>
-<path style="fill:#FDBD40;" d="M424,416H88V0h224l112,112V416z"/>
-<path style="fill:#F49E21;" d="M312,112h112L312,0V112z"/>
-<g><path style="fill:#E9686A;" d="M152,352h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,352,152,352z"/>
-<path style="fill:#E9686A;" d="M376,352H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,352,376,352z"/>
-<path style="fill:#E9686A;" d="M152,304h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,304,152,304z"/>
-<path style="fill:#E9686A;" d="M376,304H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,304,376,304z"/>
-<path style="fill:#E9686A;" d="M152,256h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,256,152,256z"/>
-<path style="fill:#E9686A;" d="M376,256H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,256,376,256z"/>
-<path style="fill:#E9686A;" d="M152,208h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,208,152,208z"/>
-<path style="fill:#E9686A;" d="M376,208H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,208,376,208z"/>
-<path style="fill:#E9686A;" d="M152,160h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,160,152,160z"/>
-<path style="fill:#E9686A;" d="M376,160H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,160,376,160z"/>
-<path style="fill:#E9686A;" d="M136,72h48v48h-48V72z"/></g></svg>
-				Reformulação</div>
-				<div class="opcao-modal">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 464 464" style="enable-background:new 0 0 464 464;size: 16px;height: 50px;width: auto;" xml:space="preserve">
-<path style="fill:#FCF05A;" d="M376,464H40V32h224l112,112V464z"/>
-<path style="fill:#FDBD40;" d="M424,416H88V0h224l112,112V416z"/>
-<path style="fill:#F49E21;" d="M312,112h112L312,0V112z"/>
-<g><path style="fill:#E9686A;" d="M152,352h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,352,152,352z"/>
-<path style="fill:#E9686A;" d="M376,352H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,352,376,352z"/>
-<path style="fill:#E9686A;" d="M152,304h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,304,152,304z"/>
-<path style="fill:#E9686A;" d="M376,304H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,304,376,304z"/>
-<path style="fill:#E9686A;" d="M152,256h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,256,152,256z"/>
-<path style="fill:#E9686A;" d="M376,256H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,256,376,256z"/>
-<path style="fill:#E9686A;" d="M152,208h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,208,152,208z"/>
-<path style="fill:#E9686A;" d="M376,208H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,208,376,208z"/>
-<path style="fill:#E9686A;" d="M152,160h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,160,152,160z"/>
-<path style="fill:#E9686A;" d="M376,160H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,160,376,160z"/>
-<path style="fill:#E9686A;" d="M136,72h48v48h-48V72z"/></g></svg>
-				Blog</div>
+				<div class="opcao-modal">Institucional ou LP</div>
+				<div class="opcao-modal">Ecommerce</div>
+				<div class="opcao-modal">Reformulação</div>
+				<div class="opcao-modal">Blog</div>
 			</div>
 		</div>
 		<input type="hidden" name="tipo_servico" id="tipo_servico" >
@@ -541,78 +474,123 @@ $(document).ready(function() {
 
 			<button type="button" class="collapsible">O que você já tem?</button>
 			<div class="content">
-				<input type="checkbox" name="dominio" id="check_dominio" value="0">
-				<label class="form-label" for="check_dominio">Domínio</label>
-				<br>
-				<input type="checkbox" name="hospedagem" id="check_hospedagem">
-				<label class="form-label" for="check_hospedagem">Hospedagem</label>
-				<br>
-				<input type="checkbox" name="email" id="check_email">
-				<label class="form-label" for="check_email">Email institucional</label>
-
-				<br>
-				<input type="checkbox" name="conteudo" id="check_conteudo">
-				<label class="form-label" for="check_conteudo">Conteúdo do site</label>
-				<br>
-				<!-- <input type="checkbox" name="idv" id="check_idv">
-				<label class="form-label" for="check_idv">Precisa de identidade visual?</label> -->
-				<hr>
+				<label class="form-label" for="check_dominio">
+					<div class="label_container">
+						<input type="checkbox" name="dominio" id="check_dominio" value="0">
+						Domínio
+					</div>
+				</label>
+				<label class="form-label" for="check_hospedagem">
+					<div class="label_container">
+						<input type="checkbox" name="hospedagem" id="check_hospedagem">
+						Hospedagem
+					</div>
+				</label>
+				<label class="form-label" for="check_email">
+					<div class="label_container">
+						<input type="checkbox" name="email" id="check_email">
+						Email institucional
+					</div>
+				</label>
+				<label class="form-label" for="check_conteudo">
+					<div class="label_container">
+						<input type="checkbox" name="conteudo" id="check_conteudo">
+						Conteúdo do site
+					</div>
+				</label>
 			</div>
 			<button type="button" class="collapsible">Quais páginas você precisa?</button>
 			<div class="content">
 			
-				<input type="checkbox" name="home" id="check_home" checked disabled>
-				<label class="form-label" for="check_home">Home</label>
-				<br>
-				<input type="checkbox" name="page_quem" id="check_page_quem">
-				<label class="form-label" for="check_page_quem">Quem Somos</label>
-				<br>
-				<input type="checkbox" name="page_esp" id="check_page_esp">
-				<label class="form-label" for="check_page_esp">Específica</label>
-				<br>
-				<input type="checkbox" name="page_serv" id="check_page_serv">
-				<label class="form-label" for="check_page_serv">Serviços/Produtos</label>
-				<br>
-				<input type="checkbox" name="page_port" id="check_page_port">
-				<label class="form-label" for="check_page_port">Portfólio/Clientes</label>
-				<br>
-				<input type="checkbox" name="page_blog" id="check_page_blog">
-				<label class="form-label" for="check_page_blog">Blog</label>
-				<br>
-				<input type="checkbox" name="page_outros" id="check_page_outros">
-				<label class="form-label" for="check_page_outros">Outras</label>
-				<input type="range" id="outros_qtd" name="Quantidade" min="1" max="10" disabled="true" required>
-				<hr>
+				<label class="form-label" for="check_home">
+					<div class="label_container clicked">
+						<input type="checkbox" name="home" id="check_home" checked disabled>
+						Home
+					</div>
+				</label>
+				<label class="form-label" for="check_page_quem">
+					<div class="label_container">
+						<input type="checkbox" name="page_quem" id="check_page_quem">
+						Quem Somos
+					</div>
+				</label>
+				<label class="form-label" for="check_page_esp">
+					<div class="label_container">
+						<input type="checkbox" name="page_esp" id="check_page_esp">
+						Específica
+					</div>
+				</label>
+				<label class="form-label" for="check_page_serv">
+					<div class="label_container">
+						<input type="checkbox" name="page_serv" id="check_page_serv">
+						Serviços/Produtos
+					</div>
+				</label>
+				<label class="form-label" for="check_page_port">
+					<div class="label_container">
+						<input type="checkbox" name="page_port" id="check_page_port">
+						Portfólio/Clientes
+					</div>
+				</label>
+				<label class="form-label" for="check_page_blog">
+					<div class="label_container">
+						<input type="checkbox" name="page_blog" id="check_page_blog">
+						Blog
+					</div>
+				</label>
+				<label class="form-label" for="check_page_outros">
+					<div class="label_container">
+						<input type="checkbox" name="page_outros" id="check_page_outros">
+						Outras:
+					
+						<input type="range" id="range_outras" name="range_outras" min="1" max="10" disabled="true" value="1" required>
+						<span id="quant_outras">1</span>
+					</div>
+				</label>
 			</div>
 
 			<button type="button" class="collapsible">Quais adicionais vai querer?</button>
 			<div class="content" id="adicionais">
 			
-				<input type="checkbox" name="newsletter" id="check_newsletter">
-				<label class="form-label" for="check_newsletter">Newsletter</label>
-				<br>
-				<input type="checkbox" name="seo" id="check_seo">
-				<label class="form-label" for="check_seo">Precisa de SEO + Analytics?</label>
-				<br>
-				<input type="checkbox" name="form_contato" id="check_form_contato">
-				<label class="form-label" for="check_form_contato">form contato</label>
-				<br>
-				<input type="checkbox" name="redes_sociais" id="check_redes_sociais">
-				<label class="form-label" for="check_redes_sociais">redes sociais</label>
-				<br>
-				<input type="checkbox" name="video" id="check_video">
-				<label class="form-label" for="check_video">Vídeo no site</label>
-				<br>
-				<input type="checkbox" name="linguas" id="check_linguas">
-				<label class="form-label" for="check_linguas">Linguas </label>
-				<br>
-				<input type="checkbox" name="venda" id="check_venda">
-				<label class="form-label" for="check_venda">Venda direta pelo site? (s/n)</label>
-				<hr>
+				<label class="form-label" for="check_newsletter">
+					<div class="label_container">
+						<input type="checkbox" name="newsletter" id="check_newsletter">
+						Newsletter
+					</div>
+				</label>				
+				<label class="form-label" for="check_seo">
+					<div class="label_container">
+						<input type="checkbox" name="seo" id="check_seo">
+						Precisa de SEO + Analytics?
+					</div>
+				</label>				
+				<label class="form-label" for="check_form_contato">
+					<div class="label_container">
+						<input type="checkbox" name="form_contato" id="check_form_contato">
+						form contato
+					</div>
+				</label>				
+				<label class="form-label" for="check_redes_sociais">
+					<div class="label_container">
+						<input type="checkbox" name="redes_sociais" id="check_redes_sociais">
+						redes sociais
+					</div>
+				</label>				
+				<label class="form-label" for="check_linguas">
+					<div class="label_container">
+						<input type="checkbox" name="linguas" id="check_linguas">
+						Linguas 
+					</div>
+				</label>				
+				<label class="form-label" for="ecomm">
+					<div class="label_container">
+						<input type="checkbox" name="venda" id="ecomm">
+						Venda direta pelo site? (s/n)
+					</div>
+				</label>				
 			</div>
 			<button type="button" class="collapsible">Informações completares</button>
 			<div class="content">
-				<h4>Informações complementares</h4>
 				<label>Referências:</label><br>
 				<textarea name="referencia" rows="10" cols="50"></textarea>
 				<br><br>
