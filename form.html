@@ -401,18 +401,24 @@ $(document).ready(function() {
 
 	// Quando tiver mais de dois adicionais o guia do adm tem que ficar 10% mais caro
 	//
-	var adicionais_checados = 0;
+	// var adicionais_checados_anteriormente = 0;
 	$('div#adicionais input[type=checkbox]').change( function() {
 		let newValorMin = valorMin;
 		let newValorMax = valorMax;
 
-		var checados = 0;
-		$('div#adicionais input[type=checkbox]').each(function(){
-		    this.checked? checados += 1 : checados += 0;
-		});
+		var checados = $('div#adicionais input[type=checkbox]:checked').length;
 
-		newValorMin += 400 * (400 * (0.1 * checados))
-		newValorMax += 1500 * (1500 * (0.1 * checados))
+		// if (checados > 2) {
+		// 	newValorMin -= (formValues['guia_adm']['min'] * (0.1 * adicionais_checados_anteriormente))
+		// 	newValorMax -= (formValues['guia_adm']['max'] * (0.1 * adicionais_checados_anteriormente))
+
+		// 	adicionais_checados_anteriormente = checados;
+
+		// 	newValorMin += (formValues['guia_adm']['min'] * (0.1 * checados))
+		// 	newValorMax += (formValues['guia_adm']['max'] * (0.1 * checados))
+		// } else if (checados < adicionais_checados_anteriormente) {
+
+		// }
 
 		valorMin = newValorMin;
 		valorMax = newValorMax;
