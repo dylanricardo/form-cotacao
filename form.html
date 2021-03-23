@@ -236,25 +236,46 @@ input[type=number] {
 $(document).ready(function() {
 
 	var formState = {
-		dominio: 0,
-		hospedagem : 0,
-		email : 0,
-		seo : 0,
-		conteudo : 0,
-		home : 0,
-		page_quem : 0,
-		page_esp : 0,
-		page_serv : 0,
-		page_port : 0,
-		page_blog : 0,
-		page_outros : 0,
-		newsletter : 0,
-		form_contato : 0,
-		redes_sociais : 0,
-		video : 0,
-		linguas : 0,
-		venda : 0,
+		dominio: false,
+		hospedagem : false,
+		email : false,
+		conteudo : false,
+		home : true,
+		page_quem : false,
+		page_esp : false,
+		page_serv : false,
+		page_port : false,
+		page_blog : false,
+		page_outros : false,
+		newsletter : false,
+		seo : false,
+		form_contato : false,
+		redes_sociais : false,
+		linguas : false,
+		ecomm : false,
+	}	
+
+	var formValues = {
+		dominio: {min: 50, max: 50, add: false},
+		hospedagem : {min: 100, max: 100, add: false},
+		email : {min: 50, max: 250, add: false},
+		conteudo : {min: 400, max: 500, add: false},
+		home : {min: 1000, max: 1500, add: true},
+		page_quem : {min: 200, max: 300, add: true},
+		page_esp : {min: 200, max: 600, add: true},
+		page_serv : {min: 200, max: 300, add: true},
+		page_port : {min: 200, max: 300, add: true},
+		page_blog : {min: 300, max: 400, add: true},
+		page_outros : {min: 200, max: 400, add: true},
+		newsletter : {min: 200, max: 300, add: true},
+		seo : {min: 350, max: 700, add: true},
+		form_contato : {min: 50, max: 150, add: true},
+		redes_sociais : {min: 100, max: 200, add: true},
+		linguas : {min: 200, max: 600, add: true},
+		venda : {min: 2500, max: 4000, add: true}
 	}
+
+	/* guia_adm  10%  20%*/
 
 	const nameHumanized = {
 		dominio: "- Domínio",
@@ -272,35 +293,16 @@ $(document).ready(function() {
 		newsletter : "Newsletter",
 		form_contato : "Formulário de contato",
 		redes_sociais : "Redes sociais",
-		video : "Vídeo",
 		linguas : "Línguas",
 		venda : "Venda pelo site",
 	}
 
-	var formValues = {
-		dominio: {min: 50, max: 50, add: false},
-		hospedagem : {min: 100, max: 100, add: false},
-		email : {min: 50, max: 250, add: false},
-		conteudo : {min: 400, max: 1000, add: false},
-		seo : {min: 250, max: 750, add: true},
-		home : {min: 800, max: 1800, add: true},
-		page_quem : {min: 200, max: 500, add: true},
-		page_esp : {min: 200, max: 1500, add: true},
-		page_serv : {min: 200, max: 500, add: true},
-		page_port : {min: 200, max: 500, add: true},
-		page_blog : {min: 300, max: 800, add: true},
-		page_outros : {min: 200, max: 500, add: true},
-		newsletter : {min: 200, max: 500, add: true},
-		form_contato : {min: 50, max: 250, add: true},
-		redes_sociais : {min: 50, max: 100, add: true},
-		video : {min: 50, max: 100, add: true},
-		linguas : {min: 200, max: 1500, add: true},
-		check_venda : {min: 2000, max: 5000, add: true},
-		guia_adm : {min: 400, max: 1500, add: true},
-	}
+	const guia_min = 1.1;
+	const guia_max = 1.1;
 
-	var valorMin = formValues['home']['min'] + formValues['guia_adm']['min'];
-	var valorMax = formValues['home']['max'] + formValues['guia_adm']['max'];
+
+	var valorMin = formValues['home']['min'] * guia_min;
+	var valorMax = formValues['home']['max'] * guia_max;
 	
 	$('#preco-min').html(toCurrency(valorMin))
 	$('#preco-max').html(toCurrency(valorMax))
@@ -316,56 +318,37 @@ $(document).ready(function() {
 		});
 	}
 	var qtd_val = 0;
-	$(document).on('input', '#outros_qtd', function() {
-		var tempval = parseInt( $(this).val() );
-		var min = formValues["page_outros"]["min"] * tempval;
-		var max = formValues["page_outros"]["max"] * tempval;
-		let newValorMin = valorMin;
-		let newValorMax = valorMax;
-		if (tempval != qtd_val) {
-			newValorMin -= qtd_val * formValues["page_outros"]["min"];
-			newValorMax -= qtd_val * formValues["page_outros"]["max"];
-			newValorMin += min;
-			newValorMax += max;
-			qtd_val = tempval;
-		}
-		valorMin = newValorMin;
-		valorMax = newValorMax;
+	var quantidade_outras = 1;
 
-		$('#preco-min').html(toCurrency(valorMin));
-		$('#preco-max').html(toCurrency(valorMax));
-		$('#preco-min-input').val(toCurrency(valorMin));
-		$('#preco-max-input').val(toCurrency(valorMax));
+	$('#range_outras').on("input change", function() {
+		$('#quant_outras').html($(this).val());
+		quantidade_outras = $(this).val();
+
+		updatePrices('page_outros')
+
 	});
 
-	function updatePrices(changedPropName, checked){
-		let newValorMin = valorMin;
-		let newValorMax = valorMax;
-		addTag(changedPropName);
-		if(checked){
-			if(formValues[changedPropName]['add']){
-				newValorMin += formValues[changedPropName]['min']
-				newValorMax += formValues[changedPropName]['max']
-			}
-			else{
-				newValorMin -= formValues[changedPropName]['min']
-				newValorMax -= formValues[changedPropName]['max']
-			}
-		}
-		else{
-			if(formValues[changedPropName]['add']){
-				newValorMin -= formValues[changedPropName]['min']
-				newValorMax -= formValues[changedPropName]['max']
-			}
-			else{
-				newValorMin += formValues[changedPropName]['min']
-				newValorMax += formValues[changedPropName]['max']
+	function updatePrices(){
+		valorMin = 0;
+		valorMax = 0;
+		
+		for(var key in formState){
+			if(formState[key]){
+				if(formValues[key]['add']){
+					let quantidade = (key == 'page_outros') ? $('#range_outras').val() : 1;
+
+					valorMin += formValues[key]['min']*quantidade;
+					valorMax += formValues[key]['max']*quantidade;
+
+				}else{
+					valorMin -= formValues[key]['min'];
+					valorMax -= formValues[key]['max'];
+				}
 			}
 		}
 
-		valorMin = newValorMin;
-		valorMax = newValorMax;
-
+		valorMin = valorMin*guia_min;
+		valorMax = valorMax*guia_max;
 		$('#preco-min').html(toCurrency(valorMin));
 		$('#preco-max').html(toCurrency(valorMax));
 		$('#preco-min-input').val(toCurrency(valorMin));
@@ -384,41 +367,41 @@ $(document).ready(function() {
 		}
 	}
 
-	$('#check_dominio, #check_hospedagem, #check_email, #check_seo, #check_conteudo, #check_home, #check_page_quem, #check_page_esp, #check_page_serv, #check_page_port, #check_page_blog, #check_page_outros, #check_newsletter, #check_form_contato, #check_redes_sociais, #check_video, #check_linguas').change(function(){
+	$('#ecomm, #check_dominio, #check_hospedagem, #check_email, #check_seo, #check_conteudo, #check_home, #check_page_quem, #check_page_esp, #check_page_serv, #check_page_port, #check_page_blog, #check_page_outros, #check_newsletter, #check_form_contato, #check_redes_sociais, #check_linguas').change(function(){
 		if( this.checked){
-			formState[this.name] = 1;
+			formState[this.name] = true;
 		}
 		else{
-			formState[this.name] = 0;	
+			formState[this.name] = false;	
 		}
-		updatePrices(this.name, this.checked);
+
+		addTag(this.name);
+		updatePrices();
 	});	
 
 	$('#check_page_outros').change(function(){
-		$("#outros_qtd").prop( "disabled", !this.checked );
-		$("#outros_qtd").prop( "required", this.checked );
+		$("#range_outras").prop( "disabled", !this.checked );
+		$("#range_outras").prop( "required", this.checked );
 	});
+
+
+
 
 	// Quando tiver mais de dois adicionais o guia do adm tem que ficar 10% mais caro
 	//
-	// var adicionais_checados_anteriormente = 0;
+	
+	/*var adicionais_checados = 0;
 	$('div#adicionais input[type=checkbox]').change( function() {
 		let newValorMin = valorMin;
 		let newValorMax = valorMax;
 
-		var checados = $('div#adicionais input[type=checkbox]:checked').length;
+		var checados = 0;
+		$('div#adicionais input[type=checkbox]').each(function(){
+		    this.checked? checados += 1 : checados += 0;
+		});
 
-		// if (checados > 2) {
-		// 	newValorMin -= (formValues['guia_adm']['min'] * (0.1 * adicionais_checados_anteriormente))
-		// 	newValorMax -= (formValues['guia_adm']['max'] * (0.1 * adicionais_checados_anteriormente))
-
-		// 	adicionais_checados_anteriormente = checados;
-
-		// 	newValorMin += (formValues['guia_adm']['min'] * (0.1 * checados))
-		// 	newValorMax += (formValues['guia_adm']['max'] * (0.1 * checados))
-		// } else if (checados < adicionais_checados_anteriormente) {
-
-		// }
+		newValorMin += 400 * (400 * (0.1 * checados))
+		newValorMax += 1500 * (1500 * (0.1 * checados))
 
 		valorMin = newValorMin;
 		valorMax = newValorMax;
@@ -427,10 +410,9 @@ $(document).ready(function() {
 		$('#preco-max').html(toCurrency(valorMax));
 		$('#preco-min-input').val(toCurrency(valorMin));
 		$('#preco-max-input').val(toCurrency(valorMax));
-	});
+	});*/
 
-	if(typeof(String.prototype.trim) === "undefined")
-	{
+	if(typeof(String.prototype.trim) === "undefined"){
 	    String.prototype.trim = function() 
 	    {
 	        return String(this).replace(/^\s+|\s+$/g, '');
@@ -447,76 +429,12 @@ $(document).ready(function() {
 </head>
 <body>
 	<form autocomplete="off" action="https://criamosseusite.com.br/receiver/" method="post">
-		<div class="bg-dark" id="bg-dark">
+		<div class="bg-dark" id="bg-dark" hidden="">
 			<div class="modal">
-				<div class="opcao-modal">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 464 464" style="enable-background:new 0 0 464 464;size: 16px;height: 50px;width: auto;" xml:space="preserve">
-<path style="fill:#FCF05A;" d="M376,464H40V32h224l112,112V464z"/>
-<path style="fill:#FDBD40;" d="M424,416H88V0h224l112,112V416z"/>
-<path style="fill:#F49E21;" d="M312,112h112L312,0V112z"/>
-<g><path style="fill:#E9686A;" d="M152,352h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,352,152,352z"/>
-<path style="fill:#E9686A;" d="M376,352H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,352,376,352z"/>
-<path style="fill:#E9686A;" d="M152,304h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,304,152,304z"/>
-<path style="fill:#E9686A;" d="M376,304H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,304,376,304z"/>
-<path style="fill:#E9686A;" d="M152,256h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,256,152,256z"/>
-<path style="fill:#E9686A;" d="M376,256H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,256,376,256z"/>
-<path style="fill:#E9686A;" d="M152,208h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,208,152,208z"/>
-<path style="fill:#E9686A;" d="M376,208H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,208,376,208z"/>
-<path style="fill:#E9686A;" d="M152,160h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,160,152,160z"/>
-<path style="fill:#E9686A;" d="M376,160H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,160,376,160z"/>
-<path style="fill:#E9686A;" d="M136,72h48v48h-48V72z"/></g></svg>
-				Institucional ou LP</div>
-				<div class="opcao-modal">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 464 464" style="enable-background:new 0 0 464 464;size: 16px;height: 50px;width: auto;" xml:space="preserve">
-<path style="fill:#FCF05A;" d="M376,464H40V32h224l112,112V464z"/>
-<path style="fill:#FDBD40;" d="M424,416H88V0h224l112,112V416z"/>
-<path style="fill:#F49E21;" d="M312,112h112L312,0V112z"/>
-<g><path style="fill:#E9686A;" d="M152,352h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,352,152,352z"/>
-<path style="fill:#E9686A;" d="M376,352H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,352,376,352z"/>
-<path style="fill:#E9686A;" d="M152,304h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,304,152,304z"/>
-<path style="fill:#E9686A;" d="M376,304H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,304,376,304z"/>
-<path style="fill:#E9686A;" d="M152,256h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,256,152,256z"/>
-<path style="fill:#E9686A;" d="M376,256H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,256,376,256z"/>
-<path style="fill:#E9686A;" d="M152,208h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,208,152,208z"/>
-<path style="fill:#E9686A;" d="M376,208H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,208,376,208z"/>
-<path style="fill:#E9686A;" d="M152,160h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,160,152,160z"/>
-<path style="fill:#E9686A;" d="M376,160H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,160,376,160z"/>
-<path style="fill:#E9686A;" d="M136,72h48v48h-48V72z"/></g></svg>
-				Ecommerce</div>
-				<div class="opcao-modal">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 464 464" style="enable-background:new 0 0 464 464;size: 16px;height: 50px;width: auto;" xml:space="preserve">
-<path style="fill:#FCF05A;" d="M376,464H40V32h224l112,112V464z"/>
-<path style="fill:#FDBD40;" d="M424,416H88V0h224l112,112V416z"/>
-<path style="fill:#F49E21;" d="M312,112h112L312,0V112z"/>
-<g><path style="fill:#E9686A;" d="M152,352h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,352,152,352z"/>
-<path style="fill:#E9686A;" d="M376,352H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,352,376,352z"/>
-<path style="fill:#E9686A;" d="M152,304h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,304,152,304z"/>
-<path style="fill:#E9686A;" d="M376,304H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,304,376,304z"/>
-<path style="fill:#E9686A;" d="M152,256h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,256,152,256z"/>
-<path style="fill:#E9686A;" d="M376,256H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,256,376,256z"/>
-<path style="fill:#E9686A;" d="M152,208h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,208,152,208z"/>
-<path style="fill:#E9686A;" d="M376,208H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,208,376,208z"/>
-<path style="fill:#E9686A;" d="M152,160h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,160,152,160z"/>
-<path style="fill:#E9686A;" d="M376,160H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,160,376,160z"/>
-<path style="fill:#E9686A;" d="M136,72h48v48h-48V72z"/></g></svg>
-				Reformulação</div>
-				<div class="opcao-modal">
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 464 464" style="enable-background:new 0 0 464 464;size: 16px;height: 50px;width: auto;" xml:space="preserve">
-<path style="fill:#FCF05A;" d="M376,464H40V32h224l112,112V464z"/>
-<path style="fill:#FDBD40;" d="M424,416H88V0h224l112,112V416z"/>
-<path style="fill:#F49E21;" d="M312,112h112L312,0V112z"/>
-<g><path style="fill:#E9686A;" d="M152,352h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,352,152,352z"/>
-<path style="fill:#E9686A;" d="M376,352H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,352,376,352z"/>
-<path style="fill:#E9686A;" d="M152,304h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,304,152,304z"/>
-<path style="fill:#E9686A;" d="M376,304H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,304,376,304z"/>
-<path style="fill:#E9686A;" d="M152,256h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,256,152,256z"/>
-<path style="fill:#E9686A;" d="M376,256H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,256,376,256z"/>
-<path style="fill:#E9686A;" d="M152,208h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,208,152,208z"/>
-<path style="fill:#E9686A;" d="M376,208H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,208,376,208z"/>
-<path style="fill:#E9686A;" d="M152,160h-16c-4.418,0-8-3.582-8-8s3.582-8,8-8h16c4.418,0,8,3.582,8,8S156.418,160,152,160z"/>
-<path style="fill:#E9686A;" d="M376,160H184c-4.418,0-8-3.582-8-8s3.582-8,8-8h192c4.418,0,8,3.582,8,8S380.418,160,376,160z"/>
-<path style="fill:#E9686A;" d="M136,72h48v48h-48V72z"/></g></svg>
-				Blog</div>
+				<div class="opcao-modal">Institucional ou LP</div>
+				<div class="opcao-modal">Ecommerce</div>
+				<div class="opcao-modal">Reformulação</div>
+				<div class="opcao-modal">Blog</div>
 			</div>
 		</div>
 		<input type="hidden" name="tipo_servico" id="tipo_servico" >
@@ -581,7 +499,8 @@ $(document).ready(function() {
 				<br>
 				<input type="checkbox" name="page_outros" id="check_page_outros">
 				<label class="form-label" for="check_page_outros">Outras</label>
-				<input type="range" id="outros_qtd" name="Quantidade" min="1" max="10" disabled="true" required>
+				<input type="range" id="range_outras" name="range_outras" min="1" max="10" disabled="true" value="1" required>
+				<span id="quant_outras">1</span>
 				<hr>
 			</div>
 
@@ -600,14 +519,11 @@ $(document).ready(function() {
 				<input type="checkbox" name="redes_sociais" id="check_redes_sociais">
 				<label class="form-label" for="check_redes_sociais">redes sociais</label>
 				<br>
-				<input type="checkbox" name="video" id="check_video">
-				<label class="form-label" for="check_video">Vídeo no site</label>
-				<br>
 				<input type="checkbox" name="linguas" id="check_linguas">
 				<label class="form-label" for="check_linguas">Linguas </label>
 				<br>
-				<input type="checkbox" name="venda" id="check_venda">
-				<label class="form-label" for="check_venda">Venda direta pelo site? (s/n)</label>
+				<input type="checkbox" name="venda" id="ecomm">
+				<label class="form-label" for="ecomm">Venda direta pelo site? (s/n)</label>
 				<hr>
 			</div>
 			<button type="button" class="collapsible">Informações completares</button>
