@@ -60,33 +60,36 @@ body, html {
 	margin: 5vh auto;
 	overflow-y: scroll;
 }
+
+.cont-result h2 {
+	margin-top: 0;
+}
+
 .cont-result-list{
 	width: 90%;
 	height: 42vh;
-	max-height: auto;
 	border: 1px solid #fff;
+	margin: auto;
+	text-align: left;
 	display: flex;
 	flex-wrap: wrap;
-	margin: auto;
 }
 
 .tag {
   flex: 1 0 25%;
-  margin: 5px;
-  height: 50px;
-  line-height: 50px;
-  background-color: #FCA311;
-  font-weight: bold;
-  outline: 1px solid #FCA311;
-  outline-offset: 2px;
+  font-weight: 400;
 }
 
 .cont-preco{
 	width: 80%;
-	height: 20vh;
+	height: 10vh;
 	margin: 5vh auto;
 	display: flex;
 	text-align: center;
+}
+
+.cont-preco h2 {
+	margin-right: 15px;
 }
 
 ::-webkit-scrollbar {
@@ -114,10 +117,16 @@ body, html {
 .cont-preco-left{
 	width: 50%;
 	height: 100%;
+	display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .cont-preco-rigth{
 	width: 50%;
 	height: 100%;
+	display: flex;
+    align-items: center;
+    justify-content: center;
 	color:  #FCA311;
 }
 
@@ -165,7 +174,6 @@ body, html {
 }
 
 .tooltip {
-	content: "?";
 	background-color: #14213E;
 	color: #fff;
 	padding: 3px 7px;
@@ -173,10 +181,16 @@ body, html {
 	border-radius: 50%;
 	float: right;
 	display: none;
+	transition: all 0.3s;
 }
 
-label:hover .tooltip{
+.label-wrapper:hover .tooltip{
 	display: block;
+}
+
+.tooltip:hover{
+	border-radius: 0;
+	font-size: 13px;
 }
 
 .active:after {
@@ -241,6 +255,50 @@ input[type=number] {
 	background-color: red;
 }
 
+.result {
+	width: calc(50% - 6px);
+	height: 50%;
+	font-weight: bold;
+	padding-left: 5px; 
+}
+
+.rightborder {
+	border-left: 1px #fff solid;
+}
+
+.help-button {
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+	font-size: 40px;
+	background-color: #14213E;
+	border-radius: 50%;
+	line-height: 40px;
+	height: 40px;
+	width: 40px;
+	text-align: center;
+	border: 1px solid #FCA311;
+	color: #FCA311;
+	transition: all 0.3s;
+}
+
+.help-text {
+	position: absolute;
+	right: 20px;
+	bottom: 80px;
+	background-color: #fff;
+	border: 1px solid #FCA311;
+	text-align: center;
+	width: 300px;
+	color: #14213E;
+	display: none;
+	transition: all 0.3s;
+}
+
+.help-button:hover {
+	background-color: #fff;
+}
+
 </style>
 </head>
 <body>
@@ -253,103 +311,136 @@ input[type=number] {
 				<div class="opcao-modal">Blog</div>
 			</div>
 		</div>
+		<div class="help-button">?</div>
+		<div class="help-text">Faz o favor de selecionar o que você precisa no seu site e nós vamos te responder quando estivermos afim. O resultado é mostrado do lado direito com o resumo do seu pedido, o valor mínimo e o máximo que este serviço pode sair.</div>
 		<input type="hidden" name="tipo_servico" id="tipo_servico" >
 		<div class="cont-total">
 			<div class="cont-left">
 				<h3>Faça seu orçamento</h3>
 				<button type="button" class="collapsible">O que você já tem?</button>
 				<div class="content">
-					<input type="checkbox" name="dominio" id="check_dominio" value="0">
-					<label class="form-label" for="check_dominio">Já tenho domínio próprio <span class="tooltip">?</span></label>
+					<div class="label-wrapper"><input data-where="Possui" type="checkbox" name="dominio" id="check_dominio" value="0">
+					<label class="form-label" for="check_dominio">Já tenho domínio próprio <span class="tooltip" data-value="Você tem um domínio no seu nome?">?</span></label></div>
 					<br>
-					<input type="checkbox" name="hospedagem" id="check_hospedagem">
-					<label class="form-label" for="check_hospedagem">Tenho minha hospedagem <span class="tooltip">?</span></label>
+					<div class="label-wrapper"><input data-where="Possui" type="checkbox" name="hospedagem" id="check_hospedagem">
+					<label class="form-label" for="check_hospedagem">Tenho minha hospedagem <span class="tooltip" data-value="Você tem uma hospedagem no seu nome?">?</span></label></div>
 					<br>
-					<input type="checkbox" name="email" id="check_email">
-					<label class="form-label" for="check_email">Email institucional ligado a hospedagem <span class="tooltip">?</span></label>
+					<div class="label-wrapper"><input data-where="Possui" type="checkbox" name="email" id="check_email">
+					<label class="form-label" for="check_email">Email institucional ligado a hospedagem <span class="tooltip" data-value="Você tem um email com o nome do seu site funcionando?">?</span></label></div>
 
 					<br>
-					<input type="checkbox" name="conteudo" id="check_conteudo">
-					<label class="form-label" for="check_conteudo">Conteúdo do site pronto <span class="tooltip">?</span></label>
+					<div class="label-wrapper"><input data-where="Possui" type="checkbox" name="conteudo" id="check_conteudo">
+					<label class="form-label" for="check_conteudo">Conteúdo do site pronto <span class="tooltip" data-value="Você tem todos os textos para o seu site?">?</span></label></div>
 					<br>
 					<hr>
 				</div>
 				<button type="button" class="collapsible">Quais páginas você precisa?</button>
 				<div class="content">
-					<input type="checkbox" name="home" id="check_home" checked disabled>
-					<label class="form-label" for="check_home">Home <span class="tooltip">?</span></label>
+					<div class="label-wrapper">
+						<input data-where="Paginas" type="checkbox" name="home" id="check_home" checked disabled>
+						<label class="form-label" for="check_home">Home <span class="tooltip" data-value="Todo projeto tem necessáriamente a home">?</span></label>
+					</div>
 					<br>
-					<input type="checkbox" name="page_quem" id="check_page_quem">
-					<label class="form-label" for="check_page_quem">Quem Somos <span class="tooltip">?</span></label>
+					<div class="label-wrapper">
+						<input data-where="Paginas" type="checkbox" name="page_quem" id="check_page_quem">
+						<label class="form-label" for="check_page_quem">Quem Somos <span class="tooltip" data-value="Página falando sobre você, seu colaboradores ou empresa">?</span></label>
+					</div>
 					<br>
-					<input type="checkbox" name="page_esp" id="check_page_esp">
-					<label class="form-label" for="check_page_esp">Específica <span class="tooltip">?</span></label>
+					<div class="label-wrapper">
+						<input data-where="Paginas" type="checkbox" name="page_esp" id="check_page_esp">
+						<label class="form-label" for="check_page_esp">Específica <span class="tooltip" data-value="Página falando sobre um único produto ou serviço">?</span></label>
+					</div>
 					<br>
-					<input type="checkbox" name="page_serv" id="check_page_serv">
-					<label class="form-label" for="check_page_serv">Serviços ou produtos ofertados <span class="tooltip">?</span></label>
+					<div class="label-wrapper">
+					<input data-where="Paginas" type="checkbox" name="page_serv" id="check_page_serv">
+						<label class="form-label" for="check_page_serv">Serviços ou produtos ofertados <span class="tooltip" data-value="Página falando sobre seus serviços ou produtos">?</span></label>
+					</div>
 					<br>
-					<input type="checkbox" name="page_port" id="check_page_port">
-					<label class="form-label" for="check_page_port">Portfólio ou clientes <span class="tooltip">?</span></label>
+					<div class="label-wrapper">
+					<input data-where="Paginas" type="checkbox" name="page_port" id="check_page_port">
+						<label class="form-label" for="check_page_port">Portfólio ou clientes <span class="tooltip" data-value="Página que mostra parceiro, clientes ou seu portfólio">?</span></label>
+					</div>
 					<br>
-					<input type="checkbox" name="page_blog" id="check_page_blog">
-					<label class="form-label" for="check_page_blog">Blog <span class="tooltip">?</span></label>
+					<div class="label-wrapper">
+					<input data-where="Paginas" type="checkbox" name="page_blog" id="check_page_blog">
+						<label class="form-label" for="check_page_blog">Blog <span class="tooltip" data-value="Blog para o seu site">?</span></label>
+					</div>
 					<br>
-					<input type="checkbox" name="page_outros" id="check_page_outros">
-					<label class="form-label" for="check_page_outros">Outras</label>
-					<input type="range" id="range_outras" name="range_outras" min="1" max="10" disabled="true" value="1" required>
-					<span id="quant_outras">1</span><span class="tooltip">?</span>
+					<div class="label-wrapper">
+					<input data-where="Paginas" type="checkbox" name="page_outros" id="check_page_outros">
+						<label class="form-label" for="check_page_outros">Outras</label>
+						<input type="range" id="range_outras" name="range_outras" min="1" max="10" disabled="true" value="1" required>
+						<span id="quant_outras">1</span><span class="tooltip" data-value="Outra página não contemplada nas opções anteriores">?</span>
+					</div>
 					<hr>
 				</div>
 				<button type="button" class="collapsible">Quais adicionais vai querer?</button>
 				<div class="content" id="adicionais">
-					<input type="checkbox" name="newsletter" id="check_newsletter">
-					<label class="form-label" for="check_newsletter">Newsletter <span class="tooltip">?</span></label>
+					<div class="label-wrapper">
+					<input data-where="Adicionais" type="checkbox" name="newsletter" id="check_newsletter">
+						<label class="form-label" for="check_newsletter">Newsletter <span class="tooltip" data-value="Newsletter 100% funcional">?</span></label>
+					</div>
 					<br>
-					<input type="checkbox" name="seo" id="check_seo">
-					<label class="form-label" for="check_seo">SEO + Analytics <span class="tooltip">?</span></label>
+					<div class="label-wrapper">
+					<input data-where="Adicionais" type="checkbox" name="seo" id="check_seo">
+						<label class="form-label" for="check_seo">SEO + Analytics <span class="tooltip" data-value="Garantir que o seu site esteja nas primeiras opções dos buscadores">?</span></label>
+					</div>
 					<br>
-					<input type="checkbox" name="form_contato" id="check_form_contato">
-					<label class="form-label" for="check_form_contato">Formulário de contato <span class="tooltip">?</span></label>
+					<div class="label-wrapper">
+					<input data-where="Adicionais" type="checkbox" name="form_contato" id="check_form_contato">
+						<label class="form-label" for="check_form_contato">Formulário de contato <span class="tooltip" data-value="Formulário para as pessoas entrarem em contato pelo seu email">?</span></label>
+					</div>
 					<br>
-					<input type="checkbox" name="redes_sociais" id="check_redes_sociais">
-					<label class="form-label" for="check_redes_sociais">Conexão com redes as sociais <span class="tooltip">?</span></label>
+					<div class="label-wrapper">
+					<input data-where="Adicionais" type="checkbox" name="redes_sociais" id="check_redes_sociais">
+						<label class="form-label" for="check_redes_sociais">Conexão com redes as sociais <span class="tooltip" data-value="Conectar seu site com LinkedIn, WhatsApp e instagram">?</span></label>
+					</div>
 					<br>
-					<input type="checkbox" name="linguas" id="check_linguas">
-					<label class="form-label" for="check_linguas">Múltiplas línguas <span class="tooltip">?</span></label>
+					<div class="label-wrapper">
+					<input data-where="Adicionais" type="checkbox" name="linguas" id="check_linguas">
+						<label class="form-label" for="check_linguas">Múltiplas línguas <span class="tooltip" data-value="Suporte para mais de uma linguagem">?</span></label>
+					</div>
 					<br>
-					<input type="checkbox" name="venda" id="ecomm">
-					<label class="form-label" for="ecomm">Venda direta pelo site <span class="tooltip">?</span></label>
+					<div class="label-wrapper">
+					<input type="checkbox" name="venda" id="ecomm" data-where="Adicionais">
+						<label class="form-label" for="ecomm">Venda por meio de mensagens <span class="tooltip" data-value="Venda no site porém por meio de contato via whatsapp">?</span></label>
+					</div>
 					<hr>
 				</div>
 				<button type="button" class="collapsible">Informações completares</button>
 				<div class="content">
 					<h4>Informações complementares</h4>
-					<label>Referências: <span class="tooltip">?</span></label>
+					<div class="label-wrapper"><label>Referências: <span class="tooltip" data-value="URLs de sites que você gosta e que imagina que possam inspirar o seu layout">?</span></label></div>
 					<br>
 					<textarea name="referencia" rows="10" cols="50"></textarea>
 					<br><br>
-					<label>Informe alguns adjetivos que você quer passar com o seu site: <span class="tooltip">?</span></label>
+					<div class="label-wrapper"><label>Informe alguns adjetivos que você quer passar com o seu site: <span class="tooltip" data-value="Eficiência, segurança, autoridade...">?</span></label></div>
 					<br>
 					<textarea name="adjetivos" rows="10" cols="50"></textarea>
 					<br><br>
-					<label>Algo mais que você queira contar? <span class="tooltip">?</span></label>
+					<div class="label-wrapper"><label>Algo mais que você queira contar? <span class="tooltip" data-value="Alguma outra informação relevante sobre o que você procura?">?</span></label></div>
 					<br>
 					<textarea name="infos" rows="10" cols="50"></textarea>
 				</div>
 			</div>
 			<div class="cont-right">
 				<div class="cont-result">
-					<h3>Resultado</h3>
-					<div class="cont-result-list" id="tags-container"></div>
+					<h2>Resumo</h2>
+					<div class="cont-result-list" id="tags-container">
+						<div class="result" id="Possui">Possui</div>
+						<div class="result rightborder" id="Adicionais">Adicionais</div>
+						<div class="result" id="Paginas">Páginas</div>
+						<div class="result rightborder"></div>
+					</div>
 				</div>
 				<div class="cont-preco">
 					<div class="cont-preco-left">
-						<h3>preço min</h3>
+						<h2>De: </h2>
 						<span id="preco-min" class="preco-min"></span>
 						<input type="hidden" id="preco-min-input" name="preco-min" />
 					</div>
 					<div class="cont-preco-rigth" >
-						<h3>preço max</h3>
+						<h2>Até: </h2>
 						<span id="preco-max" class="preco-max"></span>
 						<input type="hidden" id="preco-max-input" name="preco-max"/>
 					</div>
@@ -404,11 +495,11 @@ input[type=number] {
 			}
 
 			const nameHumanized = {
-				dominio: "- Domínio",
-				hospedagem : "- Hospedagem",
-				email : "- E-mail institucional",
+				dominio: "Domínio",
+				hospedagem : "Hospedagem",
+				email : "E-mail institucional",
 				seo : "SEO + Analytics",
-				conteudo : "- Conteúdo",
+				conteudo : "Conteúdo",
 				home : "Home page",
 				page_quem : "Página quem somos",
 				page_esp : "Página específica",
@@ -481,17 +572,19 @@ input[type=number] {
 				$('#preco-max-input').val(toCurrency(valorMax));
 			}
 
-			function addTag(val){
+			function addTag(val, where){
 				if (document.querySelector('#'+val) != null) {
 					document.querySelector('#'+val).remove();
 				} else {
 					var g = document.createElement('div');
 					g.setAttribute("id", val);
 					g.setAttribute("class", "tag");
-					g.innerHTML = nameHumanized[val];
-					document.querySelector('#tags-container').prepend(g);
+					g.innerHTML = "• " + nameHumanized[val];
+					document.querySelector('#'+where).append(g);
 				}
 			}
+
+
 
 			$('#ecomm, #check_dominio, #check_hospedagem, #check_email, #check_seo, #check_conteudo, #check_home, #check_page_quem, #check_page_esp, #check_page_serv, #check_page_port, #check_page_blog, #check_page_outros, #check_newsletter, #check_form_contato, #check_redes_sociais, #check_linguas').change(function(){
 				if( this.checked){
@@ -500,8 +593,7 @@ input[type=number] {
 				else{
 					formState[this.name] = false;	
 				}
-
-				addTag(this.name);
+				addTag(this.name, $(this).data("where"));
 				updatePrices();
 			});	
 
@@ -539,6 +631,19 @@ input[type=number] {
 		    } 
 		  });
 		}
+
+		$('.tooltip').hover(function() {
+			$(this)[0].innerHTML = $(this).data("value")
+		}, function() {
+			$(this)[0].innerHTML = "?"
+		})
+
+		$('.help-button').hover(function() {
+			$(".help-text").show()
+		}, function() {
+			$(".help-text").hide()
+		})
+		
 	</script>
 </body>
 </html>
