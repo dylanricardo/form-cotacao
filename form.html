@@ -57,23 +57,13 @@ button{
 	background-color: #000;
 	color: white;
 	text-align: center;
-<<<<<<< Updated upstream
-}
-
-.form-label{
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-=======
->>>>>>> Stashed changes
 }
 
 .cont-result{
 	width: 80%;
 	height: 50vh;
 	margin: 5vh auto;
-	overflow-y: scroll;
+	overflow-y: hidden;
 }
 
 .cont-result h2 {
@@ -86,25 +76,20 @@ button{
 	border: 1px solid #fff;
 	margin: auto;
 	text-align: left;
-	display: flex;
-	flex-wrap: wrap;
-<<<<<<< Updated upstream
-=======
+	overflow-y: scroll;
 }
 
 .result {
-	width: calc(50% - 6px);
-	height: 50%;
 	font-weight: bold;
-	padding-left: 5px; 
->>>>>>> Stashed changes
+	padding-left: 5px;
+	display: none;
+	border-bottom: 1px dotted #fff;
+	padding-bottom: 5px;
 }
 
 .tag {
   flex: 1 0 25%;
   font-weight: 400;
-<<<<<<< Updated upstream
-=======
  /* margin: 5px;
   height: 50px;
   line-height: 50px;
@@ -112,7 +97,6 @@ button{
   font-weight: bold;
   outline: 1px solid #FCA311;
   outline-offset: 2px;*/
->>>>>>> Stashed changes
 }
 
 .cont-preco{
@@ -165,14 +149,10 @@ button{
 	color:  #FCA311;
 }
 
+
 .collapsible {
-<<<<<<< Updated upstream
-  background-color: #E5E5E5;
-  color: #000;
-=======
   background-color: #000;
   color: #fff;
->>>>>>> Stashed changes
   cursor: pointer;
   width: 100%;
   border: none;
@@ -183,27 +163,14 @@ button{
   border-bottom: 1px #cfcfcf solid;
 }
 
-<<<<<<< Updated upstream
-.active, .collapsible:hover {
-  background-color: #F5F5F5;
-}
-=======
->>>>>>> Stashed changes
 
 .content {
   padding: 0 18px;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease-out;
-<<<<<<< Updated upstream
-  background-color: #FFF;
-}
-.active, .collapsible:hover {
-  background-color: #F5F5F5	;
-=======
   background-color: #000000;  
   color: #e5e5e5;
->>>>>>> Stashed changes
 }
 
 .collapsible:after {
@@ -219,26 +186,6 @@ button{
   float: right;
   margin-left: 5px;
   color: #e5e5e5;
-}
-
-.tooltip {
-	background-color: #14213E;
-	color: #fff;
-	padding: 3px 7px;
-	font-size: 10px;
-	border-radius: 50%;
-	float: right;
-	display: none;
-	transition: all 0.3s;
-}
-
-.label-wrapper:hover .tooltip{
-	display: block;
-}
-
-.tooltip:hover{
-	border-radius: 0;
-	font-size: 13px;
 }
 
 .active:after {
@@ -303,53 +250,6 @@ input[type=number] {
 	background-color: red;
 }
 
-<<<<<<< Updated upstream
-.result {
-	width: calc(50% - 6px);
-	height: 50%;
-	font-weight: bold;
-	padding-left: 5px; 
-}
-
-.rightborder {
-	border-left: 1px #fff solid;
-}
-
-.help-button {
-	position: absolute;
-	right: 20px;
-	bottom: 20px;
-	font-size: 40px;
-	background-color: #14213E;
-	border-radius: 50%;
-	line-height: 40px;
-	height: 40px;
-	width: 40px;
-	text-align: center;
-	border: 1px solid #FCA311;
-	color: #FCA311;
-	transition: all 0.3s;
-}
-
-.help-text {
-	position: absolute;
-	right: 20px;
-	bottom: 80px;
-	background-color: #fff;
-	border: 1px solid #FCA311;
-	text-align: center;
-	width: 300px;
-	color: #14213E;
-	display: none;
-	transition: all 0.3s;
-}
-
-.help-button:hover {
-	background-color: #fff;
-}
-
-</style>
-=======
 .form-label{
 	-webkit-user-select: none; /* Safari */        
 	-moz-user-select: none; /* Firefox */
@@ -363,6 +263,7 @@ input[type=number] {
 	cursor: pointer;
 	transition: 0.1s;
 	margin-top: 0px;
+	position: relative;
 }
 
 .label_container:hover{
@@ -381,31 +282,9 @@ textarea{
 	background-color:  #E5E5E5;
 	font-size: 18px;
 }
+
 #range_outras{
 	float: right;
-}
-
-.tooltip {
-	background-color: #14213E;
-	color: #fff;
-	padding: 3px 7px;
-	font-size: 10px;
-	border-radius: 50%;
-	float: right;
-	display: none;
-	transition: all 0.3s;
-}
-
-.label_container:hover .tooltip{
-	display: block;
-}
-
-.tooltip:hover{
-	border-radius: 0;
-	font-size: 13px;
-}
-.rightborder {
-	border-left: 1px #fff solid;
 }
 
 .help-button {
@@ -440,10 +319,72 @@ textarea{
 .help-button:hover {
 	background-color: #fff;
 }
+
+.label_container .tooltip:not(.down) {
+  visibility: hidden;
+  width: 50%;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.label_container .tooltip.down {
+  visibility: hidden;
+  width: 50%;
+  background-color: #fff;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+
+.label_container .tooltip:not(.down)::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #fff transparent transparent transparent;
+}
+
+.label_container .tooltip.down::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #fff transparent;
+}
+
+.label_container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
-
 	var formState = {
 		dominio: false,
 		hospedagem : false,
@@ -562,17 +503,18 @@ $(document).ready(function() {
 	}
 
 	function addTag(val, where){
-
 		if (document.querySelector('#'+val) != null) {
 			document.querySelector('#'+val).remove();
+			if ($('#'+where+' div')[0] == undefined) {
+				$('#'+where).hide()
+			}
 		} else {
-			console.log(val);
-			console.log(where);
 			var g = document.createElement('div');
 			g.setAttribute("id", val);
 			g.setAttribute("class", "tag");
 			g.innerHTML = "- " + nameHumanized[val];
 			document.querySelector('#'+where).append(g);
+			$('#'+where).show()
 		}
 	}
 
@@ -592,10 +534,9 @@ $(document).ready(function() {
 				parent.addClass('clicked');
 			}
 		}
-
 		addTag(this.name, $(this).data("where"));
 		updatePrices();
-	});	
+	});
 
 	$('#check_page_outros').change(function(){
 		$("#range_outras").prop( "disabled", !this.checked );
@@ -614,21 +555,20 @@ $(document).ready(function() {
 		$('#bg-dark').hide();
 	});
 
-	$('.tooltip').hover(function() {
-			$(this)[0].innerHTML = $(this).data("value")
-		}, function() {
-			$(this)[0].innerHTML = "?"
-		})
+	$('.label_container').hover(function() {
+		$(this).find( ".tooltip" )[0].innerHTML = $(this).find( ".tooltip" ).data("value")
+	}, function() {
+		$(this).find( ".tooltip" )[0].innerHTML = "?"
+	})
 
-		$('.help-button').hover(function() {
-			$(".help-text").show()
-		}, function() {
-			$(".help-text").hide()
-		})
+	$('.help-button').hover(function() {
+		$(".help-text").show()
+	}, function() {
+		$(".help-text").hide()
+	})
 
 });
 </script>
->>>>>>> Stashed changes
 </head>
 <body>
 	<form autocomplete="off" action="https://criamosseusite.com.br/receiver/" method="post">
@@ -646,113 +586,6 @@ $(document).ready(function() {
 		<div class="cont-total">
 			<div class="cont-left">
 				<h3>Faça seu orçamento</h3>
-<<<<<<< Updated upstream
-				<button type="button" class="collapsible">O que você já tem?</button>
-				<div class="content">
-					<div class="label-wrapper"><input data-where="Possui" type="checkbox" name="dominio" id="check_dominio" value="0">
-					<label class="form-label" for="check_dominio">Já tenho domínio próprio <span class="tooltip" data-value="Você tem um domínio no seu nome?">?</span></label></div>
-					<br>
-					<div class="label-wrapper"><input data-where="Possui" type="checkbox" name="hospedagem" id="check_hospedagem">
-					<label class="form-label" for="check_hospedagem">Tenho minha hospedagem <span class="tooltip" data-value="Você tem uma hospedagem no seu nome?">?</span></label></div>
-					<br>
-					<div class="label-wrapper"><input data-where="Possui" type="checkbox" name="email" id="check_email">
-					<label class="form-label" for="check_email">Email institucional ligado a hospedagem <span class="tooltip" data-value="Você tem um email com o nome do seu site funcionando?">?</span></label></div>
-
-					<br>
-					<div class="label-wrapper"><input data-where="Possui" type="checkbox" name="conteudo" id="check_conteudo">
-					<label class="form-label" for="check_conteudo">Conteúdo do site pronto <span class="tooltip" data-value="Você tem todos os textos para o seu site?">?</span></label></div>
-					<br>
-					<hr>
-				</div>
-				<button type="button" class="collapsible">Quais páginas você precisa?</button>
-				<div class="content">
-					<div class="label-wrapper">
-						<input data-where="Paginas" type="checkbox" name="home" id="check_home" checked disabled>
-						<label class="form-label" for="check_home">Home <span class="tooltip" data-value="Todo projeto tem necessáriamente a home">?</span></label>
-					</div>
-					<br>
-					<div class="label-wrapper">
-						<input data-where="Paginas" type="checkbox" name="page_quem" id="check_page_quem">
-						<label class="form-label" for="check_page_quem">Quem Somos <span class="tooltip" data-value="Página falando sobre você, seu colaboradores ou empresa">?</span></label>
-					</div>
-					<br>
-					<div class="label-wrapper">
-						<input data-where="Paginas" type="checkbox" name="page_esp" id="check_page_esp">
-						<label class="form-label" for="check_page_esp">Específica <span class="tooltip" data-value="Página falando sobre um único produto ou serviço">?</span></label>
-					</div>
-					<br>
-					<div class="label-wrapper">
-					<input data-where="Paginas" type="checkbox" name="page_serv" id="check_page_serv">
-						<label class="form-label" for="check_page_serv">Serviços ou produtos ofertados <span class="tooltip" data-value="Página falando sobre seus serviços ou produtos">?</span></label>
-					</div>
-					<br>
-					<div class="label-wrapper">
-					<input data-where="Paginas" type="checkbox" name="page_port" id="check_page_port">
-						<label class="form-label" for="check_page_port">Portfólio ou clientes <span class="tooltip" data-value="Página que mostra parceiro, clientes ou seu portfólio">?</span></label>
-					</div>
-					<br>
-					<div class="label-wrapper">
-					<input data-where="Paginas" type="checkbox" name="page_blog" id="check_page_blog">
-						<label class="form-label" for="check_page_blog">Blog <span class="tooltip" data-value="Blog para o seu site">?</span></label>
-					</div>
-					<br>
-					<div class="label-wrapper">
-					<input data-where="Paginas" type="checkbox" name="page_outros" id="check_page_outros">
-						<label class="form-label" for="check_page_outros">Outras</label>
-						<input type="range" id="range_outras" name="range_outras" min="1" max="10" disabled="true" value="1" required>
-						<span id="quant_outras">1</span><span class="tooltip" data-value="Outra página não contemplada nas opções anteriores">?</span>
-					</div>
-					<hr>
-				</div>
-				<button type="button" class="collapsible">Quais adicionais vai querer?</button>
-				<div class="content" id="adicionais">
-					<div class="label-wrapper">
-					<input data-where="Adicionais" type="checkbox" name="newsletter" id="check_newsletter">
-						<label class="form-label" for="check_newsletter">Newsletter <span class="tooltip" data-value="Newsletter 100% funcional">?</span></label>
-					</div>
-					<br>
-					<div class="label-wrapper">
-					<input data-where="Adicionais" type="checkbox" name="seo" id="check_seo">
-						<label class="form-label" for="check_seo">SEO + Analytics <span class="tooltip" data-value="Garantir que o seu site esteja nas primeiras opções dos buscadores">?</span></label>
-					</div>
-					<br>
-					<div class="label-wrapper">
-					<input data-where="Adicionais" type="checkbox" name="form_contato" id="check_form_contato">
-						<label class="form-label" for="check_form_contato">Formulário de contato <span class="tooltip" data-value="Formulário para as pessoas entrarem em contato pelo seu email">?</span></label>
-					</div>
-					<br>
-					<div class="label-wrapper">
-					<input data-where="Adicionais" type="checkbox" name="redes_sociais" id="check_redes_sociais">
-						<label class="form-label" for="check_redes_sociais">Conexão com redes as sociais <span class="tooltip" data-value="Conectar seu site com LinkedIn, WhatsApp e instagram">?</span></label>
-					</div>
-					<br>
-					<div class="label-wrapper">
-					<input data-where="Adicionais" type="checkbox" name="linguas" id="check_linguas">
-						<label class="form-label" for="check_linguas">Múltiplas línguas <span class="tooltip" data-value="Suporte para mais de uma linguagem">?</span></label>
-					</div>
-					<br>
-					<div class="label-wrapper">
-					<input type="checkbox" name="venda" id="ecomm" data-where="Adicionais">
-						<label class="form-label" for="ecomm">Venda por meio de mensagens <span class="tooltip" data-value="Venda no site porém por meio de contato via whatsapp">?</span></label>
-					</div>
-					<hr>
-				</div>
-				<button type="button" class="collapsible">Informações completares</button>
-				<div class="content">
-					<h4>Informações complementares</h4>
-					<div class="label-wrapper"><label>Referências: <span class="tooltip" data-value="URLs de sites que você gosta e que imagina que possam inspirar o seu layout">?</span></label></div>
-					<br>
-					<textarea name="referencia" rows="10" cols="50"></textarea>
-					<br><br>
-					<div class="label-wrapper"><label>Informe alguns adjetivos que você quer passar com o seu site: <span class="tooltip" data-value="Eficiência, segurança, autoridade...">?</span></label></div>
-					<br>
-					<textarea name="adjetivos" rows="10" cols="50"></textarea>
-					<br><br>
-					<div class="label-wrapper"><label>Algo mais que você queira contar? <span class="tooltip" data-value="Alguma outra informação relevante sobre o que você procura?">?</span></label></div>
-					<br>
-					<textarea name="infos" rows="10" cols="50"></textarea>
-				</div>
-=======
 
 				<button type="button" class="collapsible">O que você já tem?</button>
 				<div class="content">
@@ -760,14 +593,14 @@ $(document).ready(function() {
 						<div class="label_container">
 							<input data-where="Possui" type="checkbox" name="dominio" id="check_dominio" value="0">
 							Já tenho domínio próprio
-							<span class="tooltip" data-value="Você tem um domínio no seu nome?">?</span>
+							<span class="tooltip down" data-value="Você tem um domínio no seu nome?">?</span>
 						</div>
 					</label>
 					<label class="form-label" for="check_hospedagem">
 						<div class="label_container">
 							<input data-where="Possui" type="checkbox" name="hospedagem" id="check_hospedagem">
 							Tenho minha hospedagem
-							<span class="tooltip" data-value="Você tem uma hospedagem no seu nome?">?</span>
+							<span class="tooltip down" data-value="Você tem uma hospedagem no seu nome?">?</span>
 						</div>
 					</label>
 					
@@ -786,14 +619,14 @@ $(document).ready(function() {
 						<div class="label_container clicked">
 							<input data-where="Paginas" type="checkbox" name="home" id="check_home" checked disabled>
 							Home
-							<span class="tooltip" data-value="Todo projeto tem necessáriamente a home">?</span>
+							<span class="tooltip down" data-value="Todo projeto tem necessáriamente a home">?</span>
 						</div>
 					</label>
 					<label class="form-label" for="check_page_quem">
 						<div class="label_container">
 							<input data-where="Paginas" type="checkbox" name="page_quem" id="check_page_quem">
 							Quem Somos
-							<span class="tooltip" data-value="Página falando sobre você, seu colaboradores ou empresa">?</span>
+							<span class="tooltip down" data-value="Página falando sobre você, seu colaboradores ou empresa">?</span>
 						</div>
 					</label>
 					<label class="form-label" for="check_page_esp">
@@ -831,6 +664,7 @@ $(document).ready(function() {
 						
 							<input type="range" id="range_outras" name="range_outras" min="1" max="10" disabled="true" value="1" required>
 							<span id="quant_outras">1</span>
+							<span class="tooltip" data-value="Outras páginas não contempladas">?</span>
 						</div>
 					</label>
 				</div>
@@ -842,14 +676,14 @@ $(document).ready(function() {
 						<div class="label_container">
 							<input data-where="Adicionais" type="checkbox" name="newsletter" id="check_newsletter">
 							Newsletter
-							<span class="tooltip" data-value="Newsletter 100% funcional">?</span>
+							<span class="tooltip down" data-value="Newsletter 100% funcional">?</span>
 						</div>
 					</label>				
 					<label class="form-label" for="check_seo">
 						<div class="label_container">
 							<input data-where="Adicionais" type="checkbox" name="seo" id="check_seo">
 							SEO + Analytics
-							<span class="tooltip" data-value="Garantir que o seu site esteja nas primeiras opções dos buscadores">?</span> 
+							<span class="tooltip down" data-value="Garantir que o seu site esteja nas primeiras opções dos buscadores">?</span> 
 						</div>
 					</label>				
 					<label class="form-label" for="check_form_contato">
@@ -891,7 +725,7 @@ $(document).ready(function() {
 				<button type="button" class="collapsible">Informações completares</button>
 				<div class="content">
 					<div class="label_container">
-						<label>Referências: <span class="tooltip" data-value="URLs de sites que você gosta e que imagina que possam inspirar o seu layout">?</span></label>
+						<label>Referências: <span class="tooltip down" data-value="URLs de sites que você gosta e que imagina que possam inspirar o seu layout">?</span></label>
 					</div>
 					<br>
 					<textarea name="referencia" rows="10" cols="50"></textarea>
@@ -909,17 +743,14 @@ $(document).ready(function() {
 					<textarea name="infos" rows="10" cols="50"></textarea>
 				</div>
 
->>>>>>> Stashed changes
 			</div>
 			<div class="cont-right">
 				<div class="cont-result">
 					<h2>Resumo</h2>
 					<div class="cont-result-list" id="tags-container">
 						<div class="result" id="Possui">Possui</div>
-						<div class="result rightborder" id="Adicionais">Adicionais</div>
 						<div class="result" id="Paginas">Páginas</div>
-						<div class="result rightborder"></div>
-<<<<<<< Updated upstream
+						<div class="result" id="Adicionais">Adicionais</div>
 					</div>
 				</div>
 				<div class="cont-preco">
@@ -934,226 +765,31 @@ $(document).ready(function() {
 						<input type="hidden" id="preco-max-input" name="preco-max"/>
 					</div>
 				</div>
-=======
-					</div>
-				</div>
-				<div class="cont-preco">
-					<div class="cont-preco-left">
-						<h2>De: </h2>
-						<span id="preco-min" class="preco-min"></span>
-						<input type="hidden" id="preco-min-input" name="preco-min" />
-					</div>
-					<div class="cont-preco-ritgh" >
-						<h2>Até: </h2>
-						<span id="preco-max" class="preco-max"></span>
-						<input type="hidden" id="preco-max-input" name="preco-max"/>
-					</div>
-				</div>
->>>>>>> Stashed changes
 				<div class="cont-finalizar">
 					<input type="submit" class="btn-finalizar" value="Enviar Orçamento">
 				</div>
 			</div>
 		</div>
-<<<<<<< Updated upstream
-=======
 		
 
->>>>>>> Stashed changes
 	</form>
-	<script type="text/javascript">
-		$(document).ready(function() {
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
 
-			var formState = {
-				dominio: false,
-				hospedagem : false,
-				email : false,
-				conteudo : false,
-				home : true,
-				page_quem : false,
-				page_esp : false,
-				page_serv : false,
-				page_port : false,
-				page_blog : false,
-				page_outros : false,
-				newsletter : false,
-				seo : false,
-				form_contato : false,
-				redes_sociais : false,
-				linguas : false,
-				ecomm : false,
-			}	
-
-			var formValues = {
-				dominio: {min: 50, max: 50, add: false},
-				hospedagem : {min: 100, max: 100, add: false},
-				email : {min: 50, max: 250, add: false},
-				conteudo : {min: 400, max: 500, add: false},
-				home : {min: 1000, max: 1500, add: true},
-				page_quem : {min: 200, max: 300, add: true},
-				page_esp : {min: 200, max: 600, add: true},
-				page_serv : {min: 200, max: 300, add: true},
-				page_port : {min: 200, max: 300, add: true},
-				page_blog : {min: 300, max: 400, add: true},
-				page_outros : {min: 200, max: 400, add: true},
-				newsletter : {min: 200, max: 300, add: true},
-				seo : {min: 350, max: 700, add: true},
-				form_contato : {min: 50, max: 150, add: true},
-				redes_sociais : {min: 100, max: 200, add: true},
-				linguas : {min: 200, max: 600, add: true},
-				venda : {min: 2500, max: 4000, add: true}
-			}
-
-			const nameHumanized = {
-				dominio: "Domínio",
-				hospedagem : "Hospedagem",
-				email : "E-mail institucional",
-				seo : "SEO + Analytics",
-				conteudo : "Conteúdo",
-				home : "Home page",
-				page_quem : "Página quem somos",
-				page_esp : "Página específica",
-				page_serv : "Página serviços/produtos",
-				page_port : "Página portifólio/clientes",
-				page_blog : "Blog",
-				page_outros : "Outras",
-				newsletter : "Newsletter",
-				form_contato : "Formulário de contato",
-				redes_sociais : "Redes sociais",
-				linguas : "Línguas",
-				venda : "Venda pelo site",
-			}
-
-			const guia_min = 1.1;
-			const guia_max = 1.1;
-
-
-			var valorMin = formValues['home']['min'] * guia_min;
-			var valorMax = formValues['home']['max'] * guia_max;
-			
-			$('#preco-min').html(toCurrency(valorMin))
-			$('#preco-max').html(toCurrency(valorMax))
-			$('#preco-min-input').val(toCurrency(valorMin));
-			$('#preco-max-input').val(toCurrency(valorMax));
-			
-			function toCurrency(number){
-				return (number).toLocaleString('pt-BR', {
-					style: 'currency',
-					currency: 'BRL',
-					minimumFractionDigits: 0,
-				    maximumFractionDigits: 0,
-				});
-			}
-			var qtd_val = 0;
-			var quantidade_outras = 1;
-
-			$('#range_outras').on("input change", function() {
-				$('#quant_outras').html($(this).val());
-				quantidade_outras = $(this).val();
-
-				updatePrices('page_outros')
-
-			});
-
-			function updatePrices(){
-				valorMin = 0;
-				valorMax = 0;
-				
-				for(var key in formState){
-					if(formState[key]){
-						if(formValues[key]['add']){
-							let quantidade = (key == 'page_outros') ? $('#range_outras').val() : 1;
-
-							valorMin += formValues[key]['min']*quantidade;
-							valorMax += formValues[key]['max']*quantidade;
-
-						}else{
-							valorMin -= formValues[key]['min'];
-							valorMax -= formValues[key]['max'];
-						}
-					}
-				}
-
-				valorMin = valorMin*guia_min;
-				valorMax = valorMax*guia_max;
-				$('#preco-min').html(toCurrency(valorMin));
-				$('#preco-max').html(toCurrency(valorMax));
-				$('#preco-min-input').val(toCurrency(valorMin));
-				$('#preco-max-input').val(toCurrency(valorMax));
-			}
-
-			function addTag(val, where){
-				if (document.querySelector('#'+val) != null) {
-					document.querySelector('#'+val).remove();
-				} else {
-					var g = document.createElement('div');
-					g.setAttribute("id", val);
-					g.setAttribute("class", "tag");
-					g.innerHTML = "• " + nameHumanized[val];
-					document.querySelector('#'+where).append(g);
-				}
-			}
-
-
-
-			$('#ecomm, #check_dominio, #check_hospedagem, #check_email, #check_seo, #check_conteudo, #check_home, #check_page_quem, #check_page_esp, #check_page_serv, #check_page_port, #check_page_blog, #check_page_outros, #check_newsletter, #check_form_contato, #check_redes_sociais, #check_linguas').change(function(){
-				if( this.checked){
-					formState[this.name] = true;
-				}
-				else{
-					formState[this.name] = false;	
-				}
-				addTag(this.name, $(this).data("where"));
-				updatePrices();
-			});	
-
-			$('#check_page_outros').change(function(){
-				$("#range_outras").prop( "disabled", !this.checked );
-				$("#range_outras").prop( "required", this.checked );
-			});
-
-			if(typeof(String.prototype.trim) === "undefined"){
-			    String.prototype.trim = function() 
-			    {
-			        return String(this).replace(/^\s+|\s+$/g, '');
-			    };
-			}
-
-			$('.opcao-modal').click(function(){
-				$('#tipo_servico').val($( this ).text().trim());
-				$('#bg-dark').hide();
-			});
-
-		});
-		var coll = document.getElementsByClassName("collapsible");
-		var i;
-
-		for (i = 0; i < coll.length; i++) {
-		  coll[i].addEventListener("click", function() {
-		    this.classList.toggle("active");
-		    var content = this.nextElementSibling;
-		    if (content.style.maxHeight){
-		      content.style.maxHeight = null;
-		      content.style.padding = "0 18px";
-		    } else {
-		      content.style.maxHeight = content.scrollHeight + "px";
-		      content.style.padding = "20px"
-		    } 
-		  });
-		}
-
-		$('.tooltip').hover(function() {
-			$(this)[0].innerHTML = $(this).data("value")
-		}, function() {
-			$(this)[0].innerHTML = "?"
-		})
-
-		$('.help-button').hover(function() {
-			$(".help-text").show()
-		}, function() {
-			$(".help-text").hide()
-		})
-		
-	</script>
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.maxHeight){
+      content.style.maxHeight = null;
+      content.style.padding = "0 18px";
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+      content.style.padding = "20px"
+    } 
+  });
+}
+</script>
 </body>
 </html>
