@@ -16,12 +16,22 @@
 <html>
 <head>
 	<title>Formulário</title>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 <style type="text/css">
 body, html {
 	margin: 0;
 	padding: 0;
+	font-family: 'Fira Code', monospace;;
 }
+button{
+	font-family: 'JetBrains Mono', monospace;
+}
+
 
 .cont-total{
 	width: 100vw;
@@ -38,13 +48,16 @@ body, html {
 	padding-left: 2vw;
 	padding-right: 2vw;
 	overflow-y: scroll;
+	background-color: #000000;
 }
 .cont-right{
 	height: 100vh;
 	width: 50vw;
-	background-color: #14213E;
+	/*background-color: #14213E;*/
+	background-color: #000;
 	color: white;
 	text-align: center;
+<<<<<<< Updated upstream
 }
 
 .form-label{
@@ -52,6 +65,8 @@ body, html {
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+=======
+>>>>>>> Stashed changes
 }
 
 .cont-result{
@@ -73,11 +88,31 @@ body, html {
 	text-align: left;
 	display: flex;
 	flex-wrap: wrap;
+<<<<<<< Updated upstream
+=======
+}
+
+.result {
+	width: calc(50% - 6px);
+	height: 50%;
+	font-weight: bold;
+	padding-left: 5px; 
+>>>>>>> Stashed changes
 }
 
 .tag {
   flex: 1 0 25%;
   font-weight: 400;
+<<<<<<< Updated upstream
+=======
+ /* margin: 5px;
+  height: 50px;
+  line-height: 50px;
+  background-color: #FCA311;
+  font-weight: bold;
+  outline: 1px solid #FCA311;
+  outline-offset: 2px;*/
+>>>>>>> Stashed changes
 }
 
 .cont-preco{
@@ -131,8 +166,13 @@ body, html {
 }
 
 .collapsible {
+<<<<<<< Updated upstream
   background-color: #E5E5E5;
   color: #000;
+=======
+  background-color: #000;
+  color: #fff;
+>>>>>>> Stashed changes
   cursor: pointer;
   width: 100%;
   border: none;
@@ -143,19 +183,27 @@ body, html {
   border-bottom: 1px #cfcfcf solid;
 }
 
+<<<<<<< Updated upstream
 .active, .collapsible:hover {
   background-color: #F5F5F5;
 }
+=======
+>>>>>>> Stashed changes
 
 .content {
   padding: 0 18px;
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.5s ease-out;
+<<<<<<< Updated upstream
   background-color: #FFF;
 }
 .active, .collapsible:hover {
   background-color: #F5F5F5	;
+=======
+  background-color: #000000;  
+  color: #e5e5e5;
+>>>>>>> Stashed changes
 }
 
 .collapsible:after {
@@ -163,13 +211,14 @@ body, html {
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
-  content: "";
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
+  content: ">";
+  transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
   color: white;
   font-weight: bold;
   float: right;
   margin-left: 5px;
+  color: #e5e5e5;
 }
 
 .tooltip {
@@ -193,13 +242,13 @@ body, html {
 }
 
 .active:after {
-  content: "";
+  content: ">";
   border: solid black;
   border-width: 0 3px 3px 0;
   display: inline-block;
   padding: 3px;
-  transform: rotate(-135deg);
-  -webkit-transform: rotate(-135deg);
+  transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
 }
 
 label{
@@ -254,6 +303,7 @@ input[type=number] {
 	background-color: red;
 }
 
+<<<<<<< Updated upstream
 .result {
 	width: calc(50% - 6px);
 	height: 50%;
@@ -299,6 +349,286 @@ input[type=number] {
 }
 
 </style>
+=======
+.form-label{
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+	color: #e5e5e5;
+}
+
+.label_container{
+	padding: 10px;
+	cursor: pointer;
+	transition: 0.1s;
+	margin-top: 0px;
+}
+
+.label_container:hover{
+    outline: 1px solid white;
+    outline-offset: -1px;
+}
+
+.clicked{
+	transition: 0.2s;
+	outline: 1px solid white;
+    outline-offset: -1px;
+
+}
+
+textarea{
+	background-color:  #E5E5E5;
+	font-size: 18px;
+}
+#range_outras{
+	float: right;
+}
+
+.tooltip {
+	background-color: #14213E;
+	color: #fff;
+	padding: 3px 7px;
+	font-size: 10px;
+	border-radius: 50%;
+	float: right;
+	display: none;
+	transition: all 0.3s;
+}
+
+.label_container:hover .tooltip{
+	display: block;
+}
+
+.tooltip:hover{
+	border-radius: 0;
+	font-size: 13px;
+}
+.rightborder {
+	border-left: 1px #fff solid;
+}
+
+.help-button {
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+	font-size: 40px;
+	background-color: #14213E;
+	border-radius: 50%;
+	line-height: 40px;
+	height: 40px;
+	width: 40px;
+	text-align: center;
+	border: 1px solid #FCA311;
+	color: #FCA311;
+	transition: all 0.3s;
+}
+
+.help-text {
+	position: absolute;
+	right: 20px;
+	bottom: 80px;
+	background-color: #fff;
+	border: 1px solid #FCA311;
+	text-align: center;
+	width: 300px;
+	color: #14213E;
+	display: none;
+	transition: all 0.3s;
+}
+
+.help-button:hover {
+	background-color: #fff;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+
+	var formState = {
+		dominio: false,
+		hospedagem : false,
+		email : false,
+		conteudo : false,
+		home : true,
+		page_quem : false,
+		page_esp : false,
+		page_serv : false,
+		page_port : false,
+		page_blog : false,
+		page_outros : false,
+		newsletter : false,
+		seo : false,
+		form_contato : false,
+		redes_sociais : false,
+		linguas : false,
+		ecomm : false,
+	}	
+
+	var formValues = {
+		dominio: {min: 50, max: 50, add: false},
+		hospedagem : {min: 100, max: 100, add: false},
+		email : {min: 50, max: 250, add: false},
+		conteudo : {min: 400, max: 500, add: false},
+		home : {min: 1000, max: 1500, add: true},
+		page_quem : {min: 200, max: 300, add: true},
+		page_esp : {min: 200, max: 600, add: true},
+		page_serv : {min: 200, max: 300, add: true},
+		page_port : {min: 200, max: 300, add: true},
+		page_blog : {min: 300, max: 400, add: true},
+		page_outros : {min: 200, max: 400, add: true},
+		newsletter : {min: 200, max: 300, add: true},
+		seo : {min: 350, max: 700, add: true},
+		form_contato : {min: 50, max: 150, add: true},
+		redes_sociais : {min: 100, max: 200, add: true},
+		linguas : {min: 200, max: 600, add: true},
+		venda : {min: 2500, max: 4000, add: true}
+	}
+
+	const nameHumanized = {
+		dominio: "Domínio",
+		hospedagem : "Hospedagem",
+		email : "E-mail institucional",
+		seo : "SEO + Analytics",
+		conteudo : "Conteúdo",
+		home : "Home page",
+		page_quem : "Página quem somos",
+		page_esp : "Página específica",
+		page_serv : "Página serviços/produtos",
+		page_port : "Página portifólio/clientes",
+		page_blog : "Blog",
+		page_outros : "Outras",
+		newsletter : "Newsletter",
+		form_contato : "Formulário de contato",
+		redes_sociais : "Redes sociais",
+		linguas : "Línguas",
+		venda : "Venda pelo site",
+	}
+
+	const guia_min = 1.1;
+	const guia_max = 1.1;
+
+	var valorMin = formValues['home']['min'] * guia_min;
+	var valorMax = formValues['home']['max'] * guia_max;
+	
+	$('#preco-min').html(toCurrency(valorMin))
+	$('#preco-max').html(toCurrency(valorMax))
+	$('#preco-min-input').val(toCurrency(valorMin));
+	$('#preco-max-input').val(toCurrency(valorMax));
+	
+	function toCurrency(number){
+		return (number).toLocaleString('pt-BR', {
+			style: 'currency',
+			currency: 'BRL',
+			minimumFractionDigits: 0,
+		    maximumFractionDigits: 0,
+		});
+	}
+	var qtd_val = 0;
+	var quantidade_outras = 1;
+
+	$('#range_outras').on("input change", function() {
+		$('#quant_outras').html($(this).val());
+		quantidade_outras = $(this).val();
+
+		updatePrices('page_outros')
+
+	});
+
+	function updatePrices(){
+		valorMin = 0;
+		valorMax = 0;
+		
+		for(var key in formState){
+			if(formState[key]){
+				if(formValues[key]['add']){
+					let quantidade = (key == 'page_outros') ? $('#range_outras').val() : 1;
+
+					valorMin += formValues[key]['min']*quantidade;
+					valorMax += formValues[key]['max']*quantidade;
+
+				}else{
+					valorMin -= formValues[key]['min'];
+					valorMax -= formValues[key]['max'];
+				}
+			}
+		}
+
+		valorMin = valorMin*guia_min;
+		valorMax = valorMax*guia_max;
+		$('#preco-min').html(toCurrency(valorMin));
+		$('#preco-max').html(toCurrency(valorMax));
+		$('#preco-min-input').val(toCurrency(valorMin));
+		$('#preco-max-input').val(toCurrency(valorMax));		
+	}
+
+	function addTag(val, where){
+
+		if (document.querySelector('#'+val) != null) {
+			document.querySelector('#'+val).remove();
+		} else {
+			console.log(val);
+			console.log(where);
+			var g = document.createElement('div');
+			g.setAttribute("id", val);
+			g.setAttribute("class", "tag");
+			g.innerHTML = "- " + nameHumanized[val];
+			document.querySelector('#'+where).append(g);
+		}
+	}
+
+	$('#ecomm, #check_dominio, #check_hospedagem, #check_email, #check_seo, #check_conteudo, #check_home, #check_page_quem, #check_page_esp, #check_page_serv, #check_page_port, #check_page_blog, #check_page_outros, #check_newsletter, #check_form_contato, #check_redes_sociais, #check_linguas').change(function(){
+		if( this.checked){
+			formState[this.name] = true;
+		}
+		else{
+			formState[this.name] = false;	
+		}
+
+		let parent = $(this).parent();
+		if(parent.hasClass('label_container')){
+			if( parent.hasClass('clicked') ){
+				parent.removeClass('clicked');
+			}else{
+				parent.addClass('clicked');
+			}
+		}
+
+		addTag(this.name, $(this).data("where"));
+		updatePrices();
+	});	
+
+	$('#check_page_outros').change(function(){
+		$("#range_outras").prop( "disabled", !this.checked );
+		$("#range_outras").prop( "required", this.checked );
+	});
+
+	if(typeof(String.prototype.trim) === "undefined"){
+	    String.prototype.trim = function() 
+	    {
+	        return String(this).replace(/^\s+|\s+$/g, '');
+	    };
+	}
+
+	$('.opcao-modal').click(function(){
+		$('#tipo_servico').val($( this ).text().trim());
+		$('#bg-dark').hide();
+	});
+
+	$('.tooltip').hover(function() {
+			$(this)[0].innerHTML = $(this).data("value")
+		}, function() {
+			$(this)[0].innerHTML = "?"
+		})
+
+		$('.help-button').hover(function() {
+			$(".help-text").show()
+		}, function() {
+			$(".help-text").hide()
+		})
+
+});
+</script>
+>>>>>>> Stashed changes
 </head>
 <body>
 	<form autocomplete="off" action="https://criamosseusite.com.br/receiver/" method="post">
@@ -316,6 +646,7 @@ input[type=number] {
 		<div class="cont-total">
 			<div class="cont-left">
 				<h3>Faça seu orçamento</h3>
+<<<<<<< Updated upstream
 				<button type="button" class="collapsible">O que você já tem?</button>
 				<div class="content">
 					<div class="label-wrapper"><input data-where="Possui" type="checkbox" name="dominio" id="check_dominio" value="0">
@@ -421,6 +752,164 @@ input[type=number] {
 					<br>
 					<textarea name="infos" rows="10" cols="50"></textarea>
 				</div>
+=======
+
+				<button type="button" class="collapsible">O que você já tem?</button>
+				<div class="content">
+					<label class="form-label" for="check_dominio">
+						<div class="label_container">
+							<input data-where="Possui" type="checkbox" name="dominio" id="check_dominio" value="0">
+							Já tenho domínio próprio
+							<span class="tooltip" data-value="Você tem um domínio no seu nome?">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_hospedagem">
+						<div class="label_container">
+							<input data-where="Possui" type="checkbox" name="hospedagem" id="check_hospedagem">
+							Tenho minha hospedagem
+							<span class="tooltip" data-value="Você tem uma hospedagem no seu nome?">?</span>
+						</div>
+					</label>
+					
+					<label class="form-label" for="check_conteudo">
+						<div class="label_container">
+							<input data-where="Possui" type="checkbox" name="conteudo" id="check_conteudo">
+							Conteúdo do site pronto
+							<span class="tooltip" data-value="Você tem todos os textos para o seu site?">?</span>
+						</div>
+					</label>
+				</div>
+				<button type="button" class="collapsible">Quais páginas você precisa?</button>
+				<div class="content">
+				
+					<label class="form-label" for="check_home">
+						<div class="label_container clicked">
+							<input data-where="Paginas" type="checkbox" name="home" id="check_home" checked disabled>
+							Home
+							<span class="tooltip" data-value="Todo projeto tem necessáriamente a home">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_page_quem">
+						<div class="label_container">
+							<input data-where="Paginas" type="checkbox" name="page_quem" id="check_page_quem">
+							Quem Somos
+							<span class="tooltip" data-value="Página falando sobre você, seu colaboradores ou empresa">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_page_esp">
+						<div class="label_container">
+							<input data-where="Paginas" type="checkbox" name="page_esp" id="check_page_esp">
+							Específica
+							<span class="tooltip" data-value="Página falando sobre um único produto ou serviço">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_page_serv">
+						<div class="label_container">
+							<input data-where="Paginas" type="checkbox" name="page_serv" id="check_page_serv">
+							Serviços ou produtos ofertados
+							<span class="tooltip" data-value="Página falando sobre seus serviços ou produtos">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_page_port">
+						<div class="label_container">
+							<input data-where="Paginas" type="checkbox" name="page_port" id="check_page_port">
+							Portfólio ou clientes
+							<span class="tooltip" data-value="Página que mostra parceiro, clientes ou seu portfólio">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_page_blog">
+						<div class="label_container">
+							<input data-where="Paginas" type="checkbox" name="page_blog" id="check_page_blog">
+							Blog
+							<span class="tooltip" data-value="Blog para o seu site">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_page_outros">
+						<div class="label_container">
+							<input data-where="Paginas" type="checkbox" name="page_outros" id="check_page_outros">
+							Outras:
+						
+							<input type="range" id="range_outras" name="range_outras" min="1" max="10" disabled="true" value="1" required>
+							<span id="quant_outras">1</span>
+						</div>
+					</label>
+				</div>
+
+				<button type="button" class="collapsible">Quais adicionais vai querer?</button>
+				<div class="content" id="adicionais">
+				
+					<label class="form-label" for="check_newsletter">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="newsletter" id="check_newsletter">
+							Newsletter
+							<span class="tooltip" data-value="Newsletter 100% funcional">?</span>
+						</div>
+					</label>				
+					<label class="form-label" for="check_seo">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="seo" id="check_seo">
+							SEO + Analytics
+							<span class="tooltip" data-value="Garantir que o seu site esteja nas primeiras opções dos buscadores">?</span> 
+						</div>
+					</label>				
+					<label class="form-label" for="check_form_contato">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="form_contato" id="check_form_contato">
+							Formulário de contato
+							<span class="tooltip" data-value="Formulário para as pessoas entrarem em contato pelo seu email">?</span> 
+						</div>
+					</label>				
+					<label class="form-label" for="check_redes_sociais">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="redes_sociais" id="check_redes_sociais">
+							Conexão com redes as sociais
+							<span class="tooltip" data-value="Conectar seu site com LinkedIn, WhatsApp e instagram">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_email">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="email" id="check_email">
+							Email institucional ligado a hospedagem
+							<span class="tooltip" data-value="Você tem um email com o nome do seu site funcionando?">?
+						</div>
+					</label>				
+					<label class="form-label" for="check_linguas">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="linguas" id="check_linguas">
+							Múltiplas línguas 
+							<span class="tooltip" data-value="Suporte para mais de uma linguagem">?</span>
+						</div>
+					</label>				
+					<label class="form-label" for="ecomm">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="venda" id="ecomm">
+							Venda direta pelo site
+							<span class="tooltip" data-value="Venda no site porém por meio de contato via whatsapp">?</span>
+						</div>
+					</label>				
+				</div>
+				<button type="button" class="collapsible">Informações completares</button>
+				<div class="content">
+					<div class="label_container">
+						<label>Referências: <span class="tooltip" data-value="URLs de sites que você gosta e que imagina que possam inspirar o seu layout">?</span></label>
+					</div>
+					<br>
+					<textarea name="referencia" rows="10" cols="50"></textarea>
+					<br><br>
+					<div class="label_container">
+						<label>Informe alguns adjetivos que você quer passar com o seu site: <span class="tooltip" data-value="Eficiência, segurança, autoridade...">?</span></label>
+					</div>
+					<br>
+					<textarea name="adjetivos" rows="10" cols="50"></textarea>
+					<br><br>
+					<div class="label_container">
+						<label>Algo mais que você queira contar? <span class="tooltip" data-value="Alguma outra informação relevante sobre o que você procura?">?</span></label>
+					</div>
+					<br>
+					<textarea name="infos" rows="10" cols="50"></textarea>
+				</div>
+
+>>>>>>> Stashed changes
 			</div>
 			<div class="cont-right">
 				<div class="cont-result">
@@ -430,6 +919,7 @@ input[type=number] {
 						<div class="result rightborder" id="Adicionais">Adicionais</div>
 						<div class="result" id="Paginas">Páginas</div>
 						<div class="result rightborder"></div>
+<<<<<<< Updated upstream
 					</div>
 				</div>
 				<div class="cont-preco">
@@ -444,11 +934,32 @@ input[type=number] {
 						<input type="hidden" id="preco-max-input" name="preco-max"/>
 					</div>
 				</div>
+=======
+					</div>
+				</div>
+				<div class="cont-preco">
+					<div class="cont-preco-left">
+						<h2>De: </h2>
+						<span id="preco-min" class="preco-min"></span>
+						<input type="hidden" id="preco-min-input" name="preco-min" />
+					</div>
+					<div class="cont-preco-ritgh" >
+						<h2>Até: </h2>
+						<span id="preco-max" class="preco-max"></span>
+						<input type="hidden" id="preco-max-input" name="preco-max"/>
+					</div>
+				</div>
+>>>>>>> Stashed changes
 				<div class="cont-finalizar">
 					<input type="submit" class="btn-finalizar" value="Enviar Orçamento">
 				</div>
 			</div>
 		</div>
+<<<<<<< Updated upstream
+=======
+		
+
+>>>>>>> Stashed changes
 	</form>
 	<script type="text/javascript">
 		$(document).ready(function() {
