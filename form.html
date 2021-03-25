@@ -47,56 +47,68 @@ button{
 	padding-bottom: 2vh;
 	padding-left: 2vw;
 	padding-right: 2vw;
-/*	background-color: red;*/
 	overflow-y: scroll;
 	background-color: #000000;
 }
 .cont-right{
 	height: 100vh;
 	width: 50vw;
-	background-color: #14213E;
+	/*background-color: #14213E;*/
+	background-color: #000;
 	color: white;
 	text-align: center;
-	/*display: flex;*/
 }
-
-
 
 .cont-result{
 	width: 80%;
 	height: 50vh;
-	/*background-color: green;*/
 	margin: 5vh auto;
 	overflow-y: scroll;
 }
+
+.cont-result h2 {
+	margin-top: 0;
+}
+
 .cont-result-list{
 	width: 90%;
 	height: 42vh;
-	max-height: auto;
 	border: 1px solid #fff;
+	margin: auto;
+	text-align: left;
 	display: flex;
 	flex-wrap: wrap;
-	margin: auto;
+}
+
+.result {
+	width: calc(50% - 6px);
+	height: 50%;
+	font-weight: bold;
+	padding-left: 5px; 
 }
 
 .tag {
-  flex: 1 0 25%; /* explanation below */
-  margin: 5px;
+  flex: 1 0 25%;
+  font-weight: 400;
+ /* margin: 5px;
   height: 50px;
   line-height: 50px;
   background-color: #FCA311;
   font-weight: bold;
   outline: 1px solid #FCA311;
-  outline-offset: 2px;
+  outline-offset: 2px;*/
 }
 
 .cont-preco{
 	width: 80%;
-	height: 20vh;
-	/*background-color: gray;*/
+	height: 10vh;
 	margin: 5vh auto;
 	display: flex;
 	text-align: center;
+}
+
+.cont-preco h2 {
+	margin-right: 15px;
 }
 
 ::-webkit-scrollbar {
@@ -106,26 +118,34 @@ button{
 .cont-finalizar{
 	width: 80%;
 	height: 10vh;
-	/*background-color: gray;*/
 	margin: 0 auto;
 	align-items: center;
 	text-align: center;
 }
 
 .btn-finalizar{
-	width: 250px;
-	height: 40px;
-	cursor: pointer
+	width: 50%;
+	height: 50%;
+	cursor: pointer;
+	background-color: #FCA311;
+	border: solid 1px #000;
+	color: #fff;
+	font-weight: bold;
 }
 
 .cont-preco-left{
 	width: 50%;
 	height: 100%;
-	/*background-color: yellow;*/
+	display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .cont-preco-rigth{
 	width: 50%;
 	height: 100%;
+	display: flex;
+    align-items: center;
+    justify-content: center;
 	color:  #FCA311;
 }
 
@@ -140,7 +160,6 @@ button{
   text-align: left;
   outline: none;
   font-size: 18px;
-  /*margin-top: 5px;*/
   border-bottom: 1px #cfcfcf solid;
 }
 
@@ -268,6 +287,61 @@ textarea{
 	float: right;
 }
 
+.tooltip {
+	background-color: #14213E;
+	color: #fff;
+	padding: 3px 7px;
+	font-size: 10px;
+	border-radius: 50%;
+	float: right;
+	display: none;
+	transition: all 0.3s;
+}
+
+.label_container:hover .tooltip{
+	display: block;
+}
+
+.tooltip:hover{
+	border-radius: 0;
+	font-size: 13px;
+}
+.rightborder {
+	border-left: 1px #fff solid;
+}
+
+.help-button {
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+	font-size: 40px;
+	background-color: #14213E;
+	border-radius: 50%;
+	line-height: 40px;
+	height: 40px;
+	width: 40px;
+	text-align: center;
+	border: 1px solid #FCA311;
+	color: #FCA311;
+	transition: all 0.3s;
+}
+
+.help-text {
+	position: absolute;
+	right: 20px;
+	bottom: 80px;
+	background-color: #fff;
+	border: 1px solid #FCA311;
+	text-align: center;
+	width: 300px;
+	color: #14213E;
+	display: none;
+	transition: all 0.3s;
+}
+
+.help-button:hover {
+	background-color: #fff;
+}
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -313,11 +387,11 @@ $(document).ready(function() {
 	}
 
 	const nameHumanized = {
-		dominio: "- Domínio",
-		hospedagem : "- Hospedagem",
-		email : "- E-mail institucional",
+		dominio: "Domínio",
+		hospedagem : "Hospedagem",
+		email : "E-mail institucional",
 		seo : "SEO + Analytics",
-		conteudo : "- Conteúdo",
+		conteudo : "Conteúdo",
 		home : "Home page",
 		page_quem : "Página quem somos",
 		page_esp : "Página específica",
@@ -389,15 +463,18 @@ $(document).ready(function() {
 		$('#preco-max-input').val(toCurrency(valorMax));		
 	}
 
-	function addTag(val){
+	function addTag(val, where){
+
 		if (document.querySelector('#'+val) != null) {
 			document.querySelector('#'+val).remove();
 		} else {
+			console.log(val);
+			console.log(where);
 			var g = document.createElement('div');
 			g.setAttribute("id", val);
 			g.setAttribute("class", "tag");
-			g.innerHTML = nameHumanized[val];
-			document.querySelector('#tags-container').prepend(g);
+			g.innerHTML = "- " + nameHumanized[val];
+			document.querySelector('#'+where).append(g);
 		}
 	}
 
@@ -418,7 +495,7 @@ $(document).ready(function() {
 			}
 		}
 
-		addTag(this.name);
+		addTag(this.name, $(this).data("where"));
 		updatePrices();
 	});	
 
@@ -439,6 +516,18 @@ $(document).ready(function() {
 		$('#bg-dark').hide();
 	});
 
+	$('.tooltip').hover(function() {
+			$(this)[0].innerHTML = $(this).data("value")
+		}, function() {
+			$(this)[0].innerHTML = "?"
+		})
+
+		$('.help-button').hover(function() {
+			$(".help-text").show()
+		}, function() {
+			$(".help-text").hide()
+		})
+
 });
 </script>
 </head>
@@ -452,181 +541,196 @@ $(document).ready(function() {
 				<div class="opcao-modal">Blog</div>
 			</div>
 		</div>
+		<div class="help-button">?</div>
+		<div class="help-text">Faz o favor de selecionar o que você precisa no seu site e nós vamos te responder quando estivermos afim. O resultado é mostrado do lado direito com o resumo do seu pedido, o valor mínimo e o máximo que este serviço pode sair.</div>
 		<input type="hidden" name="tipo_servico" id="tipo_servico" >
-	<div class="cont-total">
-		<div class="cont-left">
-			<!-- <div hidden="">
-			<h3>Escolha o tipo de serviço</h3>
-				<input type="radio" name="tipo_servico" value="Institucional" id="servico_institucional">
-				<label class="form-label" for="servico_institucional">Institucional ou LP</label>
-				<br>
-				<input type="radio" name="tipo_servico" value="reformulacao" id="servico_reformulacao">
-				<label class="form-label" for="servico_reformulacao">Reformulação</label>
-				<br>
-				<input type="radio" name="tipo_servico" value="ecommerce" id="servico_ecommerce">
-				<label class="form-label" for="servico_ecommerce">Ecommerce</label>
-				<br>
-				<input type="radio" name="tipo_servico" value="blog" id="servico_blog">
-				<label class="form-label" for="servico_blog">Blog</label>
-				<hr>
-			</div> -->
-			<h3>Faça seu orçamento</h3>
+		<div class="cont-total">
+			<div class="cont-left">
+				<h3>Faça seu orçamento</h3>
 
-			<button type="button" class="collapsible">O que você já tem?</button>
-			<div class="content">
-				<label class="form-label" for="check_dominio">
-					<div class="label_container">
-						<input type="checkbox" name="dominio" id="check_dominio" value="0">
-						Domínio
-					</div>
-				</label>
-				<label class="form-label" for="check_hospedagem">
-					<div class="label_container">
-						<input type="checkbox" name="hospedagem" id="check_hospedagem">
-						Hospedagem
-					</div>
-				</label>
-				<label class="form-label" for="check_email">
-					<div class="label_container">
-						<input type="checkbox" name="email" id="check_email">
-						Email institucional
-					</div>
-				</label>
-				<label class="form-label" for="check_conteudo">
-					<div class="label_container">
-						<input type="checkbox" name="conteudo" id="check_conteudo">
-						Conteúdo do site
-					</div>
-				</label>
-			</div>
-			<button type="button" class="collapsible">Quais páginas você precisa?</button>
-			<div class="content">
-			
-				<label class="form-label" for="check_home">
-					<div class="label_container clicked">
-						<input type="checkbox" name="home" id="check_home" checked disabled>
-						Home
-					</div>
-				</label>
-				<label class="form-label" for="check_page_quem">
-					<div class="label_container">
-						<input type="checkbox" name="page_quem" id="check_page_quem">
-						Quem Somos
-					</div>
-				</label>
-				<label class="form-label" for="check_page_esp">
-					<div class="label_container">
-						<input type="checkbox" name="page_esp" id="check_page_esp">
-						Específica
-					</div>
-				</label>
-				<label class="form-label" for="check_page_serv">
-					<div class="label_container">
-						<input type="checkbox" name="page_serv" id="check_page_serv">
-						Serviços/Produtos
-					</div>
-				</label>
-				<label class="form-label" for="check_page_port">
-					<div class="label_container">
-						<input type="checkbox" name="page_port" id="check_page_port">
-						Portfólio/Clientes
-					</div>
-				</label>
-				<label class="form-label" for="check_page_blog">
-					<div class="label_container">
-						<input type="checkbox" name="page_blog" id="check_page_blog">
-						Blog
-					</div>
-				</label>
-				<label class="form-label" for="check_page_outros">
-					<div class="label_container">
-						<input type="checkbox" name="page_outros" id="check_page_outros">
-						Outras:
+				<button type="button" class="collapsible">O que você já tem?</button>
+				<div class="content">
+					<label class="form-label" for="check_dominio">
+						<div class="label_container">
+							<input data-where="Possui" type="checkbox" name="dominio" id="check_dominio" value="0">
+							Já tenho domínio próprio
+							<span class="tooltip" data-value="Você tem um domínio no seu nome?">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_hospedagem">
+						<div class="label_container">
+							<input data-where="Possui" type="checkbox" name="hospedagem" id="check_hospedagem">
+							Tenho minha hospedagem
+							<span class="tooltip" data-value="Você tem uma hospedagem no seu nome?">?</span>
+						</div>
+					</label>
 					
-						<input type="range" id="range_outras" name="range_outras" min="1" max="10" disabled="true" value="1" required>
-						<span id="quant_outras">1</span>
-					</div>
-				</label>
-			</div>
-
-			<button type="button" class="collapsible">Quais adicionais vai querer?</button>
-			<div class="content" id="adicionais">
-			
-				<label class="form-label" for="check_newsletter">
-					<div class="label_container">
-						<input type="checkbox" name="newsletter" id="check_newsletter">
-						Newsletter
-					</div>
-				</label>				
-				<label class="form-label" for="check_seo">
-					<div class="label_container">
-						<input type="checkbox" name="seo" id="check_seo">
-						Precisa de SEO + Analytics?
-					</div>
-				</label>				
-				<label class="form-label" for="check_form_contato">
-					<div class="label_container">
-						<input type="checkbox" name="form_contato" id="check_form_contato">
-						form contato
-					</div>
-				</label>				
-				<label class="form-label" for="check_redes_sociais">
-					<div class="label_container">
-						<input type="checkbox" name="redes_sociais" id="check_redes_sociais">
-						redes sociais
-					</div>
-				</label>				
-				<label class="form-label" for="check_linguas">
-					<div class="label_container">
-						<input type="checkbox" name="linguas" id="check_linguas">
-						Linguas 
-					</div>
-				</label>				
-				<label class="form-label" for="ecomm">
-					<div class="label_container">
-						<input type="checkbox" name="venda" id="ecomm">
-						Venda direta pelo site? (s/n)
-					</div>
-				</label>				
-			</div>
-			<button type="button" class="collapsible">Informações completares</button>
-			<div class="content">
-				<label>Referências:</label><br>
-				<textarea name="referencia" rows="10" cols="50"></textarea>
-				<br><br>
-				<label>Informe alguns adjetivos que você quer passar com o seu site:</label><br>
-				<textarea name="adjetivos" rows="10" cols="50"></textarea>
-				<br><br>
-				<label>Insira qualquer outra informação :</label><br>
-				<textarea name="infos" rows="10" cols="50"></textarea>
-			</div>
-
-		</div>
-		<div class="cont-right">
-			<div class="cont-result">
-				<h3>Resultado</h3>
-					<div class="cont-result-list" id="tags-container">
-						
-					</div>
-			</div>
-			<div class="cont-preco">
-				<div class="cont-preco-left">
-					<h3>preço min</h3>
-					<span id="preco-min" class="preco-min"></span>
-					<input type="hidden" id="preco-min-input" name="preco-min" />
+					<label class="form-label" for="check_conteudo">
+						<div class="label_container">
+							<input data-where="Possui" type="checkbox" name="conteudo" id="check_conteudo">
+							Conteúdo do site pronto
+							<span class="tooltip" data-value="Você tem todos os textos para o seu site?">?</span>
+						</div>
+					</label>
 				</div>
-				<div class="cont-preco-rigth" >
-					<h3>preço max</h3>
-					<span id="preco-max" class="preco-max"></span>
-					<input type="hidden" id="preco-max-input" name="preco-max"/>
-				</div>
+				<button type="button" class="collapsible">Quais páginas você precisa?</button>
+				<div class="content">
 				
+					<label class="form-label" for="check_home">
+						<div class="label_container clicked">
+							<input data-where="Paginas" type="checkbox" name="home" id="check_home" checked disabled>
+							Home
+							<span class="tooltip" data-value="Todo projeto tem necessáriamente a home">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_page_quem">
+						<div class="label_container">
+							<input data-where="Paginas" type="checkbox" name="page_quem" id="check_page_quem">
+							Quem Somos
+							<span class="tooltip" data-value="Página falando sobre você, seu colaboradores ou empresa">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_page_esp">
+						<div class="label_container">
+							<input data-where="Paginas" type="checkbox" name="page_esp" id="check_page_esp">
+							Específica
+							<span class="tooltip" data-value="Página falando sobre um único produto ou serviço">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_page_serv">
+						<div class="label_container">
+							<input data-where="Paginas" type="checkbox" name="page_serv" id="check_page_serv">
+							Serviços ou produtos ofertados
+							<span class="tooltip" data-value="Página falando sobre seus serviços ou produtos">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_page_port">
+						<div class="label_container">
+							<input data-where="Paginas" type="checkbox" name="page_port" id="check_page_port">
+							Portfólio ou clientes
+							<span class="tooltip" data-value="Página que mostra parceiro, clientes ou seu portfólio">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_page_blog">
+						<div class="label_container">
+							<input data-where="Paginas" type="checkbox" name="page_blog" id="check_page_blog">
+							Blog
+							<span class="tooltip" data-value="Blog para o seu site">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_page_outros">
+						<div class="label_container">
+							<input data-where="Paginas" type="checkbox" name="page_outros" id="check_page_outros">
+							Outras:
+						
+							<input type="range" id="range_outras" name="range_outras" min="1" max="10" disabled="true" value="1" required>
+							<span id="quant_outras">1</span>
+						</div>
+					</label>
+				</div>
+
+				<button type="button" class="collapsible">Quais adicionais vai querer?</button>
+				<div class="content" id="adicionais">
+				
+					<label class="form-label" for="check_newsletter">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="newsletter" id="check_newsletter">
+							Newsletter
+							<span class="tooltip" data-value="Newsletter 100% funcional">?</span>
+						</div>
+					</label>				
+					<label class="form-label" for="check_seo">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="seo" id="check_seo">
+							SEO + Analytics
+							<span class="tooltip" data-value="Garantir que o seu site esteja nas primeiras opções dos buscadores">?</span> 
+						</div>
+					</label>				
+					<label class="form-label" for="check_form_contato">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="form_contato" id="check_form_contato">
+							Formulário de contato
+							<span class="tooltip" data-value="Formulário para as pessoas entrarem em contato pelo seu email">?</span> 
+						</div>
+					</label>				
+					<label class="form-label" for="check_redes_sociais">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="redes_sociais" id="check_redes_sociais">
+							Conexão com redes as sociais
+							<span class="tooltip" data-value="Conectar seu site com LinkedIn, WhatsApp e instagram">?</span>
+						</div>
+					</label>
+					<label class="form-label" for="check_email">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="email" id="check_email">
+							Email institucional ligado a hospedagem
+							<span class="tooltip" data-value="Você tem um email com o nome do seu site funcionando?">?
+						</div>
+					</label>				
+					<label class="form-label" for="check_linguas">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="linguas" id="check_linguas">
+							Múltiplas línguas 
+							<span class="tooltip" data-value="Suporte para mais de uma linguagem">?</span>
+						</div>
+					</label>				
+					<label class="form-label" for="ecomm">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="venda" id="ecomm">
+							Venda direta pelo site
+							<span class="tooltip" data-value="Venda no site porém por meio de contato via whatsapp">?</span>
+						</div>
+					</label>				
+				</div>
+				<button type="button" class="collapsible">Informações completares</button>
+				<div class="content">
+					<div class="label_container">
+						<label>Referências: <span class="tooltip" data-value="URLs de sites que você gosta e que imagina que possam inspirar o seu layout">?</span></label>
+					</div>
+					<br>
+					<textarea name="referencia" rows="10" cols="50"></textarea>
+					<br><br>
+					<div class="label_container">
+						<label>Informe alguns adjetivos que você quer passar com o seu site: <span class="tooltip" data-value="Eficiência, segurança, autoridade...">?</span></label>
+					</div>
+					<br>
+					<textarea name="adjetivos" rows="10" cols="50"></textarea>
+					<br><br>
+					<div class="label_container">
+						<label>Algo mais que você queira contar? <span class="tooltip" data-value="Alguma outra informação relevante sobre o que você procura?">?</span></label>
+					</div>
+					<br>
+					<textarea name="infos" rows="10" cols="50"></textarea>
+				</div>
+
 			</div>
-			<div class="cont-finalizar">
-				<input type="submit" class="btn-finalizar" value="ENVIAR ORÇAMENTO">
+			<div class="cont-right">
+				<div class="cont-result">
+					<h2>Resumo</h2>
+					<div class="cont-result-list" id="tags-container">
+						<div class="result" id="Possui">Possui</div>
+						<div class="result rightborder" id="Adicionais">Adicionais</div>
+						<div class="result" id="Paginas">Páginas</div>
+						<div class="result rightborder"></div>
+					</div>
+				</div>
+				<div class="cont-preco">
+					<div class="cont-preco-left">
+						<h2>De: </h2>
+						<span id="preco-min" class="preco-min"></span>
+						<input type="hidden" id="preco-min-input" name="preco-min" />
+					</div>
+					<div class="cont-preco-ritgh" >
+						<h2>Até: </h2>
+						<span id="preco-max" class="preco-max"></span>
+						<input type="hidden" id="preco-max-input" name="preco-max"/>
+					</div>
+				</div>
+				<div class="cont-finalizar">
+					<input type="submit" class="btn-finalizar" value="Enviar Orçamento">
+				</div>
 			</div>
 		</div>
-	</div>
 		
 
 	</form>
