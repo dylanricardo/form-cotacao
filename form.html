@@ -131,6 +131,7 @@ button{
 	border: solid 1px #000;
 	color: #fff;
 	font-weight: bold;
+	font-size: 1em;
 }
 
 .cont-preco-left{
@@ -289,10 +290,10 @@ textarea{
 
 .help-button {
 	position: absolute;
-	right: 20px;
+	left: 20px;
 	bottom: 20px;
 	font-size: 40px;
-	background-color: #14213E;
+	background-color: #000;
 	border-radius: 50%;
 	line-height: 40px;
 	height: 40px;
@@ -305,7 +306,7 @@ textarea{
 
 .help-text {
 	position: absolute;
-	right: 20px;
+	left: 20px;
 	bottom: 80px;
 	background-color: #fff;
 	border: 1px solid #FCA311;
@@ -568,6 +569,24 @@ $(document).ready(function() {
 		$(".help-text").hide()
 	})
 
+	$('#enviar-whats').click(function() {
+		var msg = "Olá, gostaria um site com:%0D%0A";
+		var ids = ['Possui', 'Paginas', 'Adicionais']
+		for (var i = 0; i < ids.length; i++) {
+			if ($("#" + ids[i] + " div").length > 0) {
+				for (var z = 0; z < $("#" + ids[i] + " div").length; z++) {
+					msg += $("#" + ids[i] + " div")[z].innerHTML+"%0D%0A";
+				}
+			}
+		}
+
+		$("textarea").each(function() {
+		    msg += $(this).attr('name') + ': ' + $(this).val()+"%0D%0A";
+		});
+
+		window.location.replace("https://api.whatsapp.com/send?phone=5541992562764&text="+msg);
+	});
+
 });
 </script>
 </head>
@@ -768,6 +787,11 @@ $(document).ready(function() {
 				</div>
 				<div class="cont-finalizar">
 					<input type="submit" class="btn-finalizar" value="Enviar Orçamento">
+				</div>
+				<div class="cont-finalizar">
+					<div class="btn-finalizar" id="enviar-whats" style="margin: auto; padding: 10px 0; height: auto;">
+						Mandar orçamento por WhatsApp
+					</div>
 				</div>
 			</div>
 		</div>
