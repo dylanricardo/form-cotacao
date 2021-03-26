@@ -383,9 +383,144 @@ textarea{
   opacity: 1;
 }
 
+.label-preco{
+	font-size: 28px;
+}
+
+.cont-preco-btn{
+	display: none;
+}
+
+@media only screen and (max-width: 600px) {
+
+	.cont-total{
+		width: 100vw;
+		height: 100vh;
+		display: block;
+		overflow: scroll;
+		background-color: red;
+	}
+	.cont-left{
+		height: calc(96vh - 50px);
+		width: 100vw;
+		padding-top: 2vh;
+		padding-bottom: 2vh;
+		padding-left: 2vw;
+		padding-right: 2vw;
+		overflow-y: scroll;
+		background-color: #000000;
+	}
+	.cont-right{
+		height: 50px;
+		width: 100vw;
+		background-color: #14213E;
+		color: white;
+		text-align: center;
+		overflow-y: hidden;
+	}
+
+	.cont-result{
+		display: none;
+	}
+
+	.cont-finalizar{
+		display: none;
+	}
+	.cont-preco{
+		width: 80%;
+		height: 100%;
+		margin: 0px auto;
+		display: flex;
+		text-align: center;
+		background-color: blue;
+	}
+	.cont-preco-left{
+		width: 40%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: red;
+	}
+	.cont-preco-btn{
+		width:  100%;
+		height: 40px;
+		line-height: 40px;
+		background-color: yellow;
+		display: block;
+		color: black !important;
+		font-size: 28px;
+		text-align: center;
+		transform: rotate(-90deg);
+  		-webkit-transform: rotate(-90deg);
+	}
+	.cont-preco-rigth{
+		width: 40%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color:  #FCA311;
+		background-color: red;
+	}
+	.preco-min{
+		font-size: 28px;
+		color: #fff;
+	}
+	.preco-max{
+		font-size: 28px;
+		color: #FCA311;
+	}
+
+	.label-preco{
+		font-size: 14px;
+	}
+
+	.help-button {
+		position: absolute;
+		left: 20px;
+		top: 20px;
+		font-size: 40px;
+		background-color: #000;
+		border-radius: 50%;
+		line-height: 40px;
+		height: 40px;
+		width: 40px;
+		text-align: center;
+		border: 1px solid #FCA311;
+		color: #FCA311;
+		transition: all 0.3s;
+	}
+
+	.help-text {
+		position: absolute;
+		left: 20px;
+		top: 80px;
+		background-color: #fff;
+		border: 1px solid #FCA311;
+		text-align: center;
+		width: 300px;
+		color: #14213E;
+		display: none;
+		transition: all 0.3s;
+		max-height: 200px;
+	}
+		
+}
+
+
 </style>
 
 <script type="text/javascript">
+
+$(window).resize(function() {
+	var pageWidth = $(window).width(); 
+
+	if( $(window).width()< 600){
+
+		
+	}
+});
 $(document).ready(function() {
 	var formState = {
 		dominio: false,
@@ -774,13 +909,14 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="cont-preco">
+					<div class="cont-preco-btn">></div>
 					<div class="cont-preco-left">
-						<h2>De: </h2>
+						<span class="label-preco">De: </span>
 						<span id="preco-min" class="preco-min"></span>
 						<input type="hidden" id="preco-min-input" name="preco-min" />
-					</div>
+					</div>					
 					<div class="cont-preco-rigth" >
-						<h2>Até: </h2>
+						<span class="label-preco">Até: </span>
 						<span id="preco-max" class="preco-max"></span>
 						<input type="hidden" id="preco-max-input" name="preco-max"/>
 					</div>
