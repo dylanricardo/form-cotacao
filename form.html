@@ -26,7 +26,7 @@
 body, html {
 	margin: 0;
 	padding: 0;
-	font-family: 'Fira Code', monospace;;
+	font-family: 'Fira Code', monospace;
 }
 button{
 	font-family: 'JetBrains Mono', monospace;
@@ -121,17 +121,39 @@ button{
 	margin: 0 auto;
 	align-items: center;
 	text-align: center;
+	display: flex;
+	justify-content: space-around;
 }
 
-.btn-finalizar{
-	width: 50%;
+.btn-finalizar {
+	width: 40%;
 	height: 50%;
 	cursor: pointer;
-	background-color: #FCA311;
 	border: solid 1px #000;
 	color: #fff;
 	font-weight: bold;
 	font-size: 1em;
+	background: url(./email.png) #FCA311 no-repeat scroll 5px;
+	background-size: 18px;
+}
+
+input[type=submit] {
+	color: #fff;
+	background-color: transparent;
+	border: none; 
+	font-weight: bold;
+	font-size: 1em;
+	padding-top: 10px;
+	font-family: 'Fira Code', monospace;
+	width: 100%;
+	height: 100%;
+	padding-top: 0;
+}
+
+#enviar-whats {
+	background: url(./whatsapp-icon.jpg) #FCA311 no-repeat scroll 5px;
+	background-size: 18px;
+	line-height: 240%;
 }
 
 .cont-preco-left{
@@ -355,7 +377,6 @@ textarea{
   transition: opacity 0.3s;
 }
 
-
 .label_container .tooltip:not(.down)::after {
   content: "";
   position: absolute;
@@ -377,150 +398,9 @@ textarea{
   border-style: solid;
   border-color: transparent transparent #fff transparent;
 }
-
-.label_container:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
-}
-
-.label-preco{
-	font-size: 28px;
-}
-
-.cont-preco-btn{
-	display: none;
-}
-
-@media only screen and (max-width: 600px) {
-
-	.cont-total{
-		width: 100vw;
-		height: 100vh;
-		display: block;
-		overflow: scroll;
-		background-color: red;
-	}
-	.cont-left{
-		height: calc(96vh - 50px);
-		width: 100vw;
-		padding-top: 2vh;
-		padding-bottom: 2vh;
-		padding-left: 2vw;
-		padding-right: 2vw;
-		overflow-y: scroll;
-		background-color: #000000;
-	}
-	.cont-right{
-		height: 50px;
-		width: 100vw;
-		background-color: #14213E;
-		color: white;
-		text-align: center;
-		overflow-y: hidden;
-	}
-
-	.cont-result{
-		display: none;
-	}
-
-	.cont-finalizar{
-		display: none;
-	}
-	.cont-preco{
-		width: 80%;
-		height: 100%;
-		margin: 0px auto;
-		display: flex;
-		text-align: center;
-		background-color: blue;
-	}
-	.cont-preco-left{
-		width: 40%;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		background-color: red;
-	}
-	.cont-preco-btn{
-		width:  100%;
-		height: 40px;
-		line-height: 40px;
-		background-color: yellow;
-		display: block;
-		color: black !important;
-		font-size: 28px;
-		text-align: center;
-		transform: rotate(-90deg);
-  		-webkit-transform: rotate(-90deg);
-	}
-	.cont-preco-rigth{
-		width: 40%;
-		height: 100%;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		color:  #FCA311;
-		background-color: red;
-	}
-	.preco-min{
-		font-size: 28px;
-		color: #fff;
-	}
-	.preco-max{
-		font-size: 28px;
-		color: #FCA311;
-	}
-
-	.label-preco{
-		font-size: 14px;
-	}
-
-	.help-button {
-		position: absolute;
-		left: 20px;
-		top: 20px;
-		font-size: 40px;
-		background-color: #000;
-		border-radius: 50%;
-		line-height: 40px;
-		height: 40px;
-		width: 40px;
-		text-align: center;
-		border: 1px solid #FCA311;
-		color: #FCA311;
-		transition: all 0.3s;
-	}
-
-	.help-text {
-		position: absolute;
-		left: 20px;
-		top: 80px;
-		background-color: #fff;
-		border: 1px solid #FCA311;
-		text-align: center;
-		width: 300px;
-		color: #14213E;
-		display: none;
-		transition: all 0.3s;
-		max-height: 200px;
-	}
-		
-}
-
-
 </style>
 
 <script type="text/javascript">
-
-$(window).resize(function() {
-	var pageWidth = $(window).width(); 
-
-	if( $(window).width()< 600){
-
-		
-	}
-});
 $(document).ready(function() {
 	var formState = {
 		dominio: false,
@@ -693,6 +573,7 @@ $(document).ready(function() {
 	});
 
 	$('.label_container').hover(function() {
+		console.log('asd')
 		$(this).find( ".tooltip" )[0].innerHTML = $(this).find( ".tooltip" ).data("value")
 	}, function() {
 		$(this).find( ".tooltip" )[0].innerHTML = "?"
@@ -719,14 +600,19 @@ $(document).ready(function() {
 		    msg += $(this).attr('name') + ': ' + $(this).val()+"%0D%0A";
 		});
 
-		window.location.replace("https://api.whatsapp.com/send?phone=5541992562764&text="+msg);
+		var win = window.open("https://api.whatsapp.com/send?phone=5541992562764&text="+msg, '_blank');
+		if (win) {
+		    win.focus();
+		} else {
+		    alert('Por favor permita pop-up neste site');
+		}
 	});
 
 });
 </script>
 </head>
 <body>
-	<form autocomplete="off" action="https://criamosseusite.com.br/receiver/" method="post">
+	<form target="_blank" autocomplete="off" action="https://criamosseusite.com.br/receiver/" method="post">
 		<div class="bg-dark" id="bg-dark" hidden="">
 			<div class="modal">
 				<div class="opcao-modal">Institucional ou LP</div>
@@ -880,6 +766,24 @@ $(document).ready(function() {
 				<button type="button" class="collapsible">Informações completares</button>
 				<div class="content">
 					<div class="label_container">
+						<label>Nome: <span class="tooltip down" data-value="Seu nome para entrarmos em contato">?</span></label>
+					</div>
+					<br>
+					<textarea name="nome" rows="1" cols="50"></textarea>
+					<br><br>
+					<div class="label_container">
+						<label>E-mail: <span class="tooltip down" data-value="Seu e-mail para entrarmos em contato">?</span></label>
+					</div>
+					<br>
+					<textarea name="email" rows="1" cols="50"></textarea>
+					<br><br>
+					<div class="label_container">
+						<label>Telefone: <span class="tooltip down" data-value="Seu número para entrarmos em contato">?</span></label>
+					</div>
+					<br>
+					<textarea name="telefone" rows="1" cols="50"></textarea>
+					<br><br>
+					<div class="label_container">
 						<label>Referências: <span class="tooltip down" data-value="URLs de sites que você gosta e que imagina que possam inspirar o seu layout">?</span></label>
 					</div>
 					<br>
@@ -909,25 +813,24 @@ $(document).ready(function() {
 					</div>
 				</div>
 				<div class="cont-preco">
-					<div class="cont-preco-btn">></div>
 					<div class="cont-preco-left">
-						<span class="label-preco">De: </span>
+						<h2>De: </h2>
 						<span id="preco-min" class="preco-min"></span>
 						<input type="hidden" id="preco-min-input" name="preco-min" />
-					</div>					
+					</div>
 					<div class="cont-preco-rigth" >
-						<span class="label-preco">Até: </span>
+						<h2>Até: </h2>
 						<span id="preco-max" class="preco-max"></span>
 						<input type="hidden" id="preco-max-input" name="preco-max"/>
 					</div>
 				</div>
 				<div class="cont-finalizar">
-					<input type="submit" class="btn-finalizar" value="Enviar Orçamento">
+					<div class="btn-finalizar"><input target="_blank" type="submit" value="Enviar"></div>
+					<div target="_blank" type="submit" class="btn-finalizar" id="enviar-whats">
+						Enviar
+					</div>
 				</div>
 				<div class="cont-finalizar">
-					<div class="btn-finalizar" id="enviar-whats" style="margin: auto; padding: 10px 0; height: auto;">
-						Mandar orçamento por WhatsApp
-					</div>
 				</div>
 			</div>
 		</div>

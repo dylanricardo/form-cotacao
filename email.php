@@ -26,10 +26,9 @@ if( isset($_POST) )
 	$message .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
 	$message .= "<tr><td><strong>range preço</strong> </td><td> Min: " . $_POST['preco-min'] . " Max: " . $_POST['preco-max'] . "</td></tr>";
 	$message .= "<tr><td><strong>Tipo de serviço</strong> </td><td>" . $_POST['tipo_servico'] . "</td></tr>";
-	$message .= (isset($_POST['name']) ? "<tr><td><strong>name</strong> </td><td>X</td></tr>" : "<tr><td><strong>name</strong> </td><td>-</td></tr>");
-	$message .= (isset($_POST['tipo_servico']) ? "<tr><td><strong>tipo_servico</strong> </td><td>X</td></tr>" : "<tr><td><strong>tipo_servico</strong> </td><td>-</td></tr>");
-	$message .= (isset($_POST['tipo_servico']) ? "<tr><td><strong>tipo_servico</strong> </td><td>X</td></tr>" : "<tr><td><strong>tipo_servico</strong> </td><td>-</td></tr>");
-	$message .= (isset($_POST['tipo_servico']) ? "<tr><td><strong>tipo_servico</strong> </td><td>X</td></tr>" : "<tr><td><strong>tipo_servico</strong> </td><td>-</td></tr>");
+	$message .= (isset($_POST['nome']) ? "<tr><td><strong>nome</strong> </td><td>" . $_POST['nome'] . "</td></tr>" : "<tr><td><strong>nome</strong> </td><td>-</td></tr>");
+	$message .= (isset($_POST['telefone']) ? "<tr><td><strong>telefone</strong> </td><td>" . $_POST['telefone'] . "</td></tr>" : "<tr><td><strong>telefone</strong> </td><td>-</td></tr>");
+	$message .= (isset($_POST['email']) ? "<tr><td><strong>email</strong> </td><td>" . $_POST['email'] . "</td></tr>" : "<tr><td><strong>email</strong> </td><td>-</td></tr>");
 	$message .= (isset($_POST['dominio']) ? "<tr><td><strong>dominio</strong> </td><td>X</td></tr>" : "<tr><td><strong>dominio</strong> </td><td>-</td></tr>");
 	$message .= (isset($_POST['hospedagem']) ? "<tr><td><strong>hospedagem</strong> </td><td>X</td></tr>" : "<tr><td><strong>hospedagem</strong> </td><td>-</td></tr>");
 	$message .= (isset($_POST['email']) ? "<tr><td><strong>email</strong> </td><td>X</td></tr>" : "<tr><td><strong>email</strong> </td><td>-</td></tr>");
