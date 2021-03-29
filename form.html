@@ -148,6 +148,7 @@ input[type=submit] {
 	width: 100%;
 	height: 100%;
 	padding-top: 0;
+	cursor: pointer;
 }
 
 #enviar-whats {
@@ -398,6 +399,11 @@ textarea{
   border-style: solid;
   border-color: transparent transparent #fff transparent;
 }
+
+textarea {
+  resize: none;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -551,6 +557,13 @@ $(document).ready(function() {
 				parent.addClass('clicked');
 			}
 		}
+		if ($('#ecomm').checked){
+			$('#tipo_servico').val("Ecommerce");
+		} else if ($('#check_dominio').checked && $('#check_hospedagem').checked && $('#check_conteudo').checked) {
+			$('#tipo_servico').val("Reformulação");
+		} else {
+			$('#tipo_servico').val("Institucional/LP");
+		}
 		addTag(this.name, $(this).data("where"));
 		updatePrices();
 	});
@@ -586,7 +599,7 @@ $(document).ready(function() {
 	})
 
 	$('#enviar-whats').click(function() {
-		var msg = "Olá, gostaria um site com:%0D%0A";
+		var msg = "Olá, gostaria de um(a) " + $('#tipo_servico').val() + " com:%0D%0A";
 		var ids = ['Possui', 'Paginas', 'Adicionais']
 		for (var i = 0; i < ids.length; i++) {
 			if ($("#" + ids[i] + " div").length > 0) {
@@ -775,7 +788,7 @@ $(document).ready(function() {
 						<label>E-mail: <span class="tooltip down" data-value="Seu e-mail para entrarmos em contato">?</span></label>
 					</div>
 					<br>
-					<textarea name="email" rows="1" cols="50"></textarea>
+					<input type="email" name="email" style="width: 74%; height: 1.6em;">
 					<br><br>
 					<div class="label_container">
 						<label>Telefone: <span class="tooltip down" data-value="Seu número para entrarmos em contato">?</span></label>
