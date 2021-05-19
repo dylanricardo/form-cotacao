@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Formulario (Neve)
+ * Template Name: Template Formulario Orçamento Child
  *
  * The template for the page builder full-width.
  *
@@ -8,132 +8,369 @@
  *
  * @package Neve
  */
-
-/*get_header();*/
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Formulário</title>
+	<title>Orçamento | Criamos Seu Site</title>
+<!-- Hotjar Tracking Code for criamosseusite.com.br -->
+<script>
+(function(h,o,t,j,a,r){
+	h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+	h._hjSettings={hjid:2341935,hjsv:6};
+	a=o.getElementsByTagName('head')[0];
+	r=o.createElement('script');r.async=1;
+	r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+	a.appendChild(r);
+})(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '462433014996181');
+fbq('track', 'PageView');
+</script>
+<noscript>
+	<img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=462433014996181&ev=PageView&noscript=1"/>
+</noscript>
+<!-- End Facebook Pixel Code -->
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-190881772-2"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-190881772-2');
+</script>
+<link rel="shortcut icon" type="image/jpg" href="https://criamosseusite.com.br/wp-content/uploads/2021/03/css_logo_final_min.png"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@700&display=swap" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.5/jquery.inputmask.min.js" integrity="sha512-sR3EKGp4SG8zs7B0MEUxDeq8rw9wsuGVYNfbbO/GLCJ59LBE4baEfQBVsP2Y/h2n8M19YV1mujFANO1yA3ko7Q==" crossorigin="anonymous"></script>
 <style type="text/css">
-body, html {
+body {
 	margin: 0;
 	padding: 0;
-	font-family: 'Fira Code', monospace;;
+	font-family: 'Fira Code', monospace;
 }
 button{
 	font-family: 'JetBrains Mono', monospace;
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
 }
 
+/*input{
+	-webkit-user-select: none; 
+	-moz-user-select: none; 
+	-ms-user-select: none;
+	user-select: none; 
+	font-family: 'JetBrains Mono', monospace;
+}*/
+label{
+	font-size: 18px;
+}
+textarea{
+	background-color:  #E5E5E5;
+	font-size: 18px;
+	resize: none;
+	padding: 10px;
+	white-space: pre-wrap;
+	outline: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+small{
+	color: #999999;
+}
+::-webkit-scrollbar {
+    display: none;
+}
+.selected{
+	color: #FCA311 !important;
+}
+
+.nav-menu{
+	display: flex;
+	justify-content: flex-end;
+	padding: 0px 60px;
+}
+.nav-menu a{
+	height: 19px;
+	margin-top: 15px;
+	margin-right: 20px;
+	font-size: 14px;
+	font-weight: 600;
+	padding: 4px 0;
+	text-decoration: none;
+	color: #ffff;
+	font-family: 'JetBrains Mono', monospace;	
+	transition: 0.2s;
+}
+.nav-menu a:hover{
+	color: #FCA311;
+	border-bottom: 3px solid #FCA311;s	
+}
+
+.nav-menu a:visited{
+	color: none;
+}
+
+
+.bg-dark {
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+	background-color: rgba(0,0,0,0.6);
+	z-index: 2;
+	transition: 0.2;
+}
+
+.modal-form{
+	width: auto;
+	height: auto;
+	display: none;
+	background-color: black;
+	position: absolute;
+	z-index: 4;
+	margin: 0 auto;
+	top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    border: 1px solid white;
+    padding: 25px 50px;
+}
+.help-text {
+	position: absolute;
+	left: 50px;
+	top: 50px;
+	background-color: #fff;
+	border: 1px solid #FCA311;
+	width: 300px;
+	color: #14213E;
+	display: none;
+	transition: all 0.4s;
+	padding: 10px 20px; 
+	z-index: 10;
+	border-radius: 5px;
+	text-align: justify;
+  	text-justify: inter-word;
+}
 
 .cont-total{
 	width: 100vw;
-	height: 100vh;
-	display: flex;
-	overflow: hidden;
+	max-height: 100vh;
+	display: grid;
+	grid-template-areas: 
+		'form header'
+		'form result';
+	background-color: black;
+	overflow-y: hidden;
+}
+
+.menu{
+	height: 65px;
+	background-color: #000000;
+	grid-area: header;
 }
 
 .cont-left{
-	height: 96vh;
-	width: 46vw;
-	padding-top: 2vh;
-	padding-bottom: 2vh;
+	height: calc( 100vh - 50px );
+	padding-bottom: 50px;
 	padding-left: 2vw;
 	padding-right: 2vw;
 	overflow-y: scroll;
 	background-color: #000000;
+	grid-area: form;
+}
+.head-info{
+	width: 100%;
+	height: auto;
+	margin: 65px 0px 30px 0px;
+}
+.head-info h1{
+	font-size: 18px;
+	color: #ffffff;
+	font-weight: 400;
+	padding-left: 5px;
+}
+
+.collapsible {
+	background-color: #000;
+	color: #fff;
+	cursor: pointer;
+	width: 100%;
+	border: none;
+	padding: 10px 10px;
+	text-align: left;
+	outline: none;
+	font-size: 18px;
+	border-bottom: 1px #cfcfcf solid;
+}
+.collapsible:after {
+	border: solid black;
+	border-width: 0 3px 3px 0;
+	display: inline-block;
+	padding: 3px;
+	content: ">";
+	transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+	color: white;
+	font-weight: bold;
+	float: right;
+	margin-left: 5px;
+	color: #e5e5e5;
+}
+.active:after {
+	content: ">";
+	border: solid black;
+	border-width: 0 3px 3px 0;
+	display: inline-block;
+	padding: 3px;
+	transform: rotate(-90deg);
+	-webkit-transform: rotate(-90deg);
+}
+.content {
+	padding: 0 18px;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height 0.5s ease-out;
+	background-color: #000000;  
+	color: #e5e5e5;
+}
+
+
+.form-label{
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+	color: #e5e5e5;
+	float: left;
+	width: 95%;
+}
+
+.label_container{
+	width: 100%;
+	padding: 10px;
+	cursor: pointer;
+	transition: 0.2s;
+	margin-top: 0px;
+	position: relative;
+}
+
+.label_container-nohover{
+	width: 100%;
+	padding: 10px;
+	transition: 0.2s;
+	margin-top: 0px;
+	position: relative;
+}
+
+.label_container:hover{
+    outline: 1px solid white;
+    outline-offset: -1px;
+}
+
+.clicked{
+	transition: 0.2s;
+	opacity: 0.6;
+}
+#range_outras{
+	float: right;
+	cursor: pointer;
+}
+#concluir{
+	display: none;
 }
 .cont-right{
-	height: 100vh;
 	width: 50vw;
-	/*background-color: #14213E;*/
+	margin-top: -100px;
 	background-color: #000;
 	color: white;
 	text-align: center;
+	transition: 1s;	
+	grid-area: result;
 }
-
 .cont-result{
 	width: 80%;
-	height: 50vh;
-	margin: 5vh auto;
-	overflow-y: hidden;
+	height: 40vh;
+	margin: 0px auto;
+	overflow-y: scroll;
+	border: 1px solid #999999;
 }
-
 .cont-result h2 {
 	margin-top: 0;
 }
-
 .cont-result-list{
 	width: 90%;
-	height: 42vh;
-	border: 1px solid #fff;
+	height: auto;
+	padding-bottom: 20px;
 	margin: auto;
 	text-align: left;
-	overflow-y: scroll;
+	overflow-y: scroll;	
 }
-
 .result {
 	font-weight: bold;
 	padding-left: 5px;
 	display: none;
-	border-bottom: 1px dotted #fff;
 	padding-bottom: 5px;
 }
-
 .tag {
   flex: 1 0 25%;
   font-weight: 400;
- /* margin: 5px;
-  height: 50px;
-  line-height: 50px;
-  background-color: #FCA311;
-  font-weight: bold;
-  outline: 1px solid #FCA311;
-  outline-offset: 2px;*/
+  white-space: pre-wrap;
+}
+.cont-disclaimer{
+	width: 80%;
+	height: auto;
+	margin: 10px auto;
+	font-size: 14px;
+	text-align: left;
+	color: #999999;
 }
 
+
 .cont-preco{
-	width: 80%;
+	width: 90%;
 	height: 10vh;
 	margin: 5vh auto;
 	display: flex;
 	text-align: center;
 }
-
-.cont-preco h2 {
-	margin-right: 15px;
-}
-
-::-webkit-scrollbar {
-    display: none;
-}
-
 .cont-finalizar{
-	width: 80%;
+	width: 100%;
 	height: 10vh;
 	margin: 0 auto;
-	align-items: center;
 	text-align: center;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+}
+.label-preco{
+	font-size: 18px;
 }
 
-.btn-finalizar{
-	width: 50%;
-	height: 50%;
-	cursor: pointer;
-	background-color: #FCA311;
-	border: solid 1px #000;
-	color: #fff;
-	font-weight: bold;
-	font-size: 1em;
+.cont-preco-btn{
+	display: none;
 }
-
 .cont-preco-left{
 	width: 50%;
 	height: 100%;
@@ -151,58 +388,48 @@ button{
 }
 
 
-.collapsible {
-  background-color: #000;
-  color: #fff;
-  cursor: pointer;
-  width: 100%;
-  border: none;
-  padding: 10px 10px;
-  text-align: left;
-  outline: none;
-  font-size: 18px;
-  border-bottom: 1px #cfcfcf solid;
+.btn-finalizar{
+	width: 45%;
+	height: 40px;
+	cursor: pointer;
+	background-color: #FCA311;
+	border: none;
+	color: #fff;
+	font-weight: bold;
+	font-size: 0.8em;
+	float: left;
+	margin-left: 2.5%;
+	line-height: 40px;
+	text-align: center;
+	outline: none;
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
+}
+.btn-finalizar:hover{
+	filter: brightness(1.2);
 }
 
-
-.content {
-  padding: 0 18px;
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.5s ease-out;
-  background-color: #000000;  
-  color: #e5e5e5;
+.btn-enviar{
+	width: 45%;
+	height: 40px;
+	cursor: pointer;
+	background-color: #FCA311;
+	border: none;
+	color: #fff;
+	font-weight: bold;
+	font-size: 0.8em;
+	float: left;
+	margin-left: 2.5%;
+	line-height: 40px;
+	text-align: center;
+	outline: none;
+	-webkit-user-select: none; /* Safari */        
+	-moz-user-select: none; /* Firefox */
+	-ms-user-select: none; /* IE10+/Edge */
+	user-select: none; /* Standard */
 }
-
-.collapsible:after {
-  border: solid black;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-  content: ">";
-  transform: rotate(90deg);
-  -webkit-transform: rotate(90deg);
-  color: white;
-  font-weight: bold;
-  float: right;
-  margin-left: 5px;
-  color: #e5e5e5;
-}
-
-.active:after {
-  content: ">";
-  border: solid black;
-  border-width: 0 3px 3px 0;
-  display: inline-block;
-  padding: 3px;
-  transform: rotate(-90deg);
-  -webkit-transform: rotate(-90deg);
-}
-
-label{
-	font-size: 18px;
-}
-
 .preco-min{
 	font-size: 48px;
 	color: #fff;
@@ -211,257 +438,181 @@ label{
 	font-size: 48px;
 	color: #FCA311;
 }
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+#enviar-orcamento:hover{
+	filter: brightness(1.2);
 }
 
-input[type=number] {
-  -moz-appearance: textfield;
-}
-
-.bg-dark {
-	position: absolute;
-	width: 100vw;
-	height: 100vh;
-	background-color: rgba(0,0,0,0.5);
-}
-
-.modal {
-	width: 80%;
-	margin-left: 10%;
-	height: 400px;
-	background-color: #000;
-	border: solid #fff 1px;
-	margin-top: calc(50vh - 200px);
-}
-
-.opcao-modal {
-	width: 100%;
-	height: 100px;
-	border: solid #fff 1px;
-	background-color: #000;
+.contact-info{
+	background-color: transparent;
+	border: 0;
+	border-bottom: 1px solid #e9e9e9;
+	width: 400px;
+	outline: none;
 	color: #fff;
-	font-size: 24px;
+	padding: 5px;
+	transition: 0.4s;
+	font-weight: bold;
+	font-size: 16px;
+	margin-top: 5px;
 }
 
-.opcao-modal:hover {
-	background-color: red;
+.contact-info:focus{
+	background-color: rgba(255,255,255,0.1);
+	transition: 0.4s;
+	border-bottom: 1px solid #e9e9e9;
 }
 
-.form-label{
-	-webkit-user-select: none; /* Safari */        
-	-moz-user-select: none; /* Firefox */
-	-ms-user-select: none; /* IE10+/Edge */
-	user-select: none; /* Standard */
-	color: #e5e5e5;
+.contact-label{
+	width: 100px;
+	display: inline-block;
+	margin-top: 5px;
+	font-size: 16px;
+	font-weight: bold;
 }
-
-.label_container{
-	padding: 10px;
-	cursor: pointer;
-	transition: 0.1s;
-	margin-top: 0px;
-	position: relative;
-}
-
-.label_container:hover{
-    outline: 1px solid white;
-    outline-offset: -1px;
-}
-
-.clicked{
-	transition: 0.2s;
-	outline: 1px solid white;
-    outline-offset: -1px;
-
-}
-
-textarea{
-	background-color:  #E5E5E5;
-	font-size: 18px;
-}
-
-#range_outras{
-	float: right;
-}
-
-.help-button {
-	position: absolute;
-	left: 20px;
-	bottom: 20px;
-	font-size: 40px;
-	background-color: #000;
-	border-radius: 50%;
-	line-height: 40px;
-	height: 40px;
-	width: 40px;
-	text-align: center;
-	border: 1px solid #FCA311;
-	color: #FCA311;
-	transition: all 0.3s;
-}
-
-.help-text {
-	position: absolute;
-	left: 20px;
-	bottom: 80px;
-	background-color: #fff;
-	border: 1px solid #FCA311;
-	text-align: center;
-	width: 300px;
-	color: #14213E;
-	display: none;
-	transition: all 0.3s;
-}
-
-.help-button:hover {
-	background-color: #fff;
-}
-
-.label_container .tooltip:not(.down) {
-  visibility: hidden;
-  width: 50%;
-  background-color: #fff;
-  color: #000;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.label_container .tooltip.down {
-  visibility: hidden;
-  width: 50%;
-  background-color: #fff;
-  color: #000;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  top: 125%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-
-.label_container .tooltip:not(.down)::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #fff transparent transparent transparent;
-}
-
-.label_container .tooltip.down::after {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent #fff transparent;
-}
-
-.label_container:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
-}
-
-.label-preco{
-	font-size: 28px;
-}
-
-.cont-preco-btn{
+.menu-mobile{
 	display: none;
 }
 
 @media only screen and (max-width: 600px) {
+	body{
+		background-color: #000000;
+	}
+	.cont-disclaimer{
+		display: none;
+	}
+	.nav-menu a:hover{
+		color: #FCA311;
+		border-bottom: 0px;	
+	}
 
+	.head-info h1{
+		margin-top: -50px;
+	}
+
+	.menu{
+		display: none;
+	}
+	.menu-mobile{
+		display: block;
+	}
+
+	.nav-menu{
+		justify-content: flex-start;
+		padding: 0px;
+	}
+
+	.nav-menu a{
+		height: 19px;
+		margin-top: 15px;
+		margin: 15px auto;
+		font-size: 14px;
+		font-weight: 600;
+		padding: 4px 0;
+		text-decoration: none;
+		color: #ffff;
+		font-family: 'JetBrains Mono', monospace;	
+		transition: 0.2s;
+	}
+
+	.last{
+		margin-bottom: 20px;
+	}
 	.cont-total{
 		width: 100vw;
-		height: 100vh;
+		height: 80vh;		
 		display: block;
 		overflow: scroll;
-		background-color: red;
+		background-color: #000;
 	}
 	.cont-left{
-		height: calc(96vh - 50px);
-		width: 100vw;
-		padding-top: 2vh;
-		padding-bottom: 2vh;
+		width: 96vw;
+		height: 75vh;
+		padding-bottom: 10vh;
 		padding-left: 2vw;
 		padding-right: 2vw;
 		overflow-y: scroll;
 		background-color: #000000;
+		position: absolute;
 	}
 	.cont-right{
-		height: 50px;
-		width: 100vw;
+		width: 100%;
+		height: 60px;
+		position: fixed;
+		bottom: 0px;
 		background-color: #14213E;
+		border-radius: 15px 15px 0px 0px;
 		color: white;
 		text-align: center;
 		overflow-y: hidden;
+		-webkit-backface-visibility: hidden;
+		overscroll-behavior: none;
 	}
 
 	.cont-result{
 		display: none;
+		margin-top: 50px;
+		height: 50vh;
+		padding-bottom: 20px;
 	}
 
 	.cont-finalizar{
 		display: none;
+		text-align: center;
+		width: 100%;
+		margin-top: 20px;
 	}
+
+	.btn-enviar{
+		margin: 0 auto;
+		float: none;
+	}
+
 	.cont-preco{
-		width: 80%;
+		width: 100%;
 		height: 100%;
 		margin: 0px auto;
-		display: flex;
 		text-align: center;
-		background-color: blue;
-	}
-	.cont-preco-left{
-		width: 40%;
-		height: 100%;
 		display: flex;
-		align-items: center;
-		justify-content: center;
-		background-color: red;
+		flex-wrap: wrap;
 	}
 	.cont-preco-btn{
 		width:  100%;
-		height: 40px;
-		line-height: 40px;
-		background-color: yellow;
-		display: block;
-		color: black !important;
-		font-size: 28px;
+		height: 15%;
+		display: flex;
+		text-align: center;
+		align-items: center;
+	}
+	.span-arrow{
+		width: 100%;
 		text-align: center;
 		transform: rotate(-90deg);
   		-webkit-transform: rotate(-90deg);
+  		font-size: 20px; 
+  		font-weight: bold;
+  		z-index: 2;
+  		margin-top: 10px;
+  		-webkit-touch-callout:none;
+		-webkit-user-select:none;
+		-khtml-user-select:none;
+		-moz-user-select:none;
+		-ms-user-select:none;
+		user-select:none;
+		-webkit-tap-highlight-color:rgba(0,0,0,0);
+		cursor: pointer;
+	}
+	.cont-preco-left{
+		width: 50%;
+		height: 85%;
+		align-items: center;
+		justify-content: center;
 	}
 	.cont-preco-rigth{
-		width: 40%;
-		height: 100%;
+		width: 50%;
+		height: 85%;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		color:  #FCA311;
-		background-color: red;
 	}
 	.preco-min{
 		font-size: 28px;
@@ -474,54 +625,54 @@ textarea{
 
 	.label-preco{
 		font-size: 14px;
+	}	
+
+	.tooltip-container{
+		width: 5%;
+		float: left;
+		height: 20px;
+		padding-top: 12.5px
 	}
 
-	.help-button {
-		position: absolute;
-		left: 20px;
-		top: 20px;
-		font-size: 40px;
-		background-color: #000;
-		border-radius: 50%;
-		line-height: 40px;
+	#concluir{		
+		width: 200px;
 		height: 40px;
-		width: 40px;
-		text-align: center;
-		border: 1px solid #FCA311;
-		color: #FCA311;
-		transition: all 0.3s;
+		margin: 50px auto;
+		line-height: 40px;
+		cursor: pointer;
+		background-color: #FCA311;
+		border: none;
+		color: #fff;
+		font-weight: bold;
+		text-align: center;		
+		display: block;
 	}
 
-	.help-text {
-		position: absolute;
-		left: 20px;
-		top: 80px;
-		background-color: #fff;
-		border: 1px solid #FCA311;
-		text-align: center;
-		width: 300px;
-		color: #14213E;
-		display: none;
-		transition: all 0.3s;
-		max-height: 200px;
+	textarea{
+		width: 90%;
+		margin-left: 2.5%;
+		padding: 2.5%;
+		resize: none;
 	}
-		
+
+	.contact-info{
+		max-width: 300px;
+	}
+	.modal-form{
+		width: calc(90% - 2px);
+	    padding: 10px 5%;
+	}
 }
 
-
 </style>
-
 <script type="text/javascript">
-
-$(window).resize(function() {
-	var pageWidth = $(window).width(); 
-
-	if( $(window).width()< 600){
-
-		
-	}
-});
+var urlString = window.location.href.split('#');
+if(urlString[urlString.length-1] != '' && urlString[urlString.length-1] != window.location.href){
+	window.location.replace("https://criamosseusite.com.br/obrigado/");
+}
 $(document).ready(function() {
+	$("#tel-contato").inputmask("(99) 99999-9999");
+
 	var formState = {
 		dominio: false,
 		hospedagem : false,
@@ -545,21 +696,21 @@ $(document).ready(function() {
 	var formValues = {
 		dominio: {min: 50, max: 50, add: false},
 		hospedagem : {min: 100, max: 100, add: false},
-		email : {min: 50, max: 250, add: false},
-		conteudo : {min: 400, max: 500, add: false},
+		email : {min: 50, max: 250, add: true},
+		conteudo : {min: 200, max: 200, add: false},
 		home : {min: 1000, max: 1500, add: true},
-		page_quem : {min: 200, max: 300, add: true},
-		page_esp : {min: 200, max: 600, add: true},
-		page_serv : {min: 200, max: 300, add: true},
-		page_port : {min: 200, max: 300, add: true},
-		page_blog : {min: 300, max: 400, add: true},
-		page_outros : {min: 200, max: 400, add: true},
-		newsletter : {min: 200, max: 300, add: true},
-		seo : {min: 350, max: 700, add: true},
-		form_contato : {min: 50, max: 150, add: true},
+		page_quem : {min: 200, max: 250, add: true},
+		page_esp : {min: 200, max: 400, add: true},
+		page_serv : {min: 200, max: 250, add: true},
+		page_port : {min: 200, max: 250, add: true},
+		page_blog : {min: 300, max: 350, add: true},
+		page_outros : {min: 200, max: 250, add: true},
+		newsletter : {min: 200, max: 250, add: true},
+		seo : {min: 350, max: 500, add: true},
+		form_contato : {min: 50, max: 100, add: true},
 		redes_sociais : {min: 100, max: 200, add: true},
-		linguas : {min: 200, max: 600, add: true},
-		venda : {min: 2500, max: 4000, add: true}
+		linguas : {min: 200, max: 500, add: true},
+		venda : {min: 2000, max: 3000, add: true}
 	}
 
 	const nameHumanized = {
@@ -569,16 +720,16 @@ $(document).ready(function() {
 		seo : "SEO + Analytics",
 		conteudo : "Conteúdo",
 		home : "Home page",
-		page_quem : "Página quem somos",
-		page_esp : "Página específica",
-		page_serv : "Página serviços/produtos",
-		page_port : "Página portifólio/clientes",
+		page_quem : "Quem Somos",
+		page_esp : "Específica",
+		page_serv : "Serviços/Produtos",
+		page_port : "Portifólio/Clientes",
 		page_blog : "Blog",
 		page_outros : "Outras",
 		newsletter : "Newsletter",
 		form_contato : "Formulário de contato",
 		redes_sociais : "Redes sociais",
-		linguas : "Línguas",
+		linguas : "Outros idiomas",
 		venda : "Venda pelo site",
 	}
 
@@ -608,7 +759,7 @@ $(document).ready(function() {
 		$('#quant_outras').html($(this).val());
 		quantidade_outras = $(this).val();
 
-		updatePrices('page_outros')
+		updatePrices();
 
 	});
 
@@ -617,6 +768,7 @@ $(document).ready(function() {
 		valorMax = 0;
 		
 		for(var key in formState){
+			console.log(key);
 			if(formState[key]){
 				if(formValues[key]['add']){
 					let quantidade = (key == 'page_outros') ? $('#range_outras').val() : 1;
@@ -631,12 +783,13 @@ $(document).ready(function() {
 			}
 		}
 
-		valorMin = valorMin*guia_min;
-		valorMax = valorMax*guia_max;
+		valorMin = (valorMin <= 1000) ? 1000*guia_min : valorMin*guia_min;
+		valorMax = (valorMax <= 1500) ? 1500*guia_max : valorMax*guia_max;
+
 		$('#preco-min').html(toCurrency(valorMin));
 		$('#preco-max').html(toCurrency(valorMax));
 		$('#preco-min-input').val(toCurrency(valorMin));
-		$('#preco-max-input').val(toCurrency(valorMax));		
+		$('#preco-max-input').val(toCurrency(valorMax));
 	}
 
 	function addTag(val, where){
@@ -654,30 +807,59 @@ $(document).ready(function() {
 			$('#'+where).show()
 		}
 	}
-
-	$('#ecomm, #check_dominio, #check_hospedagem, #check_email, #check_seo, #check_conteudo, #check_home, #check_page_quem, #check_page_esp, #check_page_serv, #check_page_port, #check_page_blog, #check_page_outros, #check_newsletter, #check_form_contato, #check_redes_sociais, #check_linguas').change(function(){
-		if( this.checked){
-			formState[this.name] = true;
+	function addText(text,where){
+		if(where == 'Referencias'){
+			$('#'+where).html('Referências')
+		}
+		else if (where == 'Adjetivos') {
+			$('#'+where).html('Adjetivos')
 		}
 		else{
-			formState[this.name] = false;	
+			$('#'+where).html('Informações adicionais')
 		}
+		$('#'+where).append('<div class="tag">'+text+'</div><br>');
+		if(text === '') $('#'+where).hide();
+		else $('#'+where).show();
+	}
+
+	$('#ecomm, #check_dominio, #check_hospedagem, #check_email, #check_seo, #check_conteudo, #check_home, #check_page_quem, #check_page_esp, #check_page_serv, #check_page_port, #check_page_blog, #check_page_outros, #check_newsletter, #check_form_contato, #check_redes_sociais, #check_linguas').change(function(){
+		
+		this.checked ? formState[this.name] = true : formState[this.name] = false;
 
 		let parent = $(this).parent();
 		if(parent.hasClass('label_container')){
-			if( parent.hasClass('clicked') ){
-				parent.removeClass('clicked');
+			if($(this).attr('id') === 'check_page_outros'){
+				if(this.checked){
+					$('#outras_text').css('opacity','0.6');
+					$('#outras_small_text').css('opacity','0.6');
+				}else{
+					$('#outras_text').css('opacity','1');
+					$('#outras_small_text').css('opacity','1');	
+				}				
 			}else{
-				parent.addClass('clicked');
+				parent.hasClass('clicked') ? parent.removeClass('clicked') : parent.addClass('clicked');
 			}
+			
 		}
+
+		if ($('#ecomm').is(':checked')){
+			$('#tipo_servico').val("Ecommerce");
+		} else if ($('#check_dominio').is(':checked') && $('#check_hospedagem').is(':checked') && $('#check_conteudo').is(':checked')) {
+			$('#tipo_servico').val("Reformulação");
+		} else {
+			$('#tipo_servico').val("Institucional/LP");
+		}
+
 		addTag(this.name, $(this).data("where"));
 		updatePrices();
 	});
 
 	$('#check_page_outros').change(function(){
-		$("#range_outras").prop( "disabled", !this.checked );
-		$("#range_outras").prop( "required", this.checked );
+		$("#range_outras").prop("disabled", !this.checked );
+		
+		if (this.checked){
+			$("#range_outras").css("filter","brightness(1.4)");
+		}
 	});
 
 	if(typeof(String.prototype.trim) === "undefined"){
@@ -692,224 +874,395 @@ $(document).ready(function() {
 		$('#bg-dark').hide();
 	});
 
-	$('.label_container').hover(function() {
-		$(this).find( ".tooltip" )[0].innerHTML = $(this).find( ".tooltip" ).data("value")
-	}, function() {
-		$(this).find( ".tooltip" )[0].innerHTML = "?"
-	})
 
 	$('.help-button').hover(function() {
-		$(".help-text").show()
+		$(".help-text").css('display','block');
+		$('#bg-dark').show();
+		$('.back-button').css('z-index','-10');
 	}, function() {
-		$(".help-text").hide()
-	})
+		$(".help-text").css('display','none');
+		$('#bg-dark').hide();
+		$('.back-button').css('z-index','1');
+	});
 
-	$('#enviar-whats').click(function() {
-		var msg = "Olá, gostaria um site com:%0D%0A";
-		var ids = ['Possui', 'Paginas', 'Adicionais']
-		for (var i = 0; i < ids.length; i++) {
-			if ($("#" + ids[i] + " div").length > 0) {
-				for (var z = 0; z < $("#" + ids[i] + " div").length; z++) {
-					msg += $("#" + ids[i] + " div")[z].innerHTML+"%0D%0A";
-				}
-			}
+	$('#concluir').click(function(){
+		$('.cont-preco-btn').click();
+	});
+
+	$('.cont-preco-btn').click(function(){
+
+		if($('.cont-right').css('height') != '60px'){
+			
+
+			$('.cont-right').css({'height':'60px'});
+			$('.cont-preco').css('height', '100%');
+			$('.span-arrow').css({'width': '100%','transform': 'rotate(-90deg)','-webkit-transform': 'rotate(-90deg)','margin-left': '0'});
+			$('.cont-result').hide();
+			$('.cont-finalizar').hide();
+		}else{
+			$('.cont-right').css({'height':'90%', 'border-radius': ''});
+
+			$('.span-arrow').css({'width': '20px','transform': 'rotate(90deg)','-webkit-transform': 'rotate(90deg)','position':'absolute','top':'0','margin-left': '50%'});
+			$('.cont-preco').css('height', '10%');
+			$('.cont-result').show();
+			$('.cont-finalizar').show();
 		}
 
-		$("textarea").each(function() {
-		    msg += $(this).attr('name') + ': ' + $(this).val()+"%0D%0A";
-		});
-
-		window.location.replace("https://api.whatsapp.com/send?phone=5541992562764&text="+msg);
+		
 	});
+
+	$('.bg-dark').click(function(){
+		$('.modal-form').hide(500);
+		$('.bg-dark').hide();
+
+	});
+
+
+	$('#enviar-orcamento').click(function(){
+		$('.bg-dark').show();
+		$('.modal-form').show(500);
+	});
+
+
+	function CriaLinkWhats() {
+		var msg = "Olá, meu nome é "+$('#nome-contato').val()+", gostaria um site com:%0D%0A";
+		var ids = ['Possui', 'Paginas', 'Adicionais'];
+		var texts = ['Possui', 'Páginas', 'Adicionais']
+		for (var i = 0; i < ids.length; i++) {
+			msg += "*"+texts[i]+"* %0D%0A"
+			$('#'+ ids[i]).children().each((index,val) => {
+				msg += val.innerHTML+"%0D%0A";
+			});
+		}		
+
+		var ids = ['text-referencia', 'text-adjetivos', 'text-infos'];
+		var texts = ['Referências', 'Adjetivos', 'Informações adicionais'];
+		for (var i = 0; i < ids.length; i++) {
+			msg += "*"+texts[i]+"*:%0D%0A"
+			msg += $('#'+ids[i]).val().replaceAll('\n',	'%0D%0A')+'%0D%0A';			
+		}
+
+		msg += "O valor mínimo do meu orçamento foi: *"+$('#preco-min-input').val()+"*.";
+		msg += " O valor máximo do meu orçamento foi: *"+$('#preco-max-input').val()+"*.";
+
+
+
+		var win = window.open("https://api.whatsapp.com/send?phone=5541992562764&text="+msg, '_blank');
+		if (win) {
+		    win.focus();
+		} else {
+		    alert('Por favor permita pop-up neste site');
+		}
+	};
+
+	$('.contact-info').focusout(function(){	
+		if( $(this).val() != '' ){
+			$(this).css('border-bottom','0px');
+		}
+	});
+
+
+	$('#text-referencia').focusout(function(){
+		addText($(this).val(),'Referencias');
+	});
+	$('#text-adjetivos').focusout(function(){
+		addText($(this).val(),'Adjetivos');
+	});
+	$('#text-infos').focusout(function(){
+		addText($(this).val(),'InfoComp');
+	});
+
+
+
+	$('#enviar_email, #enviar_wpp').click(function(){	
+		if($('#nome-contato').val() != '' && $('#mail-contato').val() != '' && $('#tel-contato').val() != ''){
+			$('#cf7_nome-contato').val($('#nome-contato').val());
+			$('#cf7_mail-contato').val($('#mail-contato').val());
+			$('#cf7_tel-contato').val($('#tel-contato').val());
+			
+			
+			$('#cf7_tipo_servico-contato').val($('#tipo_servico').val());
+
+			$('input[name="cf7-dominio"]').prop("checked", $('#check_dominio').is(':checked'));
+			$('input[name="cf7-hospedagem"]').prop("checked", $('#check_hospedagem').is(':checked'));
+			$('input[name="cf7-conteudo"]').prop("checked", $('#check_conteudo').is(':checked'));
+			$('input[name="cf7-home"]').prop("checked", $('#check_home').is(':checked'));
+			$('input[name="cf7-page_quem"]').prop("checked", $('#check_page_quem').is(':checked'));
+			$('input[name="cf7-page_serv"]').prop("checked", $('#check_page_serv').is(':checked'));
+			$('input[name="cf7-page_port"]').prop("checked", $('#check_page_port').is(':checked'));
+			$('input[name="cf7-page_blog"]').prop("checked", $('#check_page_blog').is(':checked'));
+			$('input[name="cf7-page_outros"]').prop("checked", $('#check_page_outros').is(':checked'));
+			$('input[name="cf7-page_esp"]').prop("checked", $('#check_page_esp').is(':checked'));
+			$('input[name="cf7-ecomm"]').prop("checked", $('#ecomm').is(':checked'));
+			$('input[name="cf7-seo"]').prop("checked", $('#check_seo').is(':checked'));
+			$('input[name="cf7-newsletter"]').prop("checked", $('#check_newsletter').is(':checked'));
+			$('input[name="cf7-redes_sociais"]').prop("checked", $('#check_redes_sociais').is(':checked'));
+			$('input[name="cf7-form_contato"]').prop("checked", $('#check_form_contato').is(':checked'));
+			$('input[name="cf7-check-email"]').prop("checked", $('#check_email').is(':checked'));
+
+			if($('#check_page_outros').is(':checked')){
+				$('input[name="cf7-range_outras"]').val($('#range_outras').val());
+			}
+
+			$('#cf7_text-referencia').val($('#text-referencia').val());
+			$('#cf7_text-adjetivos').val($('#text-adjetivos').val());
+			$('#cf7_text-infos').val($('#text-infos').val());
+
+			$('input[name="cf7-preco-min"').val($('#preco-min-input').val());
+			$('input[name="cf7-preco-max"').val($('#preco-max-input').val());
+
+			if($(this).attr('id') == 'enviar_wpp'){
+				CriaLinkWhats();
+			}
+
+			$('.wpcf7-form').submit();
+			
+
+		}
+		else{
+			alert('Os campos "Nome", "Email" e "Telefone" são obrigatórios.');
+		}
+
+	});
+	
+	$('#ja-tem').click();
 
 });
 </script>
 </head>
 <body>
-	<form autocomplete="off" action="https://criamosseusite.com.br/receiver/" method="post">
-		<div class="bg-dark" id="bg-dark" hidden="">
-			<div class="modal">
-				<div class="opcao-modal">Institucional ou LP</div>
-				<div class="opcao-modal">Ecommerce</div>
-				<div class="opcao-modal">Reformulação</div>
-				<div class="opcao-modal">Blog</div>
+	<div hidden="">
+		<?php echo do_shortcode('[contact-form-7 id="966" title="Orcamento"]'); ?>	
+	</div>
+	<form target="_blank" autocomplete="off" action="https://criamosseusite.com.br/receiver/" method="post">
+		<div class="bg-dark" id="bg-dark" hidden=""></div>
+
+		<div class="modal-form">
+			<input id="nome-contato" class="contact-info" type="text" name="" placeholder="Nome"><br><br>
+			<input id="mail-contato" class="contact-info" type="email" name="" placeholder="E-mail"><br><br>
+			<input id="tel-contato" class="contact-info" type="text" name="" placeholder="Telefone"><br><br>
+			<div class="cont-finalizar">
+				<div class="btn-finalizar" id="enviar_email">
+					ENVIAR POR E-MAIL
+				</div>					
+				<div class="btn-finalizar" id="enviar_wpp">
+					ENVIAR POR WHATSAPP
+				</div>
 			</div>
-		</div>
-		<div class="help-button">?</div>
-		<div class="help-text">Faz o favor de selecionar o que você precisa no seu site e nós vamos te responder quando estivermos afim. O resultado é mostrado do lado direito com o resumo do seu pedido, o valor mínimo e o máximo que este serviço pode sair.</div>
+		</div>	
 		<input type="hidden" name="tipo_servico" id="tipo_servico" >
 		<div class="cont-total">
+			<div class="menu">				
+				<nav class="nav-menu">
+					<a href="/">HOME</a>
+					<a href="/portfolio">PORTFÓLIO</a>
+					<a href="/guia-do-administrador">GUIA</a>
+					<a href="/orcamento" class="selected">ORÇAMENTO</a>
+					<a href="/blog">BLOG</a>
+				</nav>
+			</div>
 			<div class="cont-left">
-				<h3>Faça seu orçamento</h3>
-
-				<button type="button" class="collapsible">O que você já tem?</button>
+				<div class="menu-mobile">				
+					<nav class="nav-menu">
+						<a href="/">HOME</a>
+						<a href="/portfolio">PORTFÓLIO</a>
+						<a href="/guia-do-administrador">GUIA</a>
+						<a href="/orcamento" class="selected">ORÇAMENTO</a>
+						<a href="/blog">BLOG</a>
+					</nav>
+				</div>
+				<div class="head-info">
+					<h1>Selecione o que você precisa e descubra quanto custa seu site preenchendo o orçamento abaixo.</h1>
+				</div>
+				<div class="success-msg" hidden="">Orçamento enviado com sucesso. Logo entraremos em contato.</div>
+				<button id="ja-tem" type="button" class="collapsible">O que você já tem?</button>
 				<div class="content">
 					<label class="form-label" for="check_dominio">
 						<div class="label_container">
 							<input data-where="Possui" type="checkbox" name="dominio" id="check_dominio" value="0">
-							Já tenho domínio próprio
-							<span class="tooltip down" data-value="Você tem um domínio registrado no seu nome?">?</span>
+							Domínio<br>
+							<small>Você já possui um domínio registrado? Ex: <i>www.seusite.com.br</i> </small>
 						</div>
-					</label>
+					</label>				
 					<label class="form-label" for="check_hospedagem">
 						<div class="label_container">
 							<input data-where="Possui" type="checkbox" name="hospedagem" id="check_hospedagem">
-							Tenho minha hospedagem
-							<span class="tooltip down" data-value="Você tem uma hospedagem com wordpress instalado no seu nome?">?</span>
+							Hospedagem<br>
+							<small>Você já possui um serviço de hospedagem contratado?</small>
 						</div>
 					</label>
-					
 					<label class="form-label" for="check_conteudo">
-						<div class="label_container">
+						<div class="label_container last">
 							<input data-where="Possui" type="checkbox" name="conteudo" id="check_conteudo">
-							Conteúdo do site pronto
-							<span class="tooltip" data-value="Você tem todos os textos e seções já planejadas e/ou escritos para o seu site?">?</span>
+							Conteúdo<br>
+							<small>Você já possui os textos e imagens que vão compor o seu site?</small>
 						</div>
 					</label>
 				</div>
 				<button type="button" class="collapsible">Quais páginas você precisa?</button>
-				<div class="content">
-				
+				<div class="content">				
 					<label class="form-label" for="check_home">
 						<div class="label_container clicked">
 							<input data-where="Paginas" type="checkbox" name="home" id="check_home" checked disabled>
-							Home
-							<span class="tooltip down" data-value="Todo projeto tem necessáriamente a home. A página inicial, a cara do site. Com cabeçalho e rodapé inclusos">?</span>
+							Home<br>
+							<small>Página inicial do seu site</small>
 						</div>
 					</label>
 					<label class="form-label" for="check_page_quem">
 						<div class="label_container">
 							<input data-where="Paginas" type="checkbox" name="page_quem" id="check_page_quem">
-							Quem Somos
-							<span class="tooltip down" data-value="Página falando sobre você, seu colaboradores ou empresa. Descreve um pouco sobre o seu propósito e dá ao cliente a sensação de confiabilidade">?</span>
+							Quem Somos<br>
+							<small>Página sobre você, seus colaboradores e/ou empresa. Descreve um pouco sobre o seu propósito e dá ao cliente a sensação de confiabilidade</small>
 						</div>
 					</label>
-					<label class="form-label" for="check_page_esp">
-						<div class="label_container">
-							<input data-where="Paginas" type="checkbox" name="page_esp" id="check_page_esp">
-							Específica
-							<span class="tooltip" data-value="Página falando sobre um único produto ou serviço. Tem como objetivo explicar, orientar e conscientizar o cliente sobre o que ele está adiquirindo ou sobre o serviço que você planeja prestar.">?</span>
-						</div>
-					</label>
+					
 					<label class="form-label" for="check_page_serv">
 						<div class="label_container">
 							<input data-where="Paginas" type="checkbox" name="page_serv" id="check_page_serv">
-							Serviços ou produtos ofertados
-							<span class="tooltip" data-value="Página falando sobre seus serviços ou produtos. Dá um panorama geral sobre tudo que é ofertado dentro do seu negócio, sejam eles bens físicos ou serviçoes diversos.">?</span>
+							Serviços/Produtos<br>
+							<small>Página sobre seus serviços ou produtos. Dá um panorama geral sobre tudo que é ofertado dentro do seu negócio, sejam eles bens físicos ou serviços diversos.</small>
 						</div>
 					</label>
 					<label class="form-label" for="check_page_port">
 						<div class="label_container">
 							<input data-where="Paginas" type="checkbox" name="page_port" id="check_page_port">
-							Portfólio ou clientes
-							<span class="tooltip" data-value="Página que mostra parceiro, clientes ou seu portfólio. Traz ao cliente noção de como é o seu trabalho e te posiciona no mercado como autoridade na área.">?</span>
+							Portfólio/Clientes<br>
+							<small>Página motrando parceiros, clientes ou seu portfólio. Traz ao cliente noção de como é o seu trabalho e te posiciona no mercado como autoridade na área.</small>
 						</div>
 					</label>
 					<label class="form-label" for="check_page_blog">
 						<div class="label_container">
 							<input data-where="Paginas" type="checkbox" name="page_blog" id="check_page_blog">
-							Blog
-							<span class="tooltip" data-value="Blog para o seu site. Tem a finalidade de mostrar o seus conhecimentos sobre a área de atuação. Posiciona você e o seu negócio como autoridades no ramo.">?</span>
+							Blog<br>
+							<small>Blog para o seu site. Tem finalidade de melhorar o ranqueamento do site nos buscadores.</small>
+						</div>
+					</label>
+					<label class="form-label" for="check_page_esp">
+						<div class="label_container">
+							<input data-where="Paginas" type="checkbox" name="page_esp" id="check_page_esp">
+							Específica<br>
+							<small>Página sobre um único produto ou serviço. Muito utilizado para projetos específicos em um portfólio</small>
 						</div>
 					</label>
 					<label class="form-label" for="check_page_outros">
-						<div class="label_container">
+						<div class="label_container last">
 							<input data-where="Paginas" type="checkbox" name="page_outros" id="check_page_outros">
-							Outras:
-						
-							<input type="range" id="range_outras" name="range_outras" min="1" max="10" disabled="true" value="1" required>
-							<span id="quant_outras">1</span>
-							<span class="tooltip" data-value="Outras páginas não contempladas nas opções anteriores.">?</span>
+							<span id="outras_text">Outras:</span>
+							<input type="range" id="range_outras" name="range_outras" min="1" max="10" disabled="true" value="1">
+							<span id="quant_outras">1</span><br>
+							<small id="outras_small_text">Outras páginas não contempladas nas opções anteriores.</small>
 						</div>
 					</label>
 				</div>
 
 				<button type="button" class="collapsible">Quais adicionais vai querer?</button>
 				<div class="content" id="adicionais">
-				
-					<label class="form-label" for="check_newsletter">
+					<label class="form-label" for="ecomm">
 						<div class="label_container">
-							<input data-where="Adicionais" type="checkbox" name="newsletter" id="check_newsletter">
-							Newsletter
-							<span class="tooltip down" data-value="Newsletter 100% funcional onde as ideias sobre o seu negócio podem ser disseminadas fazendo com que você tenha acesso a uma carteira diferente de clientes.">?</span>
+							<input data-where="Adicionais" type="checkbox" name="venda" id="ecomm">
+							Venda direta pelo site<br>
+							<small>Transforma o seu site em um e-commerce</small>
 						</div>
-					</label>				
-					<label class="form-label" for="check_seo">
-						<div class="label_container">
-							<input data-where="Adicionais" type="checkbox" name="seo" id="check_seo">
-							SEO + Analytics
-							<span class="tooltip down" data-value="Garantir que o seu site esteja nas primeiras opções dos buscadores por meio de palavras-chave e tópicos em alta.">?</span> 
-						</div>
-					</label>				
+					</label>
 					<label class="form-label" for="check_form_contato">
 						<div class="label_container">
 							<input data-where="Adicionais" type="checkbox" name="form_contato" id="check_form_contato">
-							Formulário de contato
-							<span class="tooltip" data-value="Formulário para as pessoas entrarem em contato pelo seu email onde elas podem contar um pouco mais sobre as necessidades que você pode suprir.">?</span> 
+							Formulário de contato<br>
+							<small>Formulário para clientes entrarem em contato direto pelo site.</small>
 						</div>
-					</label>				
+					</label>
+					<label class="form-label" for="check_seo">
+						<div class="label_container">
+							<input data-where="Adicionais" type="checkbox" name="seo" id="check_seo">
+							SEO + Analytics<br>
+							<small>Otimização do seu site no Google e integração com o Google Analytics.</small>
+						</div>
+					</label>
 					<label class="form-label" for="check_redes_sociais">
 						<div class="label_container">
 							<input data-where="Adicionais" type="checkbox" name="redes_sociais" id="check_redes_sociais">
-							Conexão com redes as sociais
-							<span class="tooltip" data-value="Conectar seu site com LinkedIn, WhatsApp e instagram. Excelente para a presença digital e facilita para que o seu trabalho não tenha que ser movido entre plataformas de mídias sociais.">?</span>
+							Integração com redes as sociais<br>
+							<small>Conectar seu site com LinkedIn, WhatsApp e/ou Instagram.</small>
 						</div>
 					</label>
 					<label class="form-label" for="check_email">
 						<div class="label_container">
 							<input data-where="Adicionais" type="checkbox" name="email" id="check_email">
-							Email institucional ligado a hospedagem
-							<span class="tooltip" data-value="Um email com o nome do seu site para contatos mais profissionais e ligação direta com um email pessoal para que você não tenha que ficar alternando entre as suas contas.">?
+							E-mail institucional<br>
+							<small>E-mails com a extensão do seu domínio; ex: seuemail@seusite.com.br</small>
 						</div>
-					</label>				
-					<label class="form-label" for="check_linguas">
+					</label>
+					<label class="form-label" for="check_newsletter">
 						<div class="label_container">
-							<input data-where="Adicionais" type="checkbox" name="linguas" id="check_linguas">
-							Múltiplas línguas 
-							<span class="tooltip" data-value="Suporte para mais de uma linguagem">?</span>
+							<input data-where="Adicionais" type="checkbox" name="newsletter" id="check_newsletter">
+							Newsletter<br>
+							<small>Coleta de e-mails pelo site para envio de e-mails periódicos aos seus clientes.</small>
 						</div>
-					</label>				
-					<label class="form-label" for="ecomm">
-						<div class="label_container">
-							<input data-where="Adicionais" type="checkbox" name="venda" id="ecomm">
-							Venda direta pelo site
-							<span class="tooltip" data-value="Venda no site completa com exposição de produtos, página para cada produto e sistema de pagamento">?</span>
-						</div>
-					</label>				
-				</div>
-				<button type="button" class="collapsible">Informações completares</button>
-				<div class="content">
-					<div class="label_container">
-						<label>Referências: <span class="tooltip down" data-value="URLs de sites que você gosta e que imagina que possam inspirar o seu layout">?</span></label>
-					</div>
-					<br>
-					<textarea name="referencia" rows="10" cols="50"></textarea>
-					<br><br>
-					<div class="label_container">
-						<label>Informe alguns adjetivos que você quer passar com o seu site: <span class="tooltip" data-value="Eficiência, segurança, autoridade...">?</span></label>
-					</div>
-					<br>
-					<textarea name="adjetivos" rows="10" cols="50"></textarea>
-					<br><br>
-					<div class="label_container">
-						<label>Algo mais que você queira contar? <span class="tooltip" data-value="Alguma outra informação relevante sobre o que você procura?">?</span></label>
-					</div>
-					<br>
-					<textarea name="infos" rows="10" cols="50"></textarea>
-				</div>
+					</label>
 
+					<label class="form-label" for="check_linguas">
+						<div class="label_container last">
+							<input data-where="Adicionais" type="checkbox" name="linguas" id="check_linguas">
+							Múltiplos idiomas <br>
+							<small>Textos do site em outros idiomas.</small>
+						</div>
+					</label>
+					
+				</div>
+				<button type="button" class="collapsible">Informações complementares</button>
+				<div class="content">					
+					<label class="form-label">
+						<div class="label_container-nohover">
+							Referências:<br>
+							<small>Quais sites imagina que possam inspirar o seu layout.</small>
+						</div>
+					</label>
+					<br>
+
+					<textarea placeholder="ex: criamosseusite.com.br" id="text-referencia" name="referencia" rows="5" cols="50"></textarea>
+					<br><br>
+					<label class="form-label">
+						<div class="label_container-nohover">
+							Adjetivos:<br>
+							<small>A imagem que você quer passar com o seu site.</small>
+						</div>
+					</label>
+					<br>
+					<textarea placeholder="ex: moderno; premium; simples..." id="text-adjetivos" name="adjetivos" rows="5" cols="50"></textarea>
+					<br><br>
+					<label class="form-label">
+						<div class="label_container-nohover">
+							Informações adicionais<br>
+							<small>Alguma outra informação relevante sobre o que você procura.</small>
+						</div>
+					</label>					
+					<br>
+					<textarea placeholder="ex: site para escritório de arquitetura" id="text-infos" name="infos" rows="5" cols="50"></textarea>
+					<br>					
+					<br>
+					<br>
+				</div>
+				<div id="concluir">CONCLUIR</div>
 			</div>
 			<div class="cont-right">
 				<div class="cont-result">
-					<h2>Resumo</h2>
+					<h2>Seu orçamento:</h2>
 					<div class="cont-result-list" id="tags-container">
 						<div class="result" id="Possui">Possui</div>
 						<div class="result" id="Paginas">Páginas</div>
 						<div class="result" id="Adicionais">Adicionais</div>
+						<div class="result" id="Referencias">Referências</div>
+						<div class="result" id="Adjetivos">Adjetivos</div>
+						<div class="result" id="InfoComp">Informações adicionais</div>
 					</div>
 				</div>
+				<div class="cont-disclaimer">
+					*Após o envio do orçamento entraremos em contato para te passar um valor preciso
+				</div>
 				<div class="cont-preco">
-					<div class="cont-preco-btn">></div>
+					<div class="cont-preco-btn">
+						<span class="span-arrow">></span>
+					</div>
 					<div class="cont-preco-left">
 						<span class="label-preco">De: </span>
 						<span id="preco-min" class="preco-min"></span>
@@ -920,37 +1273,32 @@ $(document).ready(function() {
 						<span id="preco-max" class="preco-max"></span>
 						<input type="hidden" id="preco-max-input" name="preco-max"/>
 					</div>
-				</div>
+				</div>				
 				<div class="cont-finalizar">
-					<input type="submit" class="btn-finalizar" value="Enviar Orçamento">
-				</div>
-				<div class="cont-finalizar">
-					<div class="btn-finalizar" id="enviar-whats" style="margin: auto; padding: 10px 0; height: auto;">
-						Mandar orçamento por WhatsApp
-					</div>
+					<div class="btn-enviar" id="enviar-orcamento">
+						ENVIAR ORÇAMENTO
+					</div>					
 				</div>
 			</div>
-		</div>
-		
-
+		</div>	
 	</form>
-<script>
-var coll = document.getElementsByClassName("collapsible");
-var i;
+	<script>
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.maxHeight){
-      content.style.maxHeight = null;
-      content.style.padding = "0 18px";
-    } else {
-      content.style.maxHeight = content.scrollHeight + "px";
-      content.style.padding = "20px"
-    } 
-  });
-}
+	for (i = 0; i < coll.length; i++) {
+	  	coll[i].addEventListener("click", function() {
+	    this.classList.toggle("active");
+	    var content = this.nextElementSibling;
+	    if (content.style.maxHeight){
+	      content.style.maxHeight = null;
+	      content.style.padding = "0 18px";
+	    } else {
+	      content.style.maxHeight = content.scrollHeight + "px";
+	      content.style.padding = "20px"
+	    } 
+	  });
+	}
 </script>
 </body>
 </html>
